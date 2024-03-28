@@ -1,50 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}FichePatient{% endblock %}
+{% block title %}FichePatient
+{% endblock %}
 
 {% block body %}
-    <h1>FichePatient</h1>
+	<h1>FichePatient</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ fiche_patient.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ fiche_patient.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ fiche_patient.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ fiche_patient.sexe }}</td>
-            </tr>
-            <tr>
-                <th>DateDeNaissance</th>
-                <td>{{ fiche_patient.dateDeNaissance ? fiche_patient.dateDeNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateAjout</th>
-                <td>{{ fiche_patient.dateAjout ? fiche_patient.dateAjout|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ fiche_patient.description }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ fiche_patient.ville }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_fiche_patient_index') }}">back to list</a>
+	<div class="card">
+		<div
+			class="card-body pt-3">
+			<!-- Bordered Tabs -->
+			<ul class="nav nav-tabs nav-tabs-bordered">
 
-    <a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+				<li class="nav-item">
+					<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Fiche Patient</button>
+				</li>
 
-    {{ include('fiche_patient/_delete_form.html.twig') }}
+
+			</ul>
+			<div class="tab-content pt-2">
+
+				<div class="tab-pane fade show active profile-overview" id="profile-overview">
+					<h5 class="card-title">Description</h5>
+					<p class="small fst-italic">{{ fiche_patient.description }}</p>
+
+					<h5 class="card-title">Profile Details</h5>
+
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label ">Identifiant</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.id }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label">Nom</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.nom }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label">Prenom</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.prenom }}</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label">Ville</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.ville }}</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label">Sexe</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.sexe }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label">Date De Naissance</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.dateDeNaissance ? fiche_patient.dateDeNaissance|date('Y-m-d') : '' }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-3 col-md-4 label">Inserted in
+						</div>
+						<div class="col-lg-9 col-md-8">{{ fiche_patient.dateAjout ? fiche_patient.dateAjout|date('Y-m-d') : '' }}</div>
+					</div>
+
+
+				</div>
+
+
+			</div>
+			<!-- End Bordered Tabs -->
+
+		</div>
+	</div>
+
+
+	<table class="table"></table>
+
+	<a href="{{ path('app_fiche_patient_index') }}">back to list</a>
+
+	<a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+
+	{{ include('fiche_patient/_delete_form.html.twig') }}
 {% endblock %}

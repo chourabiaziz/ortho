@@ -18,9 +18,7 @@ class FichePatientType extends AbstractType
             ->add('dateDeNaissance', null, [
                 'widget' => 'single_text',
             ])
-            ->add('dateAjout', null, [
-                'widget' => 'single_text',
-            ])
+           
             ->add('description')
             ->add('ville')
         ;
