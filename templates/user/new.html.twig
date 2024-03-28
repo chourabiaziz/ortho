@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}New User
+{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+	<h1>Create new User</h1>
 
-    {{ include('user/_form.html.twig') }}
+	{{ form_start(form ) }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+	{{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+	{{ form_row(form.email , {'attr': {'class': 'form-control'}}) }}
+	{{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+
+	<br><br>
+	<button type="submit" class="btn btn-success">Register</button>
+	{{ form_end(form) }}
+	<a href="{{ path('app_user_index') }}">back to list</a>
 {% endblock %}
