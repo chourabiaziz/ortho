@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FichePatient{% endblock %}
+
+{% block body %}
+    <h1>FichePatient</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fiche_patient.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ fiche_patient.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ fiche_patient.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ fiche_patient.sexe }}</td>
+            </tr>
+            <tr>
+                <th>DateDeNaissance</th>
+                <td>{{ fiche_patient.dateDeNaissance ? fiche_patient.dateDeNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateAjout</th>
+                <td>{{ fiche_patient.dateAjout ? fiche_patient.dateAjout|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ fiche_patient.description }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ fiche_patient.ville }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_patient_index') }}">back to list</a>
+
+    <a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+
+    {{ include('fiche_patient/_delete_form.html.twig') }}
+{% endblock %}
