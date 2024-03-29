@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-<h1>User index</h1>
+<h1>Utilisteur</h1>
 
 <table class="table">
     <thead>
@@ -34,8 +34,8 @@
 
             <td>{{ user.nom }}</td>
             <td>
-                <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                <a class ="btn btn-outline-secondary" href="{{ path('app_user_show', {'id': user.id}) }}">montrer</a>
+                <a class ="btn btn-outline-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">modifier</a>
             </td>
         </tr>
         {% else %}
@@ -46,6 +46,6 @@
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="{{ path('app_user_new') }}">Create new Admin</a>
+<a class="btn btn-primary" href="{{ path('app_user_new') }}">Créer un nouveau</a>
 
 {% endblock %}

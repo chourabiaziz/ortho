@@ -53,8 +53,8 @@
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block">NiceAdmin</span>
+                                    <img src="assets/img/ort6.jpeg" alt="">
+                                    <span class="d-none d-lg-block">Orthophonistes</span>
                                 </a>
                             </div>
                             <!-- End Logo -->
@@ -64,22 +64,23 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                        <p class="text-center small">Enter your personal details to create account</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">Créer un compte</h5>
+                                        <p class="text-center small">Entrez vos informations personnelles pour créer un compte</p>
                                     </div>
 
-                                    <h1>Register</h1>
+                                
 
 
 
 
                                     {{ form_errors(registrationForm) }}
                                     {{ form_start(registrationForm ) }}
-
-                                    {{ form_row(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_row(registrationForm.email , {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
-
+                                    <form><label for="inputNom"><b>Nom</b></label><br>
+                                          <input type="Nom"  name="Nom" id="inputNom" class="form-control" autocomplete="Nom" required autofocus><br></form>
+                                    <form><label for="inputEmail"><b>E-mail</b></label><br>
+										  <input type="email"  name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus><br></form>
+                                    <form><label for="inputPassword"><b>Mot de passe</b></label><br>
+										  <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required></form>
                                     {{ form_row(registrationForm.agreeTerms ,{ 'attr': {'class': 'form-check'}}) }}
 
                                     <button type="submit" class="btn btn-success">Register</button>
@@ -92,9 +93,7 @@
                                 <!-- All the links in the footer should remain intact. -->
                                 <!-- You can delete the links only if you purchased the pro version. -->
                                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                                Designed by
-                                <a href="https://bootstrapmade.com/"> BootstrapMade</a>
+                                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->                               
                             </div>
 
                         </div>
