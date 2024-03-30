@@ -37,6 +37,12 @@ class FichePatient
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
+    #[ORM\Column]
+    private ?int $cin = null;
+
+    #[ORM\Column]
+    private ?int $telephone = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +130,30 @@ class FichePatient
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getCin(): ?int
+    {
+        return $this->cin;
+    }
+
+    public function setCin(int $cin): static
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(int $telephone): static
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

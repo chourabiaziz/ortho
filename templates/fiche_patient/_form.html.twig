@@ -1,4 +1,18 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+
+
+{{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.prenom , {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.cin , {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.ville , {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.telephone , {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.sexe , {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.dateDeNaissance , {'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.description , {'attr': {'class': 'form-control'}}) }}
+
+<br><br>
+<button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+
 {{ form_end(form) }}

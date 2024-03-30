@@ -17,9 +17,20 @@ class LettreSuiviesController extends AbstractController
     #[Route('/', name: 'app_lettre_suivies_index', methods: ['GET'])]
     public function index(LettreSuiviesRepository $lettreSuiviesRepository): Response
     {
-        return $this->render('lettre_suivies/index.html.twig', [
-            'lettre_suivies' => $lettreSuiviesRepository->findAll(),
-        ]);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            
+            return $this->render('lettre_suivies/index.html.twig', [
+                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+            ]);
+        }else{
+            return $this->render('lettre_suivies/index_client.html.twig', [
+                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+            ]);
+
+        }
+
+
     }
 
     #[Route('/new', name: 'app_lettre_suivies_new', methods: ['GET', 'POST'])]

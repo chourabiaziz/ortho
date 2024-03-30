@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\FichePatient;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,13 +15,24 @@ class FichePatientType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('sexe')
-            ->add('dateDeNaissance', null, [
-                'widget' => 'single_text',
+            ->add('cin')
+            ->add('telephone')
+            ->add('sexe',ChoiceType::class ,[
+                'choices' => [
+                    'Masculin' => 'masculin',
+                    'Féminin' => 'feminin',
+                    'autres...' => 'autres...',
+                ],
+
             ])
-           
-            ->add('description')
+
+
+
             ->add('ville')
+
+            ->add('dateDeNaissance')
+            
+            ->add('description')
         ;
     }
 
