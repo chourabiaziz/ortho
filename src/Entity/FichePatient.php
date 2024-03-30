@@ -37,6 +37,8 @@ class FichePatient
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,4 +129,6 @@ class FichePatient
 
         return $this;
     }
+
+    
 }

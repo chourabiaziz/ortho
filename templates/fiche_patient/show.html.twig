@@ -56,7 +56,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-lg-3 col-md-4 label">Inserted in
+						<div class="col-lg-3 col-md-4 label">Inséré dans
 						</div>
 						<div class="col-lg-9 col-md-8">{{ fiche_patient.dateAjout ? fiche_patient.dateAjout|date('Y-m-d') : '' }}</div>
 					</div>
@@ -74,9 +74,9 @@
 
 	<table class="table"></table>
 
-	<a href="{{ path('app_fiche_patient_index') }}">back to list</a>
+	<a class="btn btn-outline-dark" href="{{ path('app_fiche_patient_index') }}">retour</a>
 
-	<a href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+	<a class="btn btn-outline-warning" href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">modifier</a>
 
 	{{ include('fiche_patient/_delete_form.html.twig') }}
 {% endblock %}
