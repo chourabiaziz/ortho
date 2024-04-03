@@ -1,45 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}LettreSuivies{% endblock %}
+{% block title %}LettreSuivies
+{% endblock %}
 
 {% block body %}
-    <h1>LettreSuivies</h1>
+	<h1>LettreSuivies</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ lettre_suivy.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ lettre_suivy.nom }}</td>
-            </tr>
-            <tr>
-                <th>Orthophoniste</th>
-                <td>{{ lettre_suivy.orthophoniste }}</td>
-            </tr>
-            <tr>
-                <th>NomP</th>
-                <td>{{ lettre_suivy.nomP }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ lettre_suivy.description }}</td>
-            </tr>
-            <tr>
-                <th>Signature</th>
-                <td>{{ lettre_suivy.signature }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ lettre_suivy.date ? lettre_suivy.date|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ lettre_suivy.id }}</td>
+			</tr>
 
 
-    <a class="btn btn-warning" href="{{ path('app_lettre_suivies_edit', {'id': lettre_suivy.id}) }}">Modifier</a>
+		</tbody>
+	</table>
 
-    {{ include('lettre_suivies/_delete_form.html.twig') }}
+
+	<a class="btn btn-warning" href="{{ path('app_lettre_suivies_edit', {'id': lettre_suivy.id}) }}">Modifier</a>
+
+	{{ include('lettre_suivies/_delete_form.html.twig') }}
 {% endblock %}

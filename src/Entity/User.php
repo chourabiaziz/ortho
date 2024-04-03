@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -35,6 +37,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
+
+    #[ORM\OneToMany(targetEntity: LettreSuivies::class, mappedBy: 'ortho')]
+    private Collection $lettreSuivies;
+
+    #[ORM\OneToMany(targetEntity: LettreSuivies::class, mappedBy: 'createdby')]
+    private Collection $lettrelists;
+
+    public function __construct()
+    {
+        $this->lettreSuivies = new ArrayCollection();
+        $this->lettrelists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,4 +136,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, LettreSuivies>
+     */
+    public function getLettreSuivies(): Collection
+    {
+        return $this->lettreSuivies;
+    }
+
+    public function addLettreSuivy(LettreSuivies $lettreSuivy): static
+    {
+        if (!$this->lettreSuivies->contains($lettreSuivy)) {
+            $this->lettreSuivies->add($lettreSuivy);
+            $lettreSuivy->setOrtho($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLettreSuivy(LettreSuivies $lettreSuivy): static
+    {
+        if ($this->lettreSuivies->removeElement($lettreSuivy)) {
+            // set the owning side to null (unless already changed)
+            if ($lettreSuivy->getOrtho() === $this) {
+                $lettreSuivy->setOrtho(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+        public function __toString(){
+        return $this->getNom()." | ".$this->getEmail() ;
+        }
+
+        /**
+         * @return Collection<int, LettreSuivies>
+         */
+        public function getLettrelists(): Collection
+        {
+            return $this->lettrelists;
+        }
+
+        public function addLettrelist(LettreSuivies $lettrelist): static
+        {
+            if (!$this->lettrelists->contains($lettrelist)) {
+                $this->lettrelists->add($lettrelist);
+                $lettrelist->setCreatedby($this);
+            }
+
+            return $this;
+        }
+
+        public function removeLettrelist(LettreSuivies $lettrelist): static
+        {
+            if ($this->lettrelists->removeElement($lettrelist)) {
+                // set the owning side to null (unless already changed)
+                if ($lettrelist->getCreatedby() === $this) {
+                    $lettrelist->setCreatedby(null);
+                }
+            }
+
+            return $this;
+        }
+
+
+
 }

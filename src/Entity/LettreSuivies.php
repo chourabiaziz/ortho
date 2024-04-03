@@ -14,52 +14,31 @@ class LettreSuivies
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $nom = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $orthophoniste = null;
+  
+ 
 
     #[ORM\Column(length: 50)]
     private ?string $nomP = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $signature = null;
-
+ 
+ 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lettreSuivies')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $ortho = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lettrelists')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $createdby = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getOrthophoniste(): ?string
-    {
-        return $this->orthophoniste;
-    }
-
-    public function setOrthophoniste(string $orthophoniste): static
-    {
-        $this->orthophoniste = $orthophoniste;
-
-        return $this;
-    }
+   
+   
 
     public function getNomP(): ?string
     {
@@ -73,30 +52,8 @@ class LettreSuivies
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getSignature(): ?string
-    {
-        return $this->signature;
-    }
-
-    public function setSignature(string $signature): static
-    {
-        $this->signature = $signature;
-
-        return $this;
-    }
-
+   
+    
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -105,6 +62,30 @@ class LettreSuivies
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getOrtho(): ?User
+    {
+        return $this->ortho;
+    }
+
+    public function setOrtho(?User $ortho): static
+    {
+        $this->ortho = $ortho;
+
+        return $this;
+    }
+
+    public function getCreatedby(): ?User
+    {
+        return $this->createdby;
+    }
+
+    public function setCreatedby(?User $createdby): static
+    {
+        $this->createdby = $createdby;
 
         return $this;
     }

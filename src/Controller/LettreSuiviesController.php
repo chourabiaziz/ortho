@@ -25,19 +25,23 @@ class LettreSuiviesController extends AbstractController
     #[Route('/new', name: 'app_lettre_suivies_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $lettreSuivy = new LettreSuivies();
-        $form = $this->createForm(LettreSuivies1Type::class, $lettreSuivy);
+        $ls = new LettreSuivies();
+        $form = $this->createForm(LettreSuivies1Type::class, $ls);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($lettreSuivy);
+
+            $ls->setCreatedby($this->getUser());
+            $ls->setDate(new \DateTime('now'));
+
+            $entityManager->persist($ls);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_lettre_suivies_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('lettre_suivies/new.html.twig', [
-            'lettre_suivy' => $lettreSuivy,
+            'lettre_suivy' => $ls,
             'form' => $form,
         ]);
     }

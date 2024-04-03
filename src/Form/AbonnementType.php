@@ -2,26 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\LettreSuivies;
+use App\Entity\Abonnement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LettreSuivies1Type extends AbstractType
+class AbonnementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-             ->add('ortho')
-            ->add('nomP')
-            
-        ;
+            ->add('nom')
+            ->add('description');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => LettreSuivies::class,
+            'data_class' => Abonnement::class,
         ]);
     }
 }

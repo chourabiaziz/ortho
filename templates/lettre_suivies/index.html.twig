@@ -1,45 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}LettreSuivies index{% endblock %}
+{% block title %}LettreSuivies index
+{% endblock %}
 
 {% block body %}
-    <h1>LettreSuivies index</h1>
+	<h1>LettreSuivies index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Orthophoniste</th>
-                <th>NomP</th>
-                <th>Description</th>
-                <th>Signature</th>
-                <th>Date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for lettre_suivy in lettre_suivies %}
-            <tr>
-                <td>{{ lettre_suivy.id }}</td>
-                <td>{{ lettre_suivy.nom }}</td>
-                <td>{{ lettre_suivy.orthophoniste }}</td>
-                <td>{{ lettre_suivy.nomP }}</td>
-                <td>{{ lettre_suivy.description }}</td>
-                <td>{{ lettre_suivy.signature }}</td>
-                <td>{{ lettre_suivy.date ? lettre_suivy.date|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a class="btn btn-secondary" href="{{ path('app_lettre_suivies_show', {'id': lettre_suivy.id}) }}">Consulter</a>
-                    <a class="btn btn-warning" href="{{ path('app_lettre_suivies_edit', {'id': lettre_suivy.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
 
-    <a class="btn btn-primary" href="{{ path('app_lettre_suivies_new') }}">Ajouter</a>
+			</tr>
+		</thead>
+		<tbody>
+			{% for lettre_suivy in lettre_suivies %}
+				<tr>
+					<td>{{ lettre_suivy.id }}</td>
+
+					<td>
+						<a class="btn btn-secondary" href="{{ path('app_lettre_suivies_show', {'id': lettre_suivy.id}) }}">Consulter</a>
+						<a class="btn btn-warning" href="{{ path('app_lettre_suivies_edit', {'id': lettre_suivy.id}) }}">Modifier</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a class="btn btn-primary" href="{{ path('app_lettre_suivies_new') }}">Ajouter</a>
 {% endblock %}
