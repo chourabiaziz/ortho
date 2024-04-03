@@ -7,10 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+# @Vich\Uploadable
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -35,6 +39,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $image;
+
+    /**
+     * @vich\UploadableField(mapping="user_images", fileNameProperty="image")
+     * @var File|null
+     */
+    private $imageFile;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?status $status = null;
+
 
     public function getId(): ?int
     {
@@ -122,4 +142,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            // Il est nécessaire de déclencher "updatedAt" pour que Doctrine enregistre les modifications
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getStatus(): ?status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?status $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
 }
+
+
+

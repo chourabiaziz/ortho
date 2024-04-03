@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Status{% endblock %}
+
+{% block body %}
+    <h1>Status</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ status.id }}</td>
+            </tr>
+            <tr>
+                <th>DateIn</th>
+                <td>{{ status.dateIn ? status.dateIn|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ status.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ status.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_status_index') }}">back to list</a>
+
+    <a href="{{ path('app_status_edit', {'id': status.id}) }}">edit</a>
+
+    {{ include('status/_delete_form.html.twig') }}
+{% endblock %}

@@ -2,30 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Status;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class UserType extends AbstractType
+class StatusType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-             ->add('password')
-            ->add('nom')
-            ->add('imageFile', FileType::class, [
-                'required' => false,
-            ]);
+            ->add('dateIn', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('isActive')
+            ->add('description')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Status::class,
         ]);
     }
 }
