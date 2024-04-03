@@ -4,50 +4,52 @@
 {% endblock %}
 
 {% block body %}
-<h1><b><i>Liste des utilisateurs</i></b></h1>
+	<h1>
+		<b>
+			<i>Liste des utilisateurs</i>
+		</b>
+	</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th>Nom</th>
-            <th>actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.email }}</td>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Email</th>
+				<th>Roles</th>
+				<th>Nom</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.id }}</td>
+					<td>{{ user.email }}</td>
 
-            {% if user.roles == ["ROLE_USER"] %}
-            <td>Ortho</td>
-            {% elseif user.roles == ["ROLE_ADMIN"]%}
-            <td>Administrateur</td>
+					{% if user.roles == ["ROLE_USER"] %}
+						<td>Ortho</td>
+					{% elseif user.roles == ["ROLE_ADMIN"]%}
+						<td>Administrateur</td>
 
-            {% else %}
-            <td></td>
-            {% endif %}
+					{% else %}
+						<td></td>
+					{% endif %}
 
 
-            <td>{{ user.nom }}</td>
-            <td>
-                <a class="btn btn-secondary"
-                    href="{{ path('app_user_show', {'id': user.id}) }}">Montrer</a>
-                <a class="btn btn-warning"
-                    href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="6">no records found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+					<td>{{ user.nom }}</td>
+					<td>
+						<a class="btn btn-secondary" href="{{ path('app_user_show', {'id': user.id}) }}">Consulter</a>
+						<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-<a class="btn btn-primary" href="{{ path('app_user_new') }}">Ajouter administrateur</a>
+	<a class="btn btn-primary" href="{{ path('app_user_new') }}">Ajouter administrateur</a>
 
 {% endblock %}

@@ -71,7 +71,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setImageFile($form->get('imageFile')->getData());
-            $entityManager = $this->getDoctrine()->getManager();
+           
             $entityManager->persist($user);
             $entityManager->flush();
 

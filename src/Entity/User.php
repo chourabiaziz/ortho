@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -40,20 +41,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
-     */
-    private $image;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;
 
-    /**
-     * @vich\UploadableField(mapping="user_images", fileNameProperty="image")
-     * @var File|null
-     */
-    private $imageFile;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?status $status = null;
+    #[Vich\UploadableField(mapping: 'user_images', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
 
 
     public function getId(): ?int
@@ -152,10 +144,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->imageFile = $imageFile;
 
-        if ($imageFile) {
-            // Il est nécessaire de déclencher "updatedAt" pour que Doctrine enregistre les modifications
-            $this->updatedAt = new \DateTimeImmutable();
-        }
+       
     }
 
     public function getImage(): ?string
@@ -169,19 +158,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getStatus(): ?status
+ 
+    public function __serialize(): array
     {
-        return $this->status;
+        // Serialize the path of the image file
+        $imagePath = $this->imageFile instanceof File ? $this->imageFile->getPathname() : null;
+
+        return [
+             
+            'imagePath' => $imagePath,
+            // Add other properties to serialize
+        ];
     }
 
-    public function setStatus(?status $status): static
+    // Implement custom unserialization logic
+    public function __unserialize(array $data): void
     {
-        $this->status = $status;
+        // Restore image property
+        $this->image = $data['image'];
 
-        return $this;
+        // Restore imageFile property
+        if (isset($data['imagePath'])) {
+            $this->imageFile = new File($data['imagePath']);
+        }
     }
-
+  
 
 }
 
