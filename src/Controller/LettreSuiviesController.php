@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\LettreSuivies;
-use App\Form\LettreSuiviesType;
+use App\Form\LettreSuivies1Type;
 use App\Repository\LettreSuiviesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,27 +17,16 @@ class LettreSuiviesController extends AbstractController
     #[Route('/', name: 'app_lettre_suivies_index', methods: ['GET'])]
     public function index(LettreSuiviesRepository $lettreSuiviesRepository): Response
     {
-
-        if ($this->isGranted('ROLE_ADMIN')) {
-            
-            return $this->render('lettre_suivies/index.html.twig', [
-                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
-            ]);
-        }else{
-            return $this->render('lettre_suivies/index_client.html.twig', [
-                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
-            ]);
-
-        }
-
-
+        return $this->render('lettre_suivies/index.html.twig', [
+            'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+        ]);
     }
 
     #[Route('/new', name: 'app_lettre_suivies_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $lettreSuivy = new LettreSuivies();
-        $form = $this->createForm(LettreSuiviesType::class, $lettreSuivy);
+        $form = $this->createForm(LettreSuivies1Type::class, $lettreSuivy);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,7 +53,7 @@ class LettreSuiviesController extends AbstractController
     #[Route('/{id}/edit', name: 'app_lettre_suivies_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, LettreSuivies $lettreSuivy, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(LettreSuiviesType::class, $lettreSuivy);
+        $form = $this->createForm(LettreSuivies1Type::class, $lettreSuivy);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

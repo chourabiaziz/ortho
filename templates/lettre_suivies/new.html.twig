@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New LettreSuivies{% endblock %}
+{% block title %}nouveau LettreSuivies{% endblock %}
 
 {% block body %}
-    <h1>Create new LettreSuivies</h1>
+    <h1>Créer un nouveau LettreSuivies</h1>
 
     {{ include('lettre_suivies/_form.html.twig') }}
 
-    <a href="{{ path('app_lettre_suivies_index') }}">back to list</a>
 {% endblock %}
