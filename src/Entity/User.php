@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
- use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -41,11 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[Vich\UploadableField(mapping: 'user_images', fileNameProperty: 'image')]
-    private ?File $imageFile = null;
 
 
     public function getId(): ?int
@@ -135,56 +130,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
 
-    public function setImageFile(?File $imageFile): void
-    {
-        $this->imageFile = $imageFile;
 
-       
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
- 
-    public function __serialize(): array
-    {
-        // Serialize the path of the image file
-        $imagePath = $this->imageFile instanceof File ? $this->imageFile->getPathname() : null;
-
-        return [
-             
-            'imagePath' => $imagePath,
-            // Add other properties to serialize
-        ];
-    }
 
     // Implement custom unserialization logic
-    public function __unserialize(array $data): void
-    {
-        // Restore image property
-        $this->image = $data['image'];
 
-        // Restore imageFile property
-        if (isset($data['imagePath'])) {
-            $this->imageFile = new File($data['imagePath']);
-        }
-    }
-  
+
 
 }
-
-
-

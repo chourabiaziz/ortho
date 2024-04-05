@@ -4,39 +4,53 @@
 {% endblock %}
 
 {% block body %}
-<h1><b><i>Liste des fiches patients</i></b> </h1>
+	<h1>
+		<b>
+			<i>Liste des fiches patients</i>
+		</b>
+	</h1>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>CIN</th>
-			<th>Nom et prénom</th>
-			<th>Ville</th>
-			<th>actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for fiche_patient in fiche_patients %}
-		<tr>
-			<td>{{ fiche_patient.id }}</td>
-			<td>{{ fiche_patient.cin }}</td>
-			<td> {{ fiche_patient.nom }} - {{ fiche_patient.prenom }} </td>
-			<td>{{ fiche_patient.ville }}</td>
-			<td>
-				<a class="btn btn-secondary"
-					href="{{ path('app_fiche_patient_show', {'id': fiche_patient.id}) }}">show</a>
-				<a class="btn btn-warning"
-					href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
-			</td>
-		</tr>
-		{% else %}
-		<tr>
-			<td colspan="9">no records found</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
+	<div class="search-bar">
+		<form class="search-form d-flex align-items-center" method="POST" action="#">
+			<input type="text" name="query" placeholder="Search" title="Enter search keyword">
+			<button type="submit" title="Search">
+				<i class="bi bi-search"></i>
+			</button>
+		</form>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>CIN</th>
+				<th>Nom et prénom</th>
+				<th>Ville</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fiche_patient in fiche_patients %}
+				<tr>
+					<td>{{ fiche_patient.id }}</td>
+					<td>{{ fiche_patient.cin }}</td>
+					<td>
+						{{ fiche_patient.nom }}
+						-
+						{{ fiche_patient.prenom }}
+					</td>
+					<td>{{ fiche_patient.ville }}</td>
+					<td>
+						<a class="btn btn-secondary" href="{{ path('app_fiche_patient_show', {'id': fiche_patient.id}) }}">show</a>
+						<a class="btn btn-warning" href="{{ path('app_fiche_patient_edit', {'id': fiche_patient.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="9">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-<a class="btn btn-primary" href="{{ path('app_fiche_patient_new') }}">Ajouter</a>
+	<a class="btn btn-primary" href="{{ path('app_fiche_patient_new') }}">Ajouter</a>
 {% endblock %}
