@@ -26,7 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: "L'adresse e-mail ne peut pas être vide.")]
     #[Assert\Email(
         message: "L'adresse e-mail n'est pas valide.",
-    )] 
+        checkMX: true
+    )]
     private ?string $email = null;
 
     /**
@@ -42,9 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message: "champ obligatoire")]
-    #[Assert\Length(min:2,max:12, minMessage:">2 characters",maxMessage:"nom doit etre <12 characters")]
-     private ?string $nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;  

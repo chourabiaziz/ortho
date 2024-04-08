@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonnement index
+{% endblock %}
+
+{% block body %}
+	<h1>Abonnement index</h1>
+
+{% for x in abonnements %}
+     {{x.id}}
+	
+{% endfor %}
+	<a href="{{ path('app_abonnement_new') }}">Create new</a>
+{% endblock %}

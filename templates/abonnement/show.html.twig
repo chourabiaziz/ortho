@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonnement
+{% endblock %}
+
+{% block body %}
+<h1>Abonnement</h1>
+
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Id</th>
+			<td>{{ abonnement.id }}</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<h1>Liste des Modéles</h1>
+
+
+<a href="/model/new/{{abonnement.id}}" class="btn btn-primary" >Ajouter un modéle</a>
+
+
+<div class="row">
+	
+
+	{% for model in abonnement.models %}
+	<div class="col-3">
+		<div class="card">
+
+			<div class="card-deader">{{model.nom}}</div>
+			<div class="card-body">{{model.path}}</div>
+
+		</div>
+			</div>
+
+	{% else %}
+	pas des modéles
+	{% endfor %}
+
+		
+	 
+
+
+
+</div>
+
+
+{% endblock %}

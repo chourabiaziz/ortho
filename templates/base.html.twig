@@ -1,94 +1,121 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}Welcome!
-			{% endblock %}
-		</title>
+<head>
+	<meta charset="UTF-8">
+	<title>
+		{% block title %}Bienvenue!
+		{% endblock %}
+	</title>
 
 
-		<meta charset="utf-8">
-		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 
-		<meta content="" name="description">
-		<meta
-		content="" name="keywords">
+	<meta content="" name="description">
+	<meta content="" name="keywords">
 
-		<!-- Favicons -->
-		<link href="assets/img/favicon.png" rel="icon">
-		<link
-		href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<!-- Favicons -->
+	<link href="assets/img/favicon.png" rel="icon">
+	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-		<!-- Google Fonts -->
-		<link href="https://fonts.gstatic.com" rel="preconnect">
-		<link
-		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.gstatic.com" rel="preconnect">
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+		rel="stylesheet">
 
-		<!-- Vendor CSS Files -->
-		<link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-		<link href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-		<link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-		<link href="{{asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
-		<link href="{{asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
-		<link href="{{asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-		<link
-		href="{{asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+	<!-- Vendor CSS Files -->
+	<link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 
-		<!-- Template Main CSS File -->
-		<link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+	<!-- Template Main CSS File -->
+	<link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 
 
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
+	<link rel="icon"
+		href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+	{% block stylesheets %}{% endblock %}
 
 
-		</head>
+</head>
 
-		<body>
-			<style>
-				.golden-btn+.golden-btn {
-					margin-top: 1em;
-				}
+<body>
+	<style>
+		.golden-btn+.golden-btn {
+			margin-top: 1em;
+		}
 
-				.golden-btn {
-					display: inline-block;
-					outline: none;
-					font-family: inherit;
-					font-size: 1em;
-					box-sizing: border-box;
-					border: none;
-					border-radius: 0.3em;
-					height: 2.75em;
-					line-height: 2.5em;
-					text-transform: uppercase;
-					padding: 0 1em;
-					box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4), inset 0 -2px 5px 1px rgba(139, 66, 8, 1), inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
-					background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07);
-					border: 1px solid #a55d07;
-					color: rgb(120, 50, 5);
-					text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
-					cursor: pointer;
-					transition: all 0.2s ease-in-out;
-					background-size: 100% 100%;
-					background-position: center;
-				}
+		.golden-btn {
+			display: inline-block;
+			outline: none;
+			font-family: inherit;
+			font-size: 1em;
+			box-sizing: border-box;
+			border: none;
+			border-radius: .3em;
+			height: 2.75em;
+			line-height: 2.5em;
+			text-transform: uppercase;
+			padding: 0 1em;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, .16), 0 3px 6px rgba(110, 80, 20, .4),
+				inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
+				inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+			background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07);
+			border: 1px solid #a55d07;
+			color: rgb(120, 50, 5);
+			text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
+			cursor: pointer;
+			transition: all .2s ease-in-out;
+			background-size: 100% 100%;
+			background-position: center;
+		}
 
-				.golden-btn:focus,
+		.golden-btn:focus,
 
 
-				.golden-btn:active {
-					box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4), inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
-				}
-			</style>
+		.golden-btn:active {
+			box-shadow: 0 3px 6px rgba(0, 0, 0, .16), 0 3px 6px rgba(110, 80, 20, .4),
+				inset 0 -2px 5px 1px #b17d10,
+				inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+		}
+	</style>
 
-			<header id="header" class="header fixed-top d-flex align-items-center">
+	<header id="header" class="header fixed-top d-flex align-items-center">
 
-				<div class="d-flex align-items-center justify-content-between">
-					<a href="index.html" class="logo d-flex align-items-center">
-						<img src="{{asset('ort6.png')}}" alt="">
-						<span class="d-none d-lg-block">Orthophoniste</span>
+		<div class="d-flex align-items-center justify-content-between">
+			<a href="index.html" class="logo d-flex align-items-center">
+				<img src="assets/img/logo.png" alt="">
+				<span class="d-none d-lg-block">Orthophonistes</span>
+			</a>
+			<i class="bi bi-list toggle-sidebar-btn"></i>
+		</div>
+		<!-- End Logo -->
+
+		<div class="search-bar">
+			<form class="search-form d-flex align-items-center" method="POST" action="#">
+				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
+				<button type="submit" title="Search">
+					<i class="bi bi-search"></i>
+				</button>
+			</form>
+		</div>
+		<!-- End Search Bar -->
+
+		<nav class="header-nav ms-auto">
+			<ul class="d-flex align-items-center">
+
+				<li class="nav-item d-block d-lg-none">
+					<a class="nav-link nav-icon search-bar-toggle " href="#">
+						<i class="bi bi-search"></i>
+
 					</a>
 					<i class="bi bi-list toggle-sidebar-btn"></i>
 				</div>
