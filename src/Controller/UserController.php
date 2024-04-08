@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+
+
+
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -20,6 +24,13 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'imageField' => ImageField::new('image')
+            ->setLabel('Image')
+            ->setBasePath('images/user') // Chemin de base pour afficher les images
+            ->setUploadDir('public/images/user') // Répertoire de téléchargement des images
+            ->setUploadedFileNamePattern('[randomhash].[extension]') // Modèle de nom de fichier téléchargé
+            ->setRequired(false)
+            
         ]);
     }
 
@@ -43,7 +54,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index');
         }
 
         return $this->render('user/new.html.twig', [
@@ -67,14 +78,19 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+           
+           
+            $entityManager->persist($user);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

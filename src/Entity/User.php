@@ -1,18 +1,20 @@
 <?php
-
 namespace App\Entity;
-
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: "L'adresse e-mail ne peut pas être vide.")]
+#vich\Uploadable
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,6 +23,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "L'adresse e-mail ne peut pas être vide.")]
+    #[Assert\Email(
+        message: "L'adresse e-mail n'est pas valide.",
+        checkMX: true
+    )]
     private ?string $email = null;
 
     /**
@@ -38,17 +45,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(targetEntity: LettreSuivies::class, mappedBy: 'ortho')]
-    private Collection $lettreSuivies;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;  
 
-    #[ORM\OneToMany(targetEntity: LettreSuivies::class, mappedBy: 'createdby')]
-    private Collection $lettrelists;
+    #[Vich\UploadableField(mapping: "user", fileNameProperty: "image")]
+    private ?File $imageFile = null;
 
-    public function __construct()
-    {
-        $this->lettreSuivies = new ArrayCollection();
-        $this->lettrelists = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -137,70 +139,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, LettreSuivies>
-     */
-    public function getLettreSuivies(): Collection
+    public function getImage(): ?string
     {
-        return $this->lettreSuivies;
+        return $this->image;
     }
 
-    public function addLettreSuivy(LettreSuivies $lettreSuivy): static
+    public function setImage(?string $image): self
     {
-        if (!$this->lettreSuivies->contains($lettreSuivy)) {
-            $this->lettreSuivies->add($lettreSuivy);
-            $lettreSuivy->setOrtho($this);
-        }
+        $this->image = $image;
 
         return $this;
     }
 
-    public function removeLettreSuivy(LettreSuivies $lettreSuivy): static
+    public function getImageFile(): ?File
     {
-        if ($this->lettreSuivies->removeElement($lettreSuivy)) {
-            // set the owning side to null (unless already changed)
-            if ($lettreSuivy->getOrtho() === $this) {
-                $lettreSuivy->setOrtho(null);
-            }
-        }
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }
 
-    
-        public function __toString(){
-        return $this->getNom()." | ".$this->getEmail() ;
-        }
 
-        /**
-         * @return Collection<int, LettreSuivies>
-         */
-        public function getLettrelists(): Collection
-        {
-            return $this->lettrelists;
-        }
 
-        public function addLettrelist(LettreSuivies $lettrelist): static
-        {
-            if (!$this->lettrelists->contains($lettrelist)) {
-                $this->lettrelists->add($lettrelist);
-                $lettrelist->setCreatedby($this);
-            }
-
-            return $this;
-        }
-
-        public function removeLettrelist(LettreSuivies $lettrelist): static
-        {
-            if ($this->lettrelists->removeElement($lettrelist)) {
-                // set the owning side to null (unless already changed)
-                if ($lettrelist->getCreatedby() === $this) {
-                    $lettrelist->setCreatedby(null);
-                }
-            }
-
-            return $this;
-        }
+    // Implement custom unserialization logic
 
 
 
