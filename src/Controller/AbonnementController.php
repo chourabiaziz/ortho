@@ -17,8 +17,7 @@ class AbonnementController extends AbstractController
     #[Route('/', name: 'app_abonnement_index', methods: ['GET'])]
     public function index(AbonnementRepository $abonnementRepository): Response
     {
-
-        if ($this->getUser()) {
+         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('abonnement/index.html.twig', [
                 'abonnements' => $abonnementRepository->findAll(),
             ]);
@@ -52,15 +51,15 @@ class AbonnementController extends AbstractController
     public function show(Abonnement $abonnement): Response
     {
 
-
-        if ($this->getUser()) {
+        
+        if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('abonnement/show.html.twig', [
                 'abonnement' => $abonnement,
             ]);
-        }
+        }else{
         return $this->render('abonnement/show_client.html.twig', [
             'abonnement' => $abonnement,
-        ]);
+        ]);}
     }
 
     #[Route('/{id}/edit', name: 'app_abonnement_edit', methods: ['GET', 'POST'])]

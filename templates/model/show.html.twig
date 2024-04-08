@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Model{% endblock %}
+
+{% block body %}
+    <h1>Model</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ model.id }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ model.path }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ model.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_model_index') }}">back to list</a>
+
+    <a href="{{ path('app_model_edit', {'id': model.id}) }}">edit</a>
+
+    {{ include('model/_delete_form.html.twig') }}
+{% endblock %}
