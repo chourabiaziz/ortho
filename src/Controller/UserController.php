@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
 
 
@@ -23,6 +24,13 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'imageField' => ImageField::new('image')
+            ->setLabel('Image')
+            ->setBasePath('images/user') // Chemin de base pour afficher les images
+            ->setUploadDir('public/images/user') // Répertoire de téléchargement des images
+            ->setUploadedFileNamePattern('[randomhash].[extension]') // Modèle de nom de fichier téléchargé
+            ->setRequired(false)
+            
         ]);
     }
 

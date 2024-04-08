@@ -1,20 +1,19 @@
 <?php
-
 namespace App\Entity;
-
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-# @Vich\Uploadable
+#[UniqueEntity(fields: ['email'], message: "L'adresse e-mail ne peut pas être vide.")]
+#vich\Uploadable
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -24,6 +23,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "L'adresse e-mail ne peut pas être vide.")]
+    #[Assert\Email(
+        message: "L'adresse e-mail n'est pas valide.",
+        checkMX: true
+    )]
     private ?string $email = null;
 
     /**
@@ -41,6 +45,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;  
+
+    #[Vich\UploadableField(mapping: "user", fileNameProperty: "image")]
+    private ?File $imageFile = null;
 
 
     public function getId(): ?int
@@ -130,6 +139,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
 
 
 

@@ -5,3 +5,4 @@ framework:
         fallbacks:
             - en
         providers:
+L'adresse e-mail '{{ value }}' n'est pas valide.: "L'adresse e-mail '{{ value }}' n'est pas valide. Veuillez entrer une adresse e-mail valide."
