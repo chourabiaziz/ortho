@@ -16,9 +16,9 @@ class UserType extends AbstractType
         
             ->add('email')
              ->add('password')
-            ->add('nom')
-            ->add('image', FileType::class, [
-                'label' => 'Image', // Modifier ici
+             ->add('nom')
+             ->add('image', FileType::class, [
+                'label' => 'Entrer votre image', // Modifier ici
                 'attr' => [
                     'class' => 'form-control'
                 ]

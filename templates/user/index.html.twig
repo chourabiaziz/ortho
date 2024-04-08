@@ -24,16 +24,16 @@
 		<tbody>
 			{% for user in users %}
 				<tr>
+				<td>image ....</td>
 					<td>{{ user.id }}</td>
 					<td>{{ user.email }}</td>
-
+				
 					{% if user.roles == ["ROLE_USER"] %}
 						<td>Ortho</td>
-					{% elseif user.roles == ["ROLE_ADMIN"]%}
-						<td>Administrateur</td>
+					 
 
 					{% else %}
-						<td></td>
+						<td>Administrateur</td>
 					{% endif %}
 
 
