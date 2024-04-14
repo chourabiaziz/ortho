@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FichePatientRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FichePatientRepository::class)]
 class FichePatient
@@ -15,9 +16,9 @@ class FichePatient
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom = null;
-
-   
+    #[Assert\NotBlank(message: "champ obligatoire")]
+    #[Assert\Length(min:2,max:12, minMessage:">2 characters",maxMessage:"nom doit etre <12 characters")]
+     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
     private ?string $sexe = null;
@@ -35,12 +36,18 @@ class FichePatient
     private ?string $ville = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "champ obligatoire")]
+    #[Assert\Length(min:2,max:12, minMessage:">2 characters",maxMessage:"nom doit etre <12 characters")]
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "champ obligatoire")]
+    #[Assert\Length(min:8,max:8, minMessage:"8 characters",maxMessage:"8 characters svp")]
     private ?int $cin = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "champ obligatoire")]
+    #[Assert\Length(min:8,max:8, minMessage:"8 characters",maxMessage:"8 characters svp")]
     private ?int $telephone = null;
 
     public function getId(): ?int

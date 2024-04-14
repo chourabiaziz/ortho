@@ -517,3 +517,7 @@
 .footer .copyright a:hover {
     color: var(--primary);
 }
+
+.error-message {
+    color: red;
+}

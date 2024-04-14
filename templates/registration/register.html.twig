@@ -78,7 +78,7 @@
 
 
 
-                                    {{ form_start(registrationForm , {'attr' : {'novalidate':'novalidate'}}) }}
+                                    
                                          
 
 
@@ -87,7 +87,7 @@
                                     {{ form_label(registrationForm.nom, {'attr': {'value': 'form-control'}}) }}
 
                                     {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.nom, {'attr' : {'class':'text-danger'}}) }}
+                                    {{ form_errors(registrationForm.nom, {'attr' : {'class':'error-message'}}) }}
 
 
 
