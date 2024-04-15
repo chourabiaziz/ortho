@@ -47,12 +47,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $image = null;  
-
-    #[Vich\UploadableField(mapping: "user", fileNameProperty: "image")]
-    private ?File $imageFile = null;
-
+    
+ 
  
     #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'createdby')]
     private Collection $factures;
@@ -157,31 +153,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(?File $imageFile): self
-    {
-        $this->imageFile = $imageFile;
-
-        return $this;
-    }
-
+ 
+ 
 
 
     // Implement custom unserialization logic
