@@ -27,9 +27,23 @@ class Abonnement
     #[ORM\ManyToMany(targetEntity: Model::class, mappedBy: 'abonnement')]
     private Collection $models;
 
+    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'abonnement')]
+    private Collection $factures;
+
+    #[ORM\Column]
+    private ?int $prix = null;
+
+    #[ORM\OneToMany(targetEntity: Achat::class, mappedBy: 'abnonnement')]
+    private Collection $achats;
+
+  
+
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        $this->factures = new ArrayCollection();
+        $this->achats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,4 +103,80 @@ class Abonnement
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Facture>
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): static
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures->add($facture);
+            $facture->setAbonnement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): static
+    {
+        if ($this->factures->removeElement($facture)) {
+            // set the owning side to null (unless already changed)
+            if ($facture->getAbonnement() === $this) {
+                $facture->setAbonnement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Achat>
+     */
+    public function getAchats(): Collection
+    {
+        return $this->achats;
+    }
+
+    public function addAchat(Achat $achat): static
+    {
+        if (!$this->achats->contains($achat)) {
+            $this->achats->add($achat);
+            $achat->setAbnonnement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchat(Achat $achat): static
+    {
+        if ($this->achats->removeElement($achat)) {
+            // set the owning side to null (unless already changed)
+            if ($achat->getAbnonnement() === $this) {
+                $achat->setAbnonnement(null);
+            }
+        }
+
+        return $this;
+    }
+
+  
+
+   
 }

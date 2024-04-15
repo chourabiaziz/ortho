@@ -13,7 +13,8 @@ class AbonnementType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('description');
+            ->add('description')
+            ->add('prix');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

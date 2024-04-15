@@ -7,7 +7,7 @@
 	<h1>Abonnement index</h1>
 
 {% for x in abonnements %}
-     {{x.id}}
+     {{x.id}}   <a href="{{x.id}}">Consulter </a>
 	
 {% endfor %}
 	<a href="{{ path('app_abonnement_new') }}">Create new</a>

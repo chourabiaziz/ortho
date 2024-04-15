@@ -44,10 +44,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: LettreSuivies::class, mappedBy: 'createdby')]
     private Collection $lettrelists;
 
+    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'createdby')]
+    private Collection $factures;
+
+    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'reciever')]
+    private Collection $facturesrecieved;
+
+    #[ORM\OneToMany(targetEntity: Achat::class, mappedBy: 'personne')]
+    private Collection $achats;
+
     public function __construct()
     {
         $this->lettreSuivies = new ArrayCollection();
         $this->lettrelists = new ArrayCollection();
+        $this->factures = new ArrayCollection();
+        $this->facturesrecieved = new ArrayCollection();
+        $this->achats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,6 +208,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 // set the owning side to null (unless already changed)
                 if ($lettrelist->getCreatedby() === $this) {
                     $lettrelist->setCreatedby(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Facture>
+         */
+        public function getFactures(): Collection
+        {
+            return $this->factures;
+        }
+
+        public function addFacture(Facture $facture): static
+        {
+            if (!$this->factures->contains($facture)) {
+                $this->factures->add($facture);
+                $facture->setCreatedby($this);
+            }
+
+            return $this;
+        }
+
+        public function removeFacture(Facture $facture): static
+        {
+            if ($this->factures->removeElement($facture)) {
+                // set the owning side to null (unless already changed)
+                if ($facture->getCreatedby() === $this) {
+                    $facture->setCreatedby(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Facture>
+         */
+        public function getFacturesrecieved(): Collection
+        {
+            return $this->facturesrecieved;
+        }
+
+        public function addFacturesrecieved(Facture $facturesrecieved): static
+        {
+            if (!$this->facturesrecieved->contains($facturesrecieved)) {
+                $this->facturesrecieved->add($facturesrecieved);
+                $facturesrecieved->setReciever($this);
+            }
+
+            return $this;
+        }
+
+        public function removeFacturesrecieved(Facture $facturesrecieved): static
+        {
+            if ($this->facturesrecieved->removeElement($facturesrecieved)) {
+                // set the owning side to null (unless already changed)
+                if ($facturesrecieved->getReciever() === $this) {
+                    $facturesrecieved->setReciever(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Achat>
+         */
+        public function getAchats(): Collection
+        {
+            return $this->achats;
+        }
+
+        public function addAchat(Achat $achat): static
+        {
+            if (!$this->achats->contains($achat)) {
+                $this->achats->add($achat);
+                $achat->setPersonne($this);
+            }
+
+            return $this;
+        }
+
+        public function removeAchat(Achat $achat): static
+        {
+            if ($this->achats->removeElement($achat)) {
+                // set the owning side to null (unless already changed)
+                if ($achat->getPersonne() === $this) {
+                    $achat->setPersonne(null);
                 }
             }
 

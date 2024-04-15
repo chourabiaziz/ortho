@@ -3,8 +3,31 @@
 {% block title %}nouveau LettreSuivies{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau LettreSuivies</h1>
+<h1>Créer un nouveau LettreSuivies</h1>
 
-    {{ include('lettre_suivies/_form.html.twig') }}
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-6">
+<div class="form-row">
+    
+        <div class="form-group ">
+            {{ form_row(form.ortho, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group ">
+            {{ form_row(form.nomP, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <br>
+    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+    {{ form_end(form) }}
+    </div>
+    
+
+    <div class="col-6">
+
+        LEs modelees
+
+    
+</div></div>
+
 
 {% endblock %}
