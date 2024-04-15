@@ -155,6 +155,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
  
  
+    
 
 
     // Implement custom unserialization logic
