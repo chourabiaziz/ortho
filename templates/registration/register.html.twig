@@ -70,7 +70,7 @@
                                     <h1   >Register</h1>
 
 
-
+                                
 
                                     {{ form_start(registrationForm , {'attr' : {'novalidate':'novalidate'}}) }}
                                          
@@ -78,7 +78,7 @@
 
 
 
-                                    {{ form_label(registrationForm.nom, {'attr': {'value': 'form-control'}}) }}
+                                    {{ form_label(registrationForm.nom) }}
 
                                     {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(registrationForm.nom, {'attr' : {'class':'text-danger'}}) }}
