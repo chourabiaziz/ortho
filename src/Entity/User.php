@@ -28,7 +28,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: "L'adresse e-mail ne peut pas être vide.")]
     #[Assert\Email(
         message: "L'adresse e-mail n'est pas valide.",
-        checkMX: true
     )]
     private ?string $email = null;
 
@@ -230,6 +229,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             return $this;
         }
 
+
+
+
+        public function __toString(){
+            return $this->email;
+        }
 
 
 }

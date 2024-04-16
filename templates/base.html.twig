@@ -48,45 +48,7 @@
 </head>
 
 <body>
-	<style>
-		.golden-btn+.golden-btn {
-			margin-top: 1em;
-		}
-
-		.golden-btn {
-			display: inline-block;
-			outline: none;
-			font-family: inherit;
-			font-size: 1em;
-			box-sizing: border-box;
-			border: none;
-			border-radius: .3em;
-			height: 2.75em;
-			line-height: 2.5em;
-			text-transform: uppercase;
-			padding: 0 1em;
-			box-shadow: 0 3px 6px rgba(0, 0, 0, .16), 0 3px 6px rgba(110, 80, 20, .4),
-				inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
-				inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
-			background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07);
-			border: 1px solid #a55d07;
-			color: rgb(120, 50, 5);
-			text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
-			cursor: pointer;
-			transition: all .2s ease-in-out;
-			background-size: 100% 100%;
-			background-position: center;
-		}
-
-		.golden-btn:focus,
-
-
-		.golden-btn:active {
-			box-shadow: 0 3px 6px rgba(0, 0, 0, .16), 0 3px 6px rgba(110, 80, 20, .4),
-				inset 0 -2px 5px 1px #b17d10,
-				inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
-		}
-	</style>
+	
 
 	<header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -99,14 +61,7 @@
 		</div>
 		<!-- End Logo -->
 
-		<div class="search-bar">
-			<form class="search-form d-flex align-items-center" method="POST" action="#">
-				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
-				<button type="submit" title="Search">
-					<i class="bi bi-search"></i>
-				</button>
-			</form>
-		</div>
+		 
 		<!-- End Search Bar -->
 
 		<nav class="header-nav ms-auto">
@@ -387,11 +342,11 @@
 
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="/abonnement">
-					<button class="golden-btn" style="font-size:1.3em;">Abonnement</button>
-					<span></span>
-				</a>
-			</li>
+								<a class="nav-link collapsed" href="/user">
+									<i class="bi bi-file-earmark"></i>
+									<span>Abonnement</span>
+								</a>
+							</li>
 
 
 
