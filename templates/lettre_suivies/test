@@ -1,0 +1,20 @@
+<div class="row">
+                        <div class="col-6"> <input type="radio" id="rouge" name="couleur" value="rouge">
+                            <label for="ls"><img class="shadow" src="{{asset('lettres/la.png')}}"></label>
+                        </div>
+                        <div class="col-6"> <input type="radio" id="rouge" name="couleur" value="rouge">
+                            <label for="ls"><img class="shadow" src="{{asset('lettres/la.png')}}"></label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" id="rouge" name="couleur" value="rouge">
+                            <label for="ls"><img class="shadow" src="{{asset('lettres/la.png')}}"></label>
+                        </div>
+                        <div class="col-6"> <input type="radio" id="rouge" name="couleur" value="rouge">
+                            <label for="ls"><img class="shadow" src="{{asset('lettres/la.png')}}"></label>
+                        </div>
+                        <div class="col-6"> <input type="radio" id="rouge" name="couleur" value="rouge">
+                            <label for="ls"><img class="shadow" src="{{asset('lettres/la.png')}}"></label>
+                        </div>
+
+
+                    </div>

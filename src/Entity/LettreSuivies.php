@@ -16,21 +16,27 @@ class LettreSuivies
 
   
  
-
-    #[ORM\Column(length: 50)]
+ 
+    #[ORM\Column(length: 50 ,nullable: true)]
     private ?string $nomP = null;
  
  
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE ,nullable: true)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'lettreSuivies')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $ortho = null;
 
     #[ORM\ManyToOne(inversedBy: 'lettrelists')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $createdby = null;
+
+    #[ORM\Column]
+    private ?int $nimage = null;
+
+    #[ORM\Column(length: 99999, nullable: true)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -86,6 +92,30 @@ class LettreSuivies
     public function setCreatedby(?User $createdby): static
     {
         $this->createdby = $createdby;
+
+        return $this;
+    }
+
+    public function getNimage(): ?int
+    {
+        return $this->nimage;
+    }
+
+    public function setNimage(?int $nimage): static
+    {
+        $this->nimage = $nimage;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -21,19 +21,20 @@ class Abonnement
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 9000)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Model::class, mappedBy: 'abonnement')]
+    #[ORM\ManyToMany(targetEntity: Model::class, mappedBy: 'abonnement',  cascade: ["remove"])]
     private Collection $models;
 
-    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'abonnement')]
+    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'abonnement' , cascade: ["remove"])]
     private Collection $factures;
 
     #[ORM\Column]
     private ?int $prix = null;
 
-    #[ORM\OneToMany(targetEntity: Achat::class, mappedBy: 'abnonnement')]
+
+    #[ORM\OneToMany(targetEntity: Achat::class, mappedBy: 'abnonnement' , cascade: ["remove"])]
     private Collection $achats;
 
   

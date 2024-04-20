@@ -13,7 +13,7 @@
 	</li>
 <li><h3>Description :</h3> 
 
-	<ul class="card">{{abonnement.description|nl2br|raw }}</ul>
+	<ul class="card p-4">{{abonnement.description|nl2br|raw }}</ul>
 </li>
 
 
@@ -22,30 +22,7 @@
 <a class="btn btn-secondary" href="{{abonnement.id}}/edit">modifier</a>
 
 
-<h1>Liste des Modéles</h1>
-
-
-
-<a href="/model/new/{{abonnement.id}}" class="btn btn-primary" >Ajouter un modéle</a>
-
-<br><br>
-<div class="row">
-	
-
-	{% for model in abonnement.models %}
-	<div class="col-3">
-		<div class="card">
-
-			<div class="card-deader">{{model.nom}}</div>
-			<div class="card-body">{{model.path}}</div>
- <a href="/model/{{model.id}}">voir</a>
-		</div>
-			</div>
-
-	{% else %}
-	pas des modéles
-	{% endfor %}
-
+ 
 		
 	 
 

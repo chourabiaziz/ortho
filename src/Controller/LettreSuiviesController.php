@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\LettreSuivies;
 use App\Form\LettreSuivies1Type;
+use App\Form\LettreSuiviesType;
 use App\Repository\LettreSuiviesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +18,20 @@ class LettreSuiviesController extends AbstractController
     #[Route('/', name: 'app_lettre_suivies_index', methods: ['GET'])]
     public function index(LettreSuiviesRepository $lettreSuiviesRepository): Response
     {
-        return $this->render('lettre_suivies/index.html.twig', [
-            'lettre_suivies' => $lettreSuiviesRepository->findAll(),
-        ]);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+
+            return $this->render('lettre_suivies/index.html.twig', [
+                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+            ]);
+
+         } else {
+            return $this->render('lettre_suivies/index_client.html.twig', [
+                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+            ]);
+         }
+
+       
     }
 
     #[Route('/new', name: 'app_lettre_suivies_new', methods: ['GET', 'POST'])]
@@ -29,20 +41,54 @@ class LettreSuiviesController extends AbstractController
         $form = $this->createForm(LettreSuivies1Type::class, $ls);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $modele = $request->query->get('modele');
+    
 
-            $ls->setCreatedby($this->getUser());
-            $ls->setDate(new \DateTime('now'));
+        if (  $modele ) {
+           
+            $ls->setNimage($modele);
+            $entityManager->persist($ls);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_lettre_suivies_new_etape2', ['id'=>$ls->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+
+            return $this->render('lettre_suivies/new.html.twig', [
+                'lettre_suivy' => $ls,
+                'form' => $form,
+            ]);
+
+         } else {
+            return $this->render('lettre_suivies/new_client.html.twig', [
+                'lettre_suivy' => $ls,
+                'form' => $form,
+                
+            ]);
+         }
+       
+    }
+    #[Route('/new/etape2/{id}', name: 'app_lettre_suivies_new_etape2', methods: ['GET', 'POST'])]
+    public function etape2(  LettreSuivies $ls , Request $request, EntityManagerInterface $entityManager): Response
+    {
+         
+        $form = $this->createForm(LettreSuiviesType::class, $ls);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->persist($ls);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lettre_suivies_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('lettre_suivies/new.html.twig', [
+        return $this->render('lettre_suivies/new_client2.html.twig', [
             'lettre_suivy' => $ls,
             'form' => $form,
+            
         ]);
     }
 

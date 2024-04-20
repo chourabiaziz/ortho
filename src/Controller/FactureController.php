@@ -20,11 +20,11 @@ class FactureController extends AbstractController
 
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('facture/index.html.twig', [
-                'factures' => $factureRepository->findAll(),
+                'factures' => $factureRepository->findalldesc(),
             ]);
         }else{
             return $this->render('facture/index_client.html.twig', [
-                'factures' => $factureRepository->findAll(),
+                'factures' => $factureRepository->findalldesc(),
             ]);
       
         }  }

@@ -65,6 +65,7 @@ class AbonnementController extends AbstractController
     #[Route('/{id}', name: 'app_abonnement_show', methods: ['GET'])]
     public function show(Abonnement $abonnement): Response
     {
+        
 
         
             if ($this->isGranted("ROLE_ADMIN")) {
@@ -72,6 +73,7 @@ class AbonnementController extends AbstractController
                     'abonnement' => $abonnement,
                 ]);
             }else{
+                $this->denyAccessUnlessGranted("ROLE_USER", null,"");
             return $this->render('abonnement/show_client.html.twig', [
                 'abonnement' => $abonnement,
             ]);}
@@ -97,13 +99,20 @@ class AbonnementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_abonnement_delete', methods: ['POST'])]
-    public function delete(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
+    #[Route('delete/abo/{id}', name: 'app_abonnement_delete')]
+    public function delete(Request $request, Abonnement $abonnement,  EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $abonnement->getId(), $request->getPayload()->get('_token'))) {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
+
+        
+
+
+            
+
+
             $entityManager->remove($abonnement);
             $entityManager->flush();
-        }
+        
 
         return $this->redirectToRoute('app_abonnement_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -119,7 +128,6 @@ class AbonnementController extends AbstractController
     public function acheter(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
     {
         //pour render a la page login 
-        $this->denyAccessUnlessGranted("ROLE_USER", null,"");
 
         $achat = new Achat;
 
@@ -163,7 +171,7 @@ class AbonnementController extends AbstractController
         $facture->setCreatedat(new \DateTime('now'));
         $facture->setReciever($this->getUser());
         $facture->setTva(19);
-        $total = $abonnement->getPrix() - ( $abonnement->getPrix() * 19 / 100 ) ;
+        $total = $abonnement->getPrix() + ( $abonnement->getPrix() * 19 / 100 ) ;
         $facture->setTotale($total);
 
       /*  if ($alreadyPurchased) {

@@ -1,0 +1,58 @@
+{% extends 'xbase/base.html.twig' %}
+
+{% block title %}nouveau LettreSuivies{% endblock %}
+
+{% block body %}
+<style>
+    .shadow-example {
+        width: 200px;
+        height: 200px;
+        background-color: #f0f0f0;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    }
+</style>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1>Créer une nouvelle lettre :</h1>
+ 
+ 
+
+
+
+                </div>
+
+
+                <div class="col">
+
+                   <h2>Choisissez votre modéle :</h2>
+
+                    <form method="get">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="radio" id="l1" value="1" name="modele">
+                                <label for="l1"><img class="shadow" src="{{asset('lettres/1.png')}}"></label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" id="l2" value="2" name="modele">
+                                <label for="l2"><img class="shadow" src="{{asset('lettres/2.png')}}"></label>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-success" value="Confirmer le choix de modèle">
+                    </form>
+                    
+                
+
+                    
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
