@@ -10,31 +10,57 @@
 	<div class="container">
 		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
 			<p class="d-inline-block border rounded-pill py-1 px-4">Abonnement</p>
-			<h1>Liste des modeles pour Abonnement {{abonnement.nom}}
+			<h1>{{abonnement.nom}}
 			</h1>
 		</div>
 
 		<div class="row g-4">
-			{% for x in abonnement.models %}
+			 
 
 
-			<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+			<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
 				<div class="service-item bg-light rounded h-100 p-5">
-					<div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
-						style="width: 65px; height: 65px;">
-						<i class="fa fa-award  text-primary fs-4"></i>
-					</div>
-					<h4 class="mb-3">{{x.nom}}</h4>
-					<p class="mb-4">{{x.path}}</p>
-					<a class="btn" href="/model/{{x.id}}">
-						<i class="fa fa-eye text-primary me-3"></i>Voir
-					</a>
+					 
+					<h4 class="mb-3">description</h4>
+					<p class="mb-4">{{abonnement.description|nl2br|raw }}
+
+
+						<h4 class="text-end"><b>{{abonnement.prix}} TND</b></h4>
+					</p>
+					
+					 
+
 				</div>
 			</div>
-
-			{% endfor %}
+			
+			 
 			<div class="">
-				<a   href="/abonnement/acheter/{{abonnement.id}}" class="btn btn-success"   >Acheter Maintenant !</a>  
+				{% if app.user%}
+					
+
+{% for a in app.user.achats %}
+    {% if a.abnonnement == abonnement %}
+        <button class="btn btn-success" disabled>
+            Deja acheté
+        </button>
+    {% endif %}
+{% endfor %}
+
+{% if app.user.achats is empty %}
+    <a class="btn btn-success" href="/abonnement/acheter/{{ abonnement.id }}">
+        Acheter
+    </a>
+{% endif %}
+
+
+{% else %}
+ <a class="btn btn-success" href="/abonnement/acheter/{{ abonnement.id }}">
+        Acheter
+    </a>
+
+{% endif %}
+
+ 
 			</div>
 			
 		</div>

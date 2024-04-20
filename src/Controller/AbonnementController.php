@@ -80,6 +80,8 @@ class AbonnementController extends AbstractController
     #[Route('/{id}/edit', name: 'app_abonnement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN", "waaa?",'Zone admin !!!!!!!!!!!!!!');
+
         $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
 
@@ -116,13 +118,33 @@ class AbonnementController extends AbstractController
     #[Route('/acheter/{id}', name: 'app_abonnement_acheter', methods: ['GET', 'POST'])]
     public function acheter(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
     {
-        
+        //pour render a la page login 
+        $this->denyAccessUnlessGranted("ROLE_USER", null,"");
+
         $achat = new Achat;
+
+
+
+         
+        
+
+       // $achats = $this->getUser()->getAchats();
+        
+
+       /* $alreadyPurchased = false;
+        foreach ( as $chat) {
+            if ($achat->getAbonnement() == $abonnement) {
+                $alreadyPurchased = true;
+                break;
+            }
+        }
+*/
+
         $achat->setPersonne($this->getUser());
         $achat->setAbnonnement($abonnement);
         $achat->setDate(new \DateTime('now'));
         
-        // Obtenez la date actuelle à partir de l'objet d'achat
+         
         $dateActuelle = $achat->getDate();
         
         // Créer un nouvel objet DateTime à partir de la date actuelle
@@ -143,9 +165,16 @@ class AbonnementController extends AbstractController
         $facture->setTva(19);
         $total = $abonnement->getPrix() - ( $abonnement->getPrix() * 19 / 100 ) ;
         $facture->setTotale($total);
-        $entityManager->persist($facture);
 
+      /*  if ($alreadyPurchased) {
+             
+        } else {
+            $entityManager->persist($facture);
+            $entityManager->flush();
+        }*/
+        $entityManager->persist($facture);
         $entityManager->flush();
+      
 
             return $this->redirectToRoute('app_abonnement_index', [], Response::HTTP_SEE_OTHER);
       

@@ -6,17 +6,24 @@
 {% block body %}
 <h1>Abonnement</h1>
 
-<table class="table">
-	<tbody>
-		<tr>
-			<th>Id</th>
-			<td>{{ abonnement.id }}</td>
-		</tr>
+<ul>
+	<li><h3>Prix :</h3> 
 
-	</tbody>
-</table>
+		<ul class="card"> <div class="card-body text-center mt-4"><h4> <b>{{abonnement.prix }} TND/Mois</b></h4></div></ul>
+	</li>
+<li><h3>Description :</h3> 
+
+	<ul class="card">{{abonnement.description|nl2br|raw }}</ul>
+</li>
+
+
+</ul>
+	
+<a class="btn btn-secondary" href="{{abonnement.id}}/edit">modifier</a>
+
 
 <h1>Liste des Modéles</h1>
+
 
 
 <a href="/model/new/{{abonnement.id}}" class="btn btn-primary" >Ajouter un modéle</a>

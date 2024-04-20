@@ -4,11 +4,55 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Abonnement index</h1>
+<h1>Liste des abonnements</h1>
+<div class="row">
+	{% for x in abonnements %}
 
-{% for x in abonnements %}
-     {{x.id}}   <a href="{{x.id}}">Consulter </a>
-	
-{% endfor %}
-	<a href="{{ path('app_abonnement_new') }}">Create new</a>
+	<div class="col-xxl-4 col-md-6">
+		
+			<div class="card info-card revenue-card">
+
+				<div class="filter text-end m-2">
+					<a class="icon" href="#" data-bs-toggle="dropdown">
+						<i class="bi bi-three-dots"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+						<li class="dropdown-header text-start">
+							<h6>Promotion</h6>
+						</li>
+
+						<li>
+							<a class="dropdown-item" href="#">sur prix</a>
+						</li>
+
+					</ul>
+				</div>
+
+				<div class="card-body">
+					<a href="{{x.id}}">
+					<h5 class="card-title">Aboonement N°
+						<span>| {{x.nom}}</span>
+					</h5>
+
+					<div class="d-flex align-items-center">
+						<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+
+						</div>
+						<div class="ps-3">
+							<h2>{{x.prix}} TND</h2>
+
+							<span class="text-muted small pt-2 ps-1">n client active</span>
+
+						</div>
+					</div>
+				</div></a>
+
+			</div>
+		</a>
+	</div>
+
+
+	{% endfor %}
+</div>
+<a class="btn btn-primary" href="{{ path('app_abonnement_new') }}">Ajouter</a>
 {% endblock %}
