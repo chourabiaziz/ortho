@@ -1,0 +1,85 @@
+{% extends 'xbase/base.html.twig' %}
+
+{% block title %}nouveau LettreSuivies{% endblock %}
+
+{% block body %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1>Continuer votre lettre de coordination !!!</h1>
+
+
+
+
+
+
+
+
+    <h4>Lettre de coordination :</h4>
+
+
+        <p style="font-family: Arial, sans-serif; font-size: 20px;color: black;"> <br> Objet : Coordination
+            des soins pour <b> {{lettre.nomP}}</b><br> <br> Cher(e) <b> <i>{{lettre.ortho.nom}} </i></b>
+            
+            
+          
+            
+             
+           
+            
+            
+            
+            
+           
+            
+            
+            
+            
+         
+
+                {{ form_start(form) }}
+{{ form_widget(form.p1, {'attr': {'class': 'form-control',   'rows': 5 ,'style': 'width: 100%;'}, 'value': "J'espère que cette lettre vous trouve en bonne santé. Je vous écris aujourd'hui concernant la coordination des soins pour notre patient commun, Comme vous le savez, " ~ lettre.nomP ~ " est actuellement suivi par plusieurs professionnels de la santé, dont vous-même et moi-même. Dans le but d'assurer une approche globale et cohérente de sa prise en charge, il est essentiel que nous travaillions en étroite collaboration et que nous échangions régulièrement des informations sur son état de santé, ses traitements et ses besoins." | raw }) }}
+{{ form_widget(form.p2, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': "Afin de faciliter cette coordination, je propose que nous établissions un plan de soins conjoint pour " ~ lettre.nomP ~ " ,
+            comprenant notamment : 
+             1. Une liste détaillée des médicaments prescrits par chaque professionnel de la santé,  afin d'éviter les interactions médicamenteuses potentielles. 
+             2. Des directives claires concernant les prochaines étapes de traitement et les interventions prévues, en tenant compte des recommandations de chacun.
+             3. Un calendrier de suivi régulier pour réévaluer l'état de santé de   " ~ lettre.nomP ~ " et ajuster son plan de soins en conséquence.
+             4. Un point de contact désigné pour toute communication   urgente ou importante entre nos équipes. " | raw }) }}
+{{ form_widget(form.p3, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': "Je vous propose également que nous organisions des  réunions régulières pour discuter de la progression de    " ~ lettre.nomP ~ "  et pour résoudre tout problème ou
+            préoccupation  qui pourrait survenir dans le cadre de sa prise en charge. " | raw }) }}
+{{ form_widget(form.p4, {'attr': {'class': 'form-control',  'rows': 5 , 'style': 'width: 100%;'}, 'value': " Je reste à votre  disposition pour toute question ou suggestion supplémentaire concernant cette collaboration. Ensemble,
+            je suis convaincu que nous pouvons offrir à  " ~ lettre.nomP ~ " les meilleurs soins possibles.  Dans l'attente
+            de votre réponse et de notre future collaboration, je vous prie d'agréer, cher(e)   " ~ lettre.nomP ~ " , l'expression de mes salutations distinguées.  
+            " | raw }) }}
+            <div class="" hidden>
+{{ form_widget(form.p6, {'attr': {'type': 'hidden'}}) }}
+{{ form_widget(form.p5, {'attr': {'type': 'hidden'}}) }}
+</div>
+
+
+
+           
+            <br>
+            
+            Cordialement,  
+            <br>
+            <div class="text-end" >
+             <button class="btn btn-primary">{{ button_label|default('Envoyer') }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+</svg></button>
+            </div>
+           
+            </p>      
+    </div>
+
+
+    
+
+    
+{{ form_end(form) }}
+
+
+
+
+    
+
+    {% endblock %}

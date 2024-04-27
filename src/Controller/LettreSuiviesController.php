@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\LettreSuivies;
 use App\Form\LettreSuivies1Type;
 use App\Form\LettreSuiviesType;
+use App\Form\LettreType;
 use App\Repository\LettreSuiviesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,18 +42,25 @@ class LettreSuiviesController extends AbstractController
         $form = $this->createForm(LettreSuivies1Type::class, $ls);
         $form->handleRequest($request);
 
+
+
+        
+
         $modele = $request->query->get('modele');
-    
+        if ($modele ) {
+            
+        
+        $ls->setNimage($modele);
+        $entityManager->persist($ls);
+        $entityManager->flush();
 
-        if (  $modele ) {
-           
-            $ls->setNimage($modele);
-            $entityManager->persist($ls);
-            $entityManager->flush();
+                //redirection to page client name , ortho name , 
+                
+                return $this->redirectToRoute('app_lettre_suivies_new_lettre', ['id'=>$ls->getId()], Response::HTTP_SEE_OTHER);
 
-            return $this->redirectToRoute('app_lettre_suivies_new_etape2', ['id'=>$ls->getId()], Response::HTTP_SEE_OTHER);
+
         }
-
+      
 
         if ($this->isGranted('ROLE_ADMIN')) {
 
@@ -70,13 +78,51 @@ class LettreSuiviesController extends AbstractController
          }
        
     }
-    #[Route('/new/etape2/{id}', name: 'app_lettre_suivies_new_etape2', methods: ['GET', 'POST'])]
-    public function etape2(  LettreSuivies $ls , Request $request, EntityManagerInterface $entityManager): Response
+
+    #[Route('/new/etape2/{id}/new', name: 'app_lettre_suivies_new_lettre', methods: ['GET', 'POST'])]
+    public function etape_2(  LettreSuivies $ls , Request $request, EntityManagerInterface $entityManager): Response
     {
-         
         $form = $this->createForm(LettreSuiviesType::class, $ls);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            $entityManager->persist($ls);
+            $entityManager->flush();
+            $modele = $ls->getNimage();
+            $ls->setDate(new \DateTime('now'));
+
+            if (  $modele == 1    ) {
+           
+                $ls->setNimage($modele);
+                $ls->setType("suivie");
+                $entityManager->persist($ls);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('app_lettre_suivies_new_etape2_suivie', ['id' => $ls->getId(),  ]);
+
+            } else if($modele == 2) {
+                $ls->setNimage($modele);
+                $ls->setType("coordination");
+
+                $entityManager->persist($ls);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('app_lettre_suivies_new_etape2_coordination', ['id' => $ls->getId(),  ]);
+                         }
+        }
+        return $this->render('lettre_suivies/new_client2.html.twig', [
+            'lettre_suivy' => $ls,
+            'form' => $form,
+            
+        ]);
+    }
+
+
+    #[Route('/new/etape2/{id}/suivie', name: 'app_lettre_suivies_new_etape2_suivie', methods: ['GET', 'POST'])]
+    public function etape2_suivie(  LettreSuivies $ls , Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(LettreSuiviesType::class, $ls);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->persist($ls);
@@ -84,9 +130,27 @@ class LettreSuiviesController extends AbstractController
 
             return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->render('lettre_suivies/new_client2.html.twig', [
+        return $this->render('lettre_suivies/lettres/suivie.html.twig', [
             'lettre_suivy' => $ls,
+            'form' => $form,
+            
+        ]);
+    }
+
+    #[Route('/new/etape2/{id}/coordination', name: 'app_lettre_suivies_new_etape2_coordination', methods: ['GET', 'POST'])]
+    public function etape2_cordination(  LettreSuivies $ls , Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(LettreType::class, $ls);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($ls);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_lettre_suivies_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('lettre_suivies/lettres/coordination.html.twig', [
+            'lettre' => $ls,
             'form' => $form,
             
         ]);
@@ -95,9 +159,24 @@ class LettreSuiviesController extends AbstractController
     #[Route('/{id}', name: 'app_lettre_suivies_show', methods: ['GET'])]
     public function show(LettreSuivies $lettreSuivy): Response
     {
-        return $this->render('lettre_suivies/show.html.twig', [
-            'lettre_suivy' => $lettreSuivy,
-        ]);
+
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+
+            return $this->render('lettre_suivies/show.html.twig', [
+                'lettre' => $lettreSuivy,
+            ]);
+
+         } else {
+            return $this->render('lettre_suivies/show_client.html.twig', [
+                'lettre' => $lettreSuivy,
+            ]);
+         }
+
+
+
+    
+ 
     }
 
     #[Route('/{id}/edit', name: 'app_lettre_suivies_edit', methods: ['GET', 'POST'])]

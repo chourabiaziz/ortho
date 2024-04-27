@@ -4,21 +4,35 @@
 {% endblock %}
 
 {% block body %}
-	<h1>LettreSuivies</h1>
+<style>
+	p{color: black;}
+</style>
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+ 			<h1>Lettre de {{lettre.type}}
+			</h1>
+		</div>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ lettre_suivy.id }}</td>
-			</tr>
+		<p style="font-family: Arial, sans-serif; font-size: 20px;color: black;"> <br> Objet : Coordination
+            des soins pour <b> {{lettre.nomP}}</b><br> <br> Cher(e) <b> <i>{{lettre.ortho.nom}} </i></b>
+		<p>{{lettre.p1}}</p>
+		<p>{{lettre.p2}}</p>
+		<p>{{lettre.p3}}</p>
+		<p>{{lettre.p4}}</p>
+		<p>{{lettre.p5}}</p>
+		<p>{{lettre.p6}}</p>
+		<p>{{lettre.p7}}</p>
+		<br>
+            
+<p>Cordialement,</p>		
 
 
-		</tbody>
-	</table>
+<br>
+ 
+	</div>
+</div>
 
 
-	<a class="btn btn-warning" href="{{ path('app_lettre_suivies_edit', {'id': lettre_suivy.id}) }}">Modifier</a>
 
-	{{ include('lettre_suivies/_delete_form.html.twig') }}
-{% endblock %}
+	{% endblock %}

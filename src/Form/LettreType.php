@@ -11,13 +11,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Required;
 
-class LettreSuiviesType extends AbstractType
+class LettreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('ortho')
-        ->add('nomP');
+        ->add('p1')
+        ->add('p2')
+        ->add('p3')
+        ->add('p4')
+        ->add('p5')
+        ->add('p6')
+       ;
       
     }
 

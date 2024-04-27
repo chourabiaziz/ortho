@@ -5,10 +5,19 @@
 {% block body %}
 <div class="container-xxl py-5">
     <div class="container">
-<h1>Contunier votre lettre</h1>
+<h1>Continuer votre lettre de suivie !!!</h1>
 
- 
- {{ form_start(form) }}
+                     </div>
+
+
+
+
+
+
+
+<!-- 
+
+{{ form_start(form) }}
 
         <div class="row">
             <div class="col-12">
@@ -23,10 +32,16 @@
                         {{ form_label(form.nomP , 'nom de patient' )}}
                         {{ form_widget(form.nomP, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                     
-                    <br>
-                    <button class="btn btn-success">{{ button_label|default('Continuer') }}</button>
-{{ form_end(form) }}                    </div>
+                     <div class="form-group ">
+                        {{ form_label(form.description , 'Description ' )}}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
                     </div>
+                    <br>
+                    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}                    </div>
+
+
+-->
+
 
 {% endblock %}
