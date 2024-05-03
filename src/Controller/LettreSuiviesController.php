@@ -40,16 +40,9 @@ class LettreSuiviesController extends AbstractController
     {
         $ls = new LettreSuivies();
         $form = $this->createForm(LettreSuivies1Type::class, $ls);
-        $form->handleRequest($request);
-
-
-
-        
-
+        $form->handleRequest($request); 
         $modele = $request->query->get('modele');
         if ($modele ) {
-            
-        
         $ls->setNimage($modele);
         $entityManager->persist($ls);
         $entityManager->flush();
@@ -121,7 +114,7 @@ class LettreSuiviesController extends AbstractController
     #[Route('/new/etape2/{id}/suivie', name: 'app_lettre_suivies_new_etape2_suivie', methods: ['GET', 'POST'])]
     public function etape2_suivie(  LettreSuivies $ls , Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(LettreSuiviesType::class, $ls);
+        $form = $this->createForm(LettreType::class, $ls);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -131,7 +124,7 @@ class LettreSuiviesController extends AbstractController
             return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('lettre_suivies/lettres/suivie.html.twig', [
-            'lettre_suivy' => $ls,
+            'lettre' => $ls,
             'form' => $form,
             
         ]);

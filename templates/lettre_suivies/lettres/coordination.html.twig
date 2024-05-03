@@ -19,22 +19,6 @@
 
         <p style="font-family: Arial, sans-serif; font-size: 20px;color: black;"> <br> Objet : Coordination
             des soins pour <b> {{lettre.nomP}}</b><br> <br> Cher(e) <b> <i>{{lettre.ortho.nom}} </i></b>
-            
-            
-          
-            
-             
-           
-            
-            
-            
-            
-           
-            
-            
-            
-            
-         
 
                 {{ form_start(form) }}
 {{ form_widget(form.p1, {'attr': {'class': 'form-control',   'rows': 5 ,'style': 'width: 100%;'}, 'value': "J'espère que cette lettre vous trouve en bonne santé. Je vous écris aujourd'hui concernant la coordination des soins pour notre patient commun, Comme vous le savez, " ~ lettre.nomP ~ " est actuellement suivi par plusieurs professionnels de la santé, dont vous-même et moi-même. Dans le but d'assurer une approche globale et cohérente de sa prise en charge, il est essentiel que nous travaillions en étroite collaboration et que nous échangions régulièrement des informations sur son état de santé, ses traitements et ses besoins." | raw }) }}
