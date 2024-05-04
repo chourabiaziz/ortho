@@ -1,13 +1,27 @@
-{% extends 'base.html.twig' %}
+{% extends 'xbase/base.html.twig' %}
 
 {% block title %}FichePatient
 {% endblock %}
 
 {% block body %}
-	<h1>FichePatient</h1>
+ 
+
+<style>
+
+p{
+	color: black;
+ }
+
+</style>
 
 
-	<div class="card">
+
+<div class="container-xxl py-5">
+		<div class="container">
+			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+				 
+			</div>
+	<div class="card bg-light ">
 		<div
 			class="card-body pt-3">
 			<!-- Bordered Tabs -->
@@ -22,50 +36,46 @@
 			<div class="tab-content pt-2">
 
 				<div class="tab-pane fade show active profile-overview" id="profile-overview">
-					<h5 class="card-title">Description</h5>
-					<p class="small fst-italic">{{ fiche_patient.description }}</p>
+					<h5 class="card-title"><p>Description</p></h5>
+					<p class="small fst-italic"><p>{{ fiche_patient.description }}</p></p>
 
 					<h5 class="card-title">Profile Details</h5>
 
-					<div class="row">
-						<div class="col-lg-3 col-md-4 label ">Identifiant</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.id }}</div>
-					</div>
-
+				 
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">Nom</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.nom }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.nom }}</p></div>
 					</div>
 
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">Prenom</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.prenom }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.prenom }}</p></div>
 					</div>
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">cin</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.cin }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.cin }}</p></div>
 					</div><div class="row">
 						<div class="col-lg-3 col-md-4 label">telephone</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.telephone }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.telephone }}</p></div>
 					</div>
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">Ville</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.ville }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.ville }}</p></div>
 					</div>
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">Sexe</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.sexe }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.sexe }}</p></div>
 					</div>
 
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">Date De Naissance</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.dateDeNaissance ? fiche_patient.dateDeNaissance|date('Y-m-d') : '' }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.dateDeNaissance ? fiche_patient.dateDeNaissance|date('Y-m-d') : '' }}</p></div>
 					</div>
 
 					<div class="row">
 						<div class="col-lg-3 col-md-4 label">Inserted in
 						</div>
-						<div class="col-lg-9 col-md-8">{{ fiche_patient.dateAjout ? fiche_patient.dateAjout|date('Y-m-d') : '' }}</div>
+						<div class="col-lg-9 col-md-8"><p>{{ fiche_patient.dateAjout ? fiche_patient.dateAjout|date('Y-m-d') : '' }}</p></div>
 					</div>
 
 
@@ -79,9 +89,8 @@
 	</div>
 
 
-	<table class="table"></table>
-
  
  
+  <br>
 	{{ include('fiche_patient/_delete_form.html.twig') }}
 {% endblock %}

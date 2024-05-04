@@ -64,10 +64,12 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav ms-auto p-4 p-lg-0">
 					<a href="/" class="nav-item nav-link active">Accueil</a>
+					
 				 {% if app.user  %}
-						<a href="/lettre" class="nav-item nav-link">Lettres</a>
-						<a href="/facture" class="nav-item nav-link">Facture</a>
+				 <a href="/user/{{app.user.id}}" class="nav-item nav-link">Profil</a>
 
+						<a href="/fichepatient" class="nav-item nav-link">Fiche Patient</a><a href="/lettre" class="nav-item nav-link">Lettres</a>
+						<a href="/facture" class="nav-item nav-link">Facture</a>
 				 {% endif %}
 					<a href="/abonnement" class="nav-item nav-link">Abonnement</a>
 				</div>

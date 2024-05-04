@@ -4,32 +4,24 @@
 {% endblock %}
 
 {% block body %}
-	<h1>LettreSuivies index</h1>
+	<h1>Listes des lettres </h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
+	 <div class="row">
+		<div class="col-5"><img src="{{asset('lettres/1.png')}}" alt=""></div>
+		<div class="col-1"></div>
+		<div class="col-5 mr-3"><img src="{{asset('lettres/2.png')}}" alt=""></div>
+	 </div>
+	 <div class="row">
+		<div class="col-5"><img src="{{asset('lettres/3.png')}}" alt=""></div>
+		<div class="col-1"></div>
 
-			</tr>
-		</thead>
-		<tbody>
-			{% for lettre_suivy in lettre_suivies %}
-				<tr>
-					<td>{{ lettre_suivy.id }}</td>
+		<div class="col-5"><img src="{{asset('lettres/4.png')}}" alt=""></div>
+	 </div>
+	 <div class="row">
+		<div class="col-5"><img src="{{asset('lettres/5.png')}}" alt=""></div>
+		<div class="col-1"></div>
 
-					<td>
-						<a class="btn btn-secondary" href="{{ path('app_lettre_suivies_show', {'id': lettre_suivy.id}) }}">Consulter</a>
-						<a class="btn btn-warning" href="{{ path('app_lettre_suivies_edit', {'id': lettre_suivy.id}) }}">Modifier</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="8">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		<div class="col-5"></div>
+	 </div>
 
-	<a class="btn btn-primary" href="{{ path('app_lettre_suivies_new') }}">Ajouter</a>
-{% endblock %}
+ {% endblock %}

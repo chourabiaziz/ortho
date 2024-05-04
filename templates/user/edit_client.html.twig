@@ -1,9 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'xbase/base.html.twig' %}
 
 {% block title %}Modifier utilisateur{% endblock %}
 
 {% block body %}
-    <h1><b><i>Modifier Compt</i></b></h1><br>
+ 	<div class="container-xxl py-5">
+	<div class="container">
+		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+			<p class="d-inline-block border rounded-pill py-1 px-4">Profile</p>
+			<h1>Modifier mon compt 
+			</h1>
+		</div>
+
 {{ form_start(form) }}
 {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}

@@ -1,29 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'xbase/base.html.twig' %}
 
 {% block title %}Fiche Patient
 {% endblock %}
 
 {% block body %}
-	<h1>
-		<b>
-			<i>Liste des fiches patients</i>
-		</b>
-	</h1>
+<div class="container-xxl py-5">
+		<div class="container">
+			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+				<p class="d-inline-block border rounded-pill py-1 px-4">Fiches</p>
+				<h1>Liste des fiches patients
+				</h1>
+			</div>
+ 
 
 
-	<div class="search-bar">
-		<form class="search-form d-flex align-items-center" method="POST" action="#">
-			<input type="text" name="query" placeholder="Search" title="Enter search keyword">
-			<button type="submit" title="Search">
-				<i class="bi bi-search"></i>
-			</button>
-		</form>
-	</div>
+	 
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>CIN</th>
+ 				<th>CIN</th>
 				<th>Nom et prénom</th>
 				<th>Ville</th>
 				<th>actions</th>
@@ -32,8 +27,7 @@
 		<tbody>
 			{% for fiche_patient in fiche_patients %}
 				<tr>
-					<td>{{ fiche_patient.id }}</td>
-					<td>{{ fiche_patient.cin }}</td>
+ 					<td>{{ fiche_patient.cin }}</td>
 					<td>
 						{{ fiche_patient.nom }}
 						-

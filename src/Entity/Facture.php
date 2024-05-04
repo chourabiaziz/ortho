@@ -31,6 +31,9 @@ class Facture
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $createdat = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $readed = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,6 +98,18 @@ class Facture
     public function setCreatedat(\DateTimeInterface $createdat): static
     {
         $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function isReaded(): ?bool
+    {
+        return $this->readed;
+    }
+
+    public function setReaded(?bool $readed): static
+    {
+        $this->readed = $readed;
 
         return $this;
     }

@@ -99,39 +99,19 @@
 		</div>
 		<!-- End Logo -->
 
-		<div class="search-bar">
-			<form class="search-form d-flex align-items-center" method="POST" action="#">
-				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
-				<button type="submit" title="Search">
-					<i class="bi bi-search"></i>
-				</button>
-			</form>
-		</div>
+
 		<!-- End Search Bar -->
 
 		<nav class="header-nav ms-auto">
 			<ul class="d-flex align-items-center">
 
-				<li class="nav-item d-block d-lg-none">
-					<a class="nav-link nav-icon search-bar-toggle " href="#">
-						<i class="bi bi-search"></i>
 
-					</a>
-					<i class="bi bi-list toggle-sidebar-btn"></i>
-				</div>
-				<!-- End Logo -->
-
-				<!-- End Search Bar -->
 
 				<nav class="header-nav ms-auto">
 					<ul class="d-flex align-items-center">
 
-						<li class="nav-item d-block d-lg-none">
-							<a class="nav-link nav-icon search-bar-toggle " href="#">
-								<i class="bi bi-search"></i>
-							</a>
-						</li>
-						<!-- End Search Icon-->
+
+
 
 						<li class="nav-item dropdown">
 
@@ -213,223 +193,184 @@
 						</li>
 						<!-- End Notification Nav -->
 
-						<li class="nav-item dropdown">
 
-							<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-								<i class="bi bi-chat-left-text"></i>
-								<span class="badge bg-success badge-number">3</span>
+						<!-- End Messages Nav -->
+
+						<li class="nav-item dropdown pe-3">
+							{% if app.user %}
+							<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+								data-bs-toggle="dropdown">
+								<img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+								<span class="d-none d-md-block dropdown-toggle ps-2">
+
+
+									{{app.user.nom}}
+
+
+									<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+										data-bs-toggle="dropdown">
+
+										{% else %}
+
+										<a class="btn btn-success  align-items-center ml-5" href="/login">Connecte-toi
+											maintenant</a>
+
+										{% endif %}
+
+								</span>
 							</a>
-							<!-- End Messages Icon -->
+							<!-- End Profile Iamge Icon -->
 
-							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 								<li class="dropdown-header">
-									You have 3 new messages
-									<a href="#">
-										<span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+									<h6>{{app.user.nom}}</h6>
+									<span>{{app.user.email}}</span>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+
+								<li>
+
+									{% set id = app.user.id %}
+
+
+									<a class="dropdown-item d-flex align-items-center" href="/user/{{id}}">
+										<i class="bi bi-person"></i>
+										<span>Profil</span>
 									</a>
 								</li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
 
-								<li class="message-item">
-									<a href="#">
-										<img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
-										<div>
-											<h4>Maria Hudson</h4>
-											<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-											<p>4 hrs. ago</p>
-										</div>
+								<li>
+									<a class="dropdown-item d-flex align-items-center" href="/user/{{id}}/edit">
+										<i class="bi bi-gear"></i>
+										<span>Modifier profil</span>
 									</a>
 								</li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
 
-								<li class="message-item">
-									<a href="#">
-										<img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-										<div>
-											<h4>Anna Nelson</h4>
-											<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-											<p>6 hrs. ago</p>
-										</div>
+								<li>
+									<a class="dropdown-item d-flex align-items-center " href="/logout">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+											<path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+											<path
+												d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
+										</svg>
+										<span>Dconnexion</span>
 									</a>
 								</li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
 
-								<li class="message-item">
-									<a href="#">
-										<img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-										<div>
-											<h4>David Muldon</h4>
-											<p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-											<p>8 hrs. ago</p>
-										</div>
-									</a>
-								</li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="#">Show all messages</a>
-								</li>
-
-							</ul>
-							<!-- End Messages Dropdown Items -->
 
 						</li>
-						<!-- End Messages Nav -->
-						{% if app.user %}
-							<li class="nav-item dropdown pe-3">
+					</ul>
+					</li>
+				</nav>
+				<!-- End Icons Navigation -->
 
-								<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-									<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-									<span class="d-none d-md-block dropdown-toggle ps-2">
+	</header>
+	<aside id="sidebar" class="sidebar">
 
+		<ul class="sidebar-nav" id="sidebar-nav">
 
-										{{app.user.nom}}
-
-
-										<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-											<span class="d-none d-md-block dropdown-toggle ps-2">
-											{% else %}
-
-												<a class="btn btn-success  align-items-center ml-5" href="/login">Connecte-toi maintenant</a>
-
-											{% endif %}
-
-										</span>
-									</a>
-									<!-- End Profile Iamge Icon -->
-
-									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-										<li class="dropdown-header">
-											<h6>Kevin Anderson</h6>
-											<span>Web Designer</span>
-										</li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
-
-										<li>
-											<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-												<i class="bi bi-person"></i>
-												<span>My Profile</span>
-											</a>
-										</li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
-
-										<li>
-											<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-												<i class="bi bi-gear"></i>
-												<span>Account Settings</span>
-											</a>
-										</li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
-
-										<li>
-											<a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-												<i class="bi bi-question-circle"></i>
-												<span>Need Help?</span>
-											</a>
-										</li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
-
-
-									</li>
-								</ul>
-							</li>
-						</nav>
-						<!-- End Icons Navigation -->
-
-					</header>
-					<aside id="sidebar" class="sidebar">
-
-						<ul class="sidebar-nav" id="sidebar-nav">
-
-
-	<li class="nav-item">
-				<a class="nav-link collapsed" href="/">
-					<i class="bi bi-file-earmark"></i>
-					<span>Dashboard</span>
-				</a>
-			</li>
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="/fichepatient">
-					<i class="bi bi-file-earmark"></i>
-					<span>Fiche Patient</span>
+				<a class="nav-link collapsed" href="/">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						class="bi bi-house" viewBox="0 0 16 16">
+						<path
+							d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+					</svg> <span style="margin-left: 15px;">Dashboard</span>
 				</a>
 			</li>
+
+
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="/lettre">
-					<i class="bi bi-file-earmark"></i>
-					<span>Lettres suivies</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						class="bi bi-envelope-paper" viewBox="0 0 16 16">
+						<path
+							d="M4 0a2 2 0 0 0-2 2v1.133l-.941.502A2 2 0 0 0 0 5.4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.4a2 2 0 0 0-1.059-1.765L14 3.133V2a2 2 0 0 0-2-2zm10 4.267.47.25A1 1 0 0 1 15 5.4v.817l-1 .6zm-1 3.15-3.75 2.25L8 8.917l-1.25.75L3 7.417V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1zm-11-.6-1-.6V5.4a1 1 0 0 1 .53-.882L2 4.267zm13 .566v5.734l-4.778-2.867zm-.035 6.88A1 1 0 0 1 14 15H2a1 1 0 0 1-.965-.738L8 10.083zM1 13.116V7.383l4.778 2.867L1 13.117Z" />
+					</svg>
+					<span style="margin-left: 15px;">Lettres suivies</span>
 				</a>
 			</li>
 
 
 
 
-							<!-- End Blank Page Nav -->
-							<li class="nav-item">
-								<a class="nav-link collapsed" href="/user">
-									<i class="bi bi-file-earmark"></i>
-									<span>Utilisateurs</span>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link collapsed" href="/abonnement">
-									<i class="bi bi-file-earmark"></i>
-									<span>Abonnement</span>
-								</a>
-							</li>
+			<!-- End Blank Page Nav -->
+
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="/abonnement">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						class="bi bi-duffle" viewBox="0 0 16 16">
+						<path
+							d="M8 5.75c1.388 0 2.673.193 3.609.385a18 18 0 0 1 1.43.354l.112.034.002.001h.001a.5.5 0 0 1-.308.952l-.004-.002-.018-.005a17 17 0 0 0-1.417-.354A17.3 17.3 0 0 0 8 6.75a17.3 17.3 0 0 0-3.408.365 17 17 0 0 0-1.416.354l-.018.005-.003.001a.5.5 0 1 1-.308-.95A17.3 17.3 0 0 1 8 5.75" />
+						<path
+							d="M5.229 2.722c-.126.461-.19.945-.222 1.375-1.401.194-2.65.531-3.525 1.012C-.644 6.278.036 11.204.393 13.127a.954.954 0 0 0 .95.772h13.314a.954.954 0 0 0 .95-.772c.357-1.923 1.037-6.85-1.09-8.018-.873-.48-2.123-.818-3.524-1.012a7.4 7.4 0 0 0-.222-1.375c-.162-.593-.445-1.228-.971-1.622-1.115-.836-2.485-.836-3.6 0-.526.394-.81 1.03-.971 1.622M9.2 1.9c.26.195.466.57.606 1.085.088.322.142.667.173.998a23.3 23.3 0 0 0-3.958 0 6 6 0 0 1 .173-.998c.14-.515.346-.89.606-1.085.76-.57 1.64-.57 2.4 0M8 4.9c2.475 0 4.793.402 6.036 1.085.238.13.472.406.655.93.183.522.28 1.195.303 1.952.047 1.486-.189 3.088-.362 4.032H1.368c-.173-.944-.409-2.545-.362-4.032.024-.757.12-1.43.303-1.952.183-.524.417-.8.655-.93C3.207 5.302 5.525 4.9 8 4.9" />
+					</svg> <span style="margin-left: 15px;">Abonnement</span>
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="/user">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+					  </svg> <span style="margin-left: 15px;">Notification</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="/user">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						class="bi bi-people" viewBox="0 0 16 16">
+						<path
+							d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+					</svg> <span style="margin-left: 15px;">Utilisateurs</span>
+				</a>
+			</li>
 
 
-			 
 
+			<!-- End Blank Page Nav -->
 
+		</ul>
 
-							<!-- End Blank Page Nav -->
+	</aside>
+	<main id="main" class="main"> {% block body %}{% endblock %}
 
-						</ul>
+	</main>
 
-					</aside>
-					<main id="main" class="main"> {% block body %}{% endblock %}
+	<!-- End Footer -->
 
-						</main>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+		<i class="bi bi-arrow-up-short"></i>
+	</a>
 
-						<!-- End Footer -->
+	<!-- Vendor JS Files -->
+	<script src="{{asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+	<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+	<script src="{{asset('assets/vendor/chart.js/chart.umd.js')}}"></script>
+	<script src="{{asset('assets/vendor/echarts/echarts.min.js')}}"></script>
+	<script src="{{asset('assets/vendor/quill/quill.min.js')}}"></script>
+	<script src="{{asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+	<script src="{{asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
+	<script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
 
-						<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-							<i class="bi bi-arrow-up-short"></i>
-						</a>
+	<!-- Template Main JS File -->
+	<script src="{{asset('assets/js/main.js')}}"></script>
+</body>
 
-						<!-- Vendor JS Files -->
-						<script src="{{asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
-						<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-						<script src="{{asset('assets/vendor/chart.js/chart.umd.js')}}"></script>
-						<script src="{{asset('assets/vendor/echarts/echarts.min.js')}}"></script>
-						<script src="{{asset('assets/vendor/quill/quill.min.js')}}"></script>
-						<script src="{{asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
-						<script src="{{asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
-						<script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
+</html>
+</body>
 
-						<!-- Template Main JS File -->
-						<script src="{{asset('assets/js/main.js')}}"></script>
-					</body>
-
-				</html>
-			</body>
-		</html>
+</html>

@@ -4,53 +4,66 @@
 {% endblock %}
 
 {% block body %}
-	<h1>
-		<b>
-			<i>Liste des utilisateurs</i>
-		</b>
-	</h1>
+<h1>
+	<b>
+		<i>Liste des utilisateurs</i></b>
+</h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Image</th>
-				<th>Id</th>
-				<th>Email</th>
-				<th>Roles</th>
-				<th>Nom</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in users %}
-				<tr>
-				<td>image ....</td>
-					<td>{{ user.id }}</td>
-					<td>{{ user.email }}</td>
-				
-					{% if user.roles == ["ROLE_USER"] %}
-						<td>Ortho</td>
-					 
+<form class="form-inline my-2 my-lg-0" method="get">
+	<div class="row">
+		<div class="col-6"><input class="form-control mr-sm-2" name="search" type="search" placeholder="Recherche par Nom , Prenom ou Email"
+				aria-label="Search"></div>
+		<div class="col-2"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button></div>
+		<div class="col-2"></div>
+	</div>
+</form>
+ 
 
-					{% else %}
-						<td>Administrateur</td>
-					{% endif %}
+<br><br>
 
 
-					<td>{{ user.nom }}</td>
-					<td>
-						<a class="btn btn-secondary" href="{{ path('app_user_show', {'id': user.id}) }}">Consulter</a>
-						<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-					</td>
-				</tr>
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+
+			<th>Nom</th>
+
+			<th>Email</th>
+			<th>Role</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+		<tr>
+			<td>image ....</td>
+			<td>{{ user.nom }}</td>
+			<td>{{ user.email }}</td>
+
+			{% if user.roles == ["ROLE_USER"] %}
+			<td>Ortho</td>
+
+
 			{% else %}
-				<tr>
-					<td colspan="6">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			<td>Administrateur</td>
+			{% endif %}
 
-	<a class="btn btn-primary" href="{{ path('app_user_new') }}">Ajouter administrateur</a>
+
+
+			<td>
+				<a class="btn btn-secondary" href="{{ path('app_user_show', {'id': user.id}) }}">Consulter</a>
+				<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+			</td>
+		</tr>
+		{% else %}
+		<tr>
+			<td colspan="6">no records found</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('app_user_new') }}">Ajouter administrateur</a>
 
 {% endblock %}

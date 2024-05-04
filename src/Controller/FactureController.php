@@ -50,8 +50,12 @@ class FactureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_facture_show', methods: ['GET'])]
-    public function show(Facture $facture): Response
+    public function show(Facture $facture , EntityManagerInterface $entityManager): Response
     {
+
+        $facture->setReaded(true);
+        $entityManager->flush();
+
         return $this->render('facture/show.html.twig', [
             'facture' => $facture,
         ]);
