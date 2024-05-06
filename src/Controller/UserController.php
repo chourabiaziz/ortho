@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository ,Request $request): Response
+    public function index(UserRepository $userRepository ,Request $request ,NotificationRepository $nr,): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
 
@@ -38,12 +39,14 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'notifications' => $nr->fnotif() ,
+
             
         ]);
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,UserPasswordHasherInterface $userPasswordHasher ,EntityManagerInterface $entityManager): Response
+    public function new(Request $request,UserPasswordHasherInterface $userPasswordHasher ,EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
 
@@ -70,24 +73,24 @@ class UserController extends AbstractController
         return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+            'notifications' => $nr->fnotif() ,
+
         ]);
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user ,NotificationRepository $nr,): Response
     {
-
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('user/show.html.twig', [
                 'user' => $user,
+                'notifications' => $nr->fnotif() ,
             ]);
     
         }else{
             return $this->render('user/show_client.html.twig', [
-                'user' => $user,
+                'user' => $user,   
             ]);
-    
-      
          }
 
 
@@ -97,7 +100,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, User $user, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
     {
         
          $form = $this->createForm(UserType::class, $user);
@@ -123,6 +126,8 @@ class UserController extends AbstractController
             return $this->render('user/edit.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
+                'notifications' => $nr->fnotif() ,
+
             ]);
         }else{
             return $this->render('user/edit_client.html.twig', [

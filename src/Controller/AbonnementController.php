@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Abonnement;
 use App\Entity\Achat;
 use App\Entity\Facture;
+use App\Entity\Notification;
 use App\Form\AbonnementType;
 use App\Repository\AbonnementRepository;
+use App\Repository\NotificationRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +20,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class AbonnementController extends AbstractController
 {
     #[Route('/', name: 'app_abonnement_index', methods: ['GET'])]
-    public function index(AbonnementRepository $abonnementRepository , EntityManagerInterface $em): Response
+    public function index(AbonnementRepository $abonnementRepository ,NotificationRepository $nr, EntityManagerInterface $em): Response
     {
 
 
@@ -33,7 +35,9 @@ class AbonnementController extends AbstractController
          if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('abonnement/index.html.twig', [
                 'abonnements' => $abonnementRepository->findAll(),
-                'active'=>$achat_active
+                'active'=>$achat_active,
+                'notifications' => $nr->fnotif() ,
+
             ]);
         }
         return $this->render('abonnement/index_client.html.twig', [
@@ -43,7 +47,7 @@ class AbonnementController extends AbstractController
     }
 
     #[Route('/new', name: 'app_abonnement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request ,NotificationRepository $nr, EntityManagerInterface $entityManager): Response
     {
         $abonnement = new Abonnement();
         $form = $this->createForm(AbonnementType::class, $abonnement);
@@ -51,7 +55,7 @@ class AbonnementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($abonnement);
-            $entityManager->flush();
+
 
             return $this->redirectToRoute('app_abonnement_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -59,11 +63,13 @@ class AbonnementController extends AbstractController
         return $this->render('abonnement/new.html.twig', [
             'abonnement' => $abonnement,
             'form' => $form,
+            'notifications' => $nr->fnotif() ,
+
         ]);
     }
 
     #[Route('/{id}', name: 'app_abonnement_show', methods: ['GET'])]
-    public function show(Abonnement $abonnement): Response
+    public function show(Abonnement $abonnement ,NotificationRepository $nr,): Response
     {
         
 
@@ -71,6 +77,8 @@ class AbonnementController extends AbstractController
             if ($this->isGranted("ROLE_ADMIN")) {
                 return $this->render('abonnement/show.html.twig', [
                     'abonnement' => $abonnement,
+                    'notifications' => $nr->fnotif() ,
+
                 ]);
             }else{
                 $this->denyAccessUnlessGranted("ROLE_USER", null,"");
@@ -80,7 +88,7 @@ class AbonnementController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_abonnement_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN", "waaa?",'Zone admin !!!!!!!!!!!!!!');
 
@@ -96,6 +104,8 @@ class AbonnementController extends AbstractController
         return $this->render('abonnement/edit.html.twig', [
             'abonnement' => $abonnement,
             'form' => $form,
+            'notifications' => $nr->fnotif() ,
+
         ]);
     }
 
@@ -174,13 +184,16 @@ class AbonnementController extends AbstractController
         $total = $abonnement->getPrix() + ( $abonnement->getPrix() * 19 / 100 ) ;
         $facture->setTotale($total);
 
-      /*  if ($alreadyPurchased) {
-             
-        } else {
-            $entityManager->persist($facture);
-            $entityManager->flush();
-        }*/
-        $entityManager->persist($facture);
+      
+        $notif = new Notification();
+        $notif->setType("abonnement");
+        $notif->setDescription( $this->getUser(). "  a acheté un " .$abonnement->getNom() ." de ". $abonnement->getPrix()." TND");
+        $notif->setCreatedat(new DateTime('now'));
+        $notif->setReaded(false);
+        $entityManager->persist($notif);
+
+
+         $entityManager->persist($facture);
         $entityManager->flush();
       
 

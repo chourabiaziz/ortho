@@ -8,23 +8,29 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Tva</th>
+                <th>Ref</th>
+                <th>Client</th>
                 <th>Totale</th>
-                <th>Createdat</th>
-                <th>actions</th>
-            </tr>
+                                <th>Génerer le </th>
+
+                <th>Vu</th>
+                <th> </th>
+              </tr>
         </thead>
         <tbody>
         {% for facture in factures %}
             <tr>
                 <td>{{ facture.id }}</td>
-                <td>{{ facture.tva }}</td>
-                <td>{{ facture.totale }}</td>
-                <td>{{ facture.createdat ? facture.createdat|date('Y-m-d') : '' }}</td>
+                <td>{{ facture.reciever }}</td>
+                <td>{{ facture.totale }} TND</td>
+                <td>{{ facture.createdat ? facture.createdat|date('d-M-Y') : '' }}</td>
+                <td> oui/non </td>
                 <td>
-                    <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
-                    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>
+                    <a href="{{ path('app_facture_show', {'id': facture.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+</svg> </a>
+            
                 </td>
             </tr>
         {% else %}
@@ -32,8 +38,8 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+       
         </tbody>
     </table>
 
-    <a href="{{ path('app_facture_new') }}">Create new</a>
-{% endblock %}
+ {% endblock %}

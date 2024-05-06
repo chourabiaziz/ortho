@@ -10,19 +10,18 @@
 <div class="container-xxl py-5">
 	<div class="container">
 		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
- 			<h1>Lettre de {{lettre.type}}
-			</h1>
+ 			<h1>Lettre de {{lettre.type}} </h1>
 		</div>
 
 		<p style="font-family: Arial, sans-serif; font-size: 20px;color: black;"> <br> Objet : Coordination
             des soins pour <b> {{lettre.nomP}}</b><br> <br> Cher(e) <b> <i>{{lettre.ortho.nom}} </i></b>
-		<p>{{lettre.p1}}</p>
-		<p>{{lettre.p2}}</p>
-		<p>{{lettre.p3}}</p>
-		<p>{{lettre.p4}}</p>
-		<p>{{lettre.p5}}</p>
-		<p>{{lettre.p6}}</p>
-		<p>{{lettre.p7}}</p>
+		<p>{{lettre.p1|nl2br|raw}}</p>
+		<p>{{lettre.p2|nl2br|raw}}</p>
+		<p>{{lettre.p3|nl2br|raw}}</p>
+		<p>{{lettre.p4|nl2br|raw}}</p>
+		<p>{{lettre.p5|nl2br|raw}}</p>
+		<p>{{lettre.p6|nl2br|raw}}</p>
+		<p>{{lettre.p7|nl2br|raw}}</p>
 		<br>
 		
             

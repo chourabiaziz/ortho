@@ -7,6 +7,7 @@ use App\Form\LettreSuivies1Type;
 use App\Form\LettreSuiviesType;
 use App\Form\LettreType;
 use App\Repository\LettreSuiviesRepository;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +18,15 @@ use Symfony\Component\Routing\Attribute\Route;
 class LettreSuiviesController extends AbstractController
 {
     #[Route('/', name: 'app_lettre_suivies_index', methods: ['GET'])]
-    public function index(LettreSuiviesRepository $lettreSuiviesRepository): Response
+    public function index(LettreSuiviesRepository $lettreSuiviesRepository,NotificationRepository $nr): Response
     {
 
         if ($this->isGranted('ROLE_ADMIN')) {
 
             return $this->render('lettre_suivies/index.html.twig', [
                 'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+                'notifications' => $nr->fnotif() ,
+
             ]);
 
          } else {
@@ -47,7 +50,7 @@ class LettreSuiviesController extends AbstractController
         $entityManager->persist($ls);
         $entityManager->flush();
 
-                //redirection to page client name , ortho name , 
+             
                 
                 return $this->redirectToRoute('app_lettre_suivies_new_lettre', ['id'=>$ls->getId()], Response::HTTP_SEE_OTHER);
 
@@ -79,26 +82,24 @@ class LettreSuiviesController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager->persist($ls);
-            $entityManager->flush();
             $modele = $ls->getNimage();
             $ls->setDate(new \DateTime('now'));
 
             if (  $modele == 1    ) {
-           
+                $ls->setCreatedby($this->getUser());
                 $ls->setNimage($modele);
-                $ls->setType("suivie");
+                $ls->setType("d'Affectation");
                 $entityManager->persist($ls);
                 $entityManager->flush();
     
                 return $this->redirectToRoute('app_lettre_suivies_new_etape2_suivie', ['id' => $ls->getId(),  ]);
 
             } else if($modele == 2) {
+                $ls->setCreatedby($this->getUser());
                 $ls->setNimage($modele);
                 $ls->setType("coordination");
-
                 $entityManager->persist($ls);
-                $entityManager->flush();
+                 $entityManager->flush();
     
                 return $this->redirectToRoute('app_lettre_suivies_new_etape2_coordination', ['id' => $ls->getId(),  ]);
                          }
@@ -121,7 +122,7 @@ class LettreSuiviesController extends AbstractController
             $entityManager->persist($ls);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_lettre_suivies_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('lettre_suivies/lettres/suivie.html.twig', [
             'lettre' => $ls,

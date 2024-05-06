@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Facture;
 use App\Form\FactureType;
 use App\Repository\FactureRepository;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,12 +16,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class FactureController extends AbstractController
 {
     #[Route('/', name: 'app_facture_index', methods: ['GET'])]
-    public function index(FactureRepository $factureRepository): Response
+    public function index(FactureRepository $factureRepository ,NotificationRepository $nr): Response
     {
 
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('facture/index.html.twig', [
                 'factures' => $factureRepository->findalldesc(),
+                'notifications' => $nr->fnotif() ,
+
             ]);
         }else{
             return $this->render('facture/index_client.html.twig', [
