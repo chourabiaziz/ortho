@@ -32,7 +32,7 @@ class UserController extends AbstractController
             if($search) {
                  $users = $userRepository->search($search);
             } else {
-                $users = $userRepository->findAll();
+                $users = $userRepository->fnotif();
             }
 
 
@@ -152,4 +152,56 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
+
+
+
+
+
+
+
+    #[Route('/{id}/accepte', name: 'app_user_accepte')]
+    public function accepte(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
+
+
+            $user->setAccepted(true);
+             $entityManager->persist($user);
+            $entityManager->flush();
+   
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/refus', name: 'app_user_refue')]
+    public function refus(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
+
+
+            $user->setAccepted(false);
+             $entityManager->persist($user);
+            $entityManager->flush();
+   
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

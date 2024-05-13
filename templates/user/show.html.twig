@@ -4,34 +4,61 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Profile</h1>
+<h1>Profile</h1>
 
-	<table class="table">
-		<tbody>
-			 <tr>
-				<th>Nom</th>
-				<td>{{ user.nom }}</td>
-			</tr>
-			<tr>
-				<th>Email</th>
-				<td>{{ user.email }}</td>
-			</tr>
-			<tr>
-				<th>Roles</th>
-					{% if user.roles == ["ROLE_USER"] %}
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Nom</th>
+			<td>{{ user.nom }}</td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td>{{ user.email }}</td>
+		</tr>
+		<tr>
+			<th>Matricule</th>
+			<td><b>{{ user.matricule }}</b></td>
+		</tr>
+		<tr>
+			<th>Roles</th>
+			{% if user.roles == ["ROLE_USER"] %}
 			<td>Ortho</td>
 
+		</tr>
 
-			{% else %}
-			<td>Administrateur</td>
-			{% endif %}
-			</tr>
-			 
-			
-		</tbody>
-	</table>
+		<tr>
+			<th>Statut de compte</th>
+	{% if user.accepted == 1 %}
+<td   class="bg-success" >Accepté</td>
+{% elseif user.accepted is null %}
+<td class=" bg-warning"  >En attente</td>
+{% else %}
+<td class="bg-danger" >Refusé</td>
+{% endif %}
+		 
+		</tr>
+		 
+		{% else %}
+		<td>Administrateur</td>
+		</tr>
+		{% endif %}
 
 
-	<a class="btn btn-secondary" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+
+	</tbody>
+</table>
+
+
  
+
+  
+{% if user.accepted is null %}
+<a href="/user/{{user.id}}/accepte" class=" btn btn-success"  >Accepter</a>
+ <a href="/user/{{user.id}}/refus" class="btn btn-danger" >Refusé</a>
+{% endif %}
+ 
+
+ 
+
 {% endblock %}

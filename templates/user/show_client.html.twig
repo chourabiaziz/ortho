@@ -4,6 +4,17 @@
 {% endblock %}
 
 {% block body %}
+
+<style>
+
+td{color: black;}
+th{color: black;}
+
+
+</style>
+
+
+
 	<div class="container-xxl py-5">
 	<div class="container">
 		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -24,13 +35,21 @@
 			</tr>
 			<tr>
 				<th>Roles</th>
-					{% if user.roles == ["ROLE_USER"] %}
-			<td>Ortho</td>
+ 			<td>Orthophoniste</td>
 
 
-			{% else %}
-			<td>Administrateur</td>
-			{% endif %}
+			 
+			</tr>
+			<tr>
+				<th>Statut de compte</th>
+		{% if user.accepted == 1 %}
+    <td   class="bg-success" >Accepté</td>
+{% elseif user.accepted is null %}
+    <td class=" bg-warning"  >En attente de l'acceptation de l'administrateur</td>
+{% else %}
+    <td class="bg-danger" >Refusé</td>
+{% endif %}
+ 			
 			</tr>
 			 
 			

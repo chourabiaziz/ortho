@@ -15,8 +15,12 @@
 			</div>
 
 			<div class="row">
-			{% for x in active %}
-	
+			 
+
+				{% if app.user %}
+					{% for x in active %}
+{% set difference = x.dateFin|date_modify("-" ~ date|date('Y-m-d')) %}
+				<h2>Votre <span style="color: green;" > {{x.abnonnement.nom}}</span> est encore valable .   </h2>
 			<div class="col-lg-6 col-md-6 wow  fadeInUp" data-wow-delay="0.1s">
 						<div style="background-color: rgb(103, 122, 242);" class="service-item rounded h-100 p-5">
 							<div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
@@ -34,10 +38,19 @@
 
 							</div>
 							
-							<h4 class="mb-3">{{x.abnonnement.nom}}</h4>
+							<h4 class="mb-3">{{x.abnonnement.nom}}</h4> 
+							<h4 style="color: red;"	>jusqu'a {{x.datefin |date('d-m-y')}}</h4>
 							<p style="color: black;" class="mb-4">
 							{% if   x.abnonnement.description|length > 80 %}
-								{{ x.abnonnement.description|slice(0, 80) ~ '......AFFICHER PLUS' }}
+								{{ x.abnonnement.description|slice(0, 80) }}{% if app.user %}
+								<a  href="{{x.abnonnement.id}}">
+							  affiche plus
+						</a>
+						{% else %}
+							<a   href="{{x.abnonnement.id}}/show">
+							 affiche plus
+						</a>
+						{% endif %}
 							{% else %}
 								{{ x.abnonnement.description }}
 							{% endif %}</p>
@@ -47,13 +60,26 @@
 								<h2 class="col-6"> <s>{{x.abnonnement.prix}} DT</s>  / mois</h2>
 
 							</div>
-							<a class="btn" href="{{x.abnonnement.id}}">
+
+
+							{% if app.user %}
+									<a class="btn" href="{{x.abnonnement.id}}">
 								<i class="fa fa-eye text-primary me-3"></i>Consulter
 							</a>
-							<p style="color: red;">jusqu'a {{x.datefin |date('d-m-y')}}</p> 
+							{% else %}
+								<a class="btn" href="{{x.abnonnement.id}}/show">
+								<i class="fa fa-eye text-primary me-3"></i>Consulter
+							</a>
+							{% endif %}
+						 
 						</div>
 					</div>
 	 {% endfor %}
+				{% endif %}
+
+
+
+
 				{% for x in abonnements %}
 
 
@@ -76,14 +102,31 @@
 							
 							<h4 class="mb-3">{{x.nom}}</h4>
 							<p class="mb-4">{% if x.description|length > 80 %}
-								{{ x.description|slice(0, 80) ~ '......AFFICHER PLUS' }}
+								{{ x.description|slice(0, 80)  }}
+								{% if app.user %}
+								<a  href="{{x.id}}">
+							  afficher plus
+						</a>
+						{% else %}
+							<a   href="{{x.id}}/show">
+							 affiche plus
+						</a>
+						{% endif %}
 							{% else %}
 								{{ x.description }}
 							{% endif %}</p>
 							<h2 class="text-end">{{x.prix}} DT</h2>
-							<a class="btn" href="{{x.id}}">
+
+							{% if app.user %}
+								<a class="btn" href="{{x.id}}">
 								<i class="fa fa-eye text-primary me-3"></i>Consulter
 							</a>
+							{% else %}
+	<a class="btn" href="{{x.id}}/show">
+								<i class="fa fa-eye text-primary me-3"></i>Consulter
+							</a>
+							{% endif %}
+							
 						</div>
 					</div>
 

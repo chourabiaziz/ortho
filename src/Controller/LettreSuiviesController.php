@@ -24,14 +24,14 @@ class LettreSuiviesController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             return $this->render('lettre_suivies/index.html.twig', [
-                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+                'lettre_suivies' => $lettreSuiviesRepository->findalldesc(),
                 'notifications' => $nr->fnotif() ,
 
             ]);
 
          } else {
             return $this->render('lettre_suivies/index_client.html.twig', [
-                'lettre_suivies' => $lettreSuiviesRepository->findAll(),
+                'lettre_suivies' => $lettreSuiviesRepository->findalldesc(),
             ]);
          }
 
@@ -58,20 +58,13 @@ class LettreSuiviesController extends AbstractController
         }
       
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-
-            return $this->render('lettre_suivies/new.html.twig', [
-                'lettre_suivy' => $ls,
-                'form' => $form,
-            ]);
-
-         } else {
+    
             return $this->render('lettre_suivies/new_client.html.twig', [
                 'lettre_suivy' => $ls,
                 'form' => $form,
                 
             ]);
-         }
+         
        
     }
 

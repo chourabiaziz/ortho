@@ -67,9 +67,12 @@
 					
 				 {% if app.user  %}
 				 <a href="/user/{{app.user.id}}" class="nav-item nav-link">Profil</a>
-
+				{% if app.user.accepted %}
+					
+				
 						<a href="/fichepatient" class="nav-item nav-link">Fiche Patient</a><a href="/lettre" class="nav-item nav-link">Lettres</a>
 						<a href="/facture" class="nav-item nav-link">Facture</a>
+						{% endif %}
 				 {% endif %}
 					<a href="/abonnement" class="nav-item nav-link">Abonnement</a>
 				</div>

@@ -40,9 +40,11 @@ class AbonnementController extends AbstractController
 
             ]);
         }
+
         return $this->render('abonnement/index_client.html.twig', [
             'abonnements' => $abonnementRepository->findAll(),
-            'active'=>$achat_active
+            'active'=>$achat_active,
+            "date"=>new DateTime('now')
         ]);
     }
 
@@ -55,8 +57,6 @@ class AbonnementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($abonnement);
-
-
             return $this->redirectToRoute('app_abonnement_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -86,6 +86,31 @@ class AbonnementController extends AbstractController
                 'abonnement' => $abonnement,
             ]);}
     }
+
+
+
+
+
+    #[Route('/{id}/show', name: 'app_abonnement_show_ss', methods: ['GET'])]
+    public function show2(Abonnement $abonnement ,NotificationRepository $nr,): Response
+    {
+        
+
+
+            
+                 
+            return $this->render('abonnement/show_client2.html.twig', [
+                'abonnement' => $abonnement,
+            ]);
+
+
+    }
+
+
+
+
+
+
 
     #[Route('/{id}/edit', name: 'app_abonnement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
@@ -137,8 +162,7 @@ class AbonnementController extends AbstractController
     #[Route('/acheter/{id}', name: 'app_abonnement_acheter', methods: ['GET', 'POST'])]
     public function acheter(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
     {
-        //pour render a la page login 
-
+ 
         $achat = new Achat;
 
 
@@ -180,6 +204,8 @@ class AbonnementController extends AbstractController
         $facture->setAbonnement($abonnement);
         $facture->setCreatedat(new \DateTime('now'));
         $facture->setReciever($this->getUser());
+        $facture->setDebut($achat->getDate());
+        $facture->setFin($achat->getDatefin());
         $facture->setTva(19);
         $total = $abonnement->getPrix() + ( $abonnement->getPrix() * 19 / 100 ) ;
         $facture->setTotale($total);

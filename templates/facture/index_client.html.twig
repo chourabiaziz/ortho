@@ -48,7 +48,7 @@
 						{% endif %}
 					</div>
 					<h4 class="mb-3">Ref°{{x.id}}</h4>
-					<p class="mb-4">pour {{x.abonnement.id}}</p>
+					<p class="mb-4">pour <a href="/user/{{x.reciever.id}}">{{x.reciever.email}}</a></p>
 					<h2 class="text-end">{{x.totale}} DT</h2>
 					<a class="btn" href="{{x.id}}">
 						<i class="fa fa-eye text-primary me-3"></i>Consulter

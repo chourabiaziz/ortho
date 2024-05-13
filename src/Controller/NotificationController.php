@@ -16,13 +16,13 @@ class NotificationController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             return $this->render('notification/index.html.twig', [
-                'notifications' => $nr->findAll() ,
+                'notifications' => $nr->fnotif() ,
             ]);
          } else {
             return $this->render('notification/index_client.html.twig', [
 
 
-                'notifications' => $nr->findAll() ,
+                'notifications' => $nr->fnotif() ,
             ]);
 
 

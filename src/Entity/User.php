@@ -59,6 +59,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Achat::class, mappedBy: 'personne')]
     private Collection $achats;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $matricule = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $accepted = null;
+
     public function __construct()
     {
         
@@ -234,6 +240,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         public function __toString(): string
         {
             return $this->email;
+        }
+
+        public function getMatricule(): ?string
+        {
+            return $this->matricule;
+        }
+
+        public function setMatricule(?string $matricule): static
+        {
+            $this->matricule = $matricule;
+
+            return $this;
+        }
+
+        public function isAccepted(): ?bool
+        {
+            return $this->accepted;
+        }
+
+        public function setAccepted(?bool $accepted): static
+        {
+            $this->accepted = $accepted;
+
+            return $this;
         }
 
 }

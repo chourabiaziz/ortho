@@ -62,6 +62,8 @@
                         <td>Ref°</td>
                         <td>nom</td>
                         <td>unité</td>
+                        <td>de</td>
+                        <td>Justqu'a</td>
 
                         <td>prix</td>
                         <td></td>
@@ -70,12 +72,17 @@
                         <td>{{facture.abonnement.id}}</td>
                         <td>{{facture.abonnement.nom}}</td>
                         <td>TND/Mois</td>
-                        <td>{{facture.abonnement.prix}}</td>
+ 
+                         <td>{{facture.debut|date('d-m-Y')}}</td>
+                         <td>{{facture.fin|date('d-m-Y')}}</td>
+                          <td>{{facture.abonnement.prix}}</td>
 
                         
                         <td></td>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td>TVA</td>
@@ -84,6 +91,9 @@
                     <tr>
                         <td></td>
                         <td></td>
+                                                <td></td>
+                        <td></td>
+
                         <td>Totale</td>
                         <td>   <b><i> {{facture.totale}} TND/Mois</i></b></td>
                     </tr>

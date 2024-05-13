@@ -34,6 +34,12 @@ class Facture
     #[ORM\Column(nullable: true)]
     private ?bool $readed = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $debut = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fin = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +116,30 @@ class Facture
     public function setReaded(?bool $readed): static
     {
         $this->readed = $readed;
+
+        return $this;
+    }
+
+    public function getDebut(): ?\DateTimeInterface
+    {
+        return $this->debut;
+    }
+
+    public function setDebut(\DateTimeInterface $debut): static
+    {
+        $this->debut = $debut;
+
+        return $this;
+    }
+
+    public function getFin(): ?\DateTimeInterface
+    {
+        return $this->fin;
+    }
+
+    public function setFin(\DateTimeInterface $fin): static
+    {
+        $this->fin = $fin;
 
         return $this;
     }

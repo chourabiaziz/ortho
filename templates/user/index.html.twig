@@ -31,6 +31,7 @@
 
 			<th>Email</th>
 			<th>Role</th>
+			<th  class="text-center" >Statue</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -42,11 +43,21 @@
 			<td>{{ user.email }}</td>
 
 			{% if user.roles == ["ROLE_USER"] %}
-			<td>Ortho</td>
+			<td>Orthophoniste</td>
 
-
+	 
+		{% if user.accepted == 1 %}
+    <td   class="bg-success" >Accepté</td>
+{% elseif user.accepted is null %}
+    <td class=" bg-warning"  >En attente de l'acceptation de l'administrateur</td>
+{% else %}
+    <td class="bg-danger" >Refusé</td>
+{% endif %}
+ 			
+		 
 			{% else %}
-			<td>Administrateur</td>
+			<td  >Administrateur</td>
+			<td></td>
 			{% endif %}
 
 

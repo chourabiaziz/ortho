@@ -35,31 +35,18 @@
 			
 			 
 			<div class="">
-				{% if app.user.accepted %}
-					
-
-{% for a in app.user.achats %}
-    {% if a.abnonnement == abonnement %}
-        <button class="btn btn-success" disabled>
-            Deja acheté
-        </button>
-    {% endif %}
-{% endfor %}
-
-{% if app.user.achats is empty and app.user.accepted %}
-    <a class="btn btn-success" href="/abonnement/acheter/{{ abonnement.id }}">
+			 {% if app.user.accepted %}
+				<a class="btn btn-success" href="/abonnement/acheter/{{ abonnement.id }}">
         Acheter
     </a>
-{% endif %}
-
-
-{% else  %}
- <a class="btn btn-danger">
-        Vous devez attendez que l'administrateur t'accepte
+			 {% else %}
+<a class="btn btn-success" href="/register">
+        Acheter
     </a>
+			 {% endif %}
+ 
 
-{% endif %}
-
+ 
  
 			</div>
 			
