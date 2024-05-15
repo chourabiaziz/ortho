@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\LettreSuivies;
+use App\Form\CommentType;
 use App\Form\LettreSuivies1Type;
 use App\Form\LettreSuiviesType;
 use App\Form\LettreType;
+use App\Repository\CommentRepository;
 use App\Repository\LettreSuiviesRepository;
 use App\Repository\NotificationRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -143,27 +147,50 @@ class LettreSuiviesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_lettre_suivies_show', methods: ['GET'])]
-    public function show(LettreSuivies $lettreSuivy): Response
+    #[Route('/{id}', name: 'app_lettre_suivies_show')]
+    public function show(LettreSuivies $lettreSuivy,Request $request,EntityManagerInterface $entityManager ,CommentRepository $cr): Response
     {
+            $comment = new Comment();
+            $formulaire = $this->createForm(CommentType::class, $comment);
+            $formulaire->handleRequest($request);
+    
+            $submitted = $request->query->get('submitted');
+            $id_comment = $request->query->get('comment');
+            $content = $request->query->get('description');
+if ($request->query->get('submitted') == 1) {
+    $comment->setSender($this->getUser());
+    $comment->setDescription($content);
+    $comment->setCreatedat(new DateTime('now'));
+    $comment->setLettre($lettreSuivy);
+    $comment->setParent($cr->find((int) $id_comment));
+    $entityManager->persist($comment);
+    $entityManager->flush();
+    return $this->redirectToRoute('app_lettre_suivies_show', ['id'=>$lettreSuivy->getId()], Response::HTTP_SEE_OTHER);
 
+ }
 
-        if ($this->isGranted('ROLE_ADMIN')) {
+            if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+                $comment->setSender($this->getUser());
+                $comment->setCreatedat(new DateTime('now'));
+                $comment->setLettre($lettreSuivy);
+                $entityManager->persist($comment);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_lettre_suivies_show', ['id'=>$lettreSuivy->getId()], Response::HTTP_SEE_OTHER);
 
-            return $this->render('lettre_suivies/show.html.twig', [
-                'lettre' => $lettreSuivy,
-            ]);
-
-         } else {
+             }
+             $query = $entityManager->createQueryBuilder()
+             ->select('c')
+             ->from(Comment::class, 'c') // Utilisation de l'alias 'c' pour l'entité Comment
+             ->where('c.lettre = :lettre_suivi')
+             ->setParameter('lettre_suivi', $lettreSuivy);
+          
+         $result = $query->getQuery()->getResult();
             return $this->render('lettre_suivies/show_client.html.twig', [
                 'lettre' => $lettreSuivy,
-            ]);
-         }
+                'formulaire' => $formulaire,
+                'comments'=>$result
 
-
-
-    
- 
+            ]); 
     }
 
     #[Route('/{id}/edit', name: 'app_lettre_suivies_edit', methods: ['GET', 'POST'])]

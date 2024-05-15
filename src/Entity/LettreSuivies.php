@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LettreSuiviesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -61,6 +63,14 @@ class LettreSuivies
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type = null;
+
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'lettre')]
+    private Collection $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -236,6 +246,36 @@ class LettreSuivies
     public function setType(?string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setLettre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getLettre() === $this) {
+                $comment->setLettre(null);
+            }
+        }
 
         return $this;
     }

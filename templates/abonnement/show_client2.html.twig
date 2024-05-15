@@ -35,6 +35,7 @@
 			
 			 
 			<div class="">
+			{% if app.user %}
 			 {% if app.user.accepted %}
 				<a class="btn btn-success" href="/abonnement/acheter/{{ abonnement.id }}">
         Acheter
@@ -43,6 +44,13 @@
 <a class="btn btn-success" href="/register">
         Acheter
     </a>
+			 {% endif %}
+
+{% else %}
+<a class="btn btn-success" href="/register">
+        Acheter
+    </a>
+
 			 {% endif %}
  
 

@@ -27,11 +27,106 @@
             
 <p>Cordialement,</p>		
 
-
+<style>
+.container {
+	border: 2px solid #dedede;
+	background-color: #f1f1f1;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+  }
+  
+  .darker {
+	border-color: #ccc;
+	background-color: #ddd;
+  }
+  
+  .container::after {
+	content: "";
+	clear: both;
+	display: table;
+  }
+  
+  .container img {
+	float: left;
+	max-width: 60px;
+	width: 100%;
+	margin-right: 20px;
+	border-radius: 50%;
+  }
+  
+  .container img.right {
+	float: right;
+	margin-left: 20px;
+	margin-right:0;
+  }
+  
+  .time-right {
+	float: right;
+	color: #aaa;
+  }
+  
+  .time-left {
+	float: left;
+	color: #999;
+  }
+  </style>
 <br>
  
+<h3>Ajouter votre commentaire ici
+</h3> 
+{{ form_start(formulaire) }}
+<div class="row">
+	<div class="col-10">{{ form_widget(formulaire.description , {'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="col-2">    <button class="btn btn-primary">{{ button_label|default('Envoyer') }}</button>
 	</div>
 </div>
+{{ form_end(formulaire) }}
+
+<div class="container">
+	{% for x in comments %}
+		{% if not x.parent %}
+			
+		
+	
+		<img src="{{asset('149071.png')}}"  height="35px" width="20px">
+	<p>{{x.sender.nom}}</p>
+	<p>{{x.description}}</p>
+	<span class="time-right">{{x.createdat|date('d-m-Y h:m')}}</span>
+	<form method="get">
+
+		<input hidden   name="comment"   type="number" value="{{x.id}}" >
+		<input hidden   name="submitted"   type="number" value="1" >
+<div class="row">
+	<div class="col-1">
+
+	</div>
+	<div class="col-9">
+		<input class="form-control" type="text" name="description" >
+
+	</div>
+	<div class="col-2"><Button class="btn btn-secondary" type="submit" >Répondre</Button>
+	</div>
+</div>
+<br>
+
+</form>
+
+{% for x in x.comments %}
+<div style="margin-left: 50px;"   >
+	<img src="{{asset('149071.png')}}"  height="35px" width="20px">
+	<p>{{x.sender.nom}}</p>
+	<p>{{x.description}}</p>
+	<span class="time-right">{{x.createdat|date('d-m-Y h:m')}}</span>
+	 
+</div>
+{% endfor %}
+
+	{% endif %}
+ 	{% endfor %}
+  </div>
+  
 
 
 
