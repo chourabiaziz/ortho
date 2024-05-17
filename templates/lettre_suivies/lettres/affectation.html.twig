@@ -1,0 +1,66 @@
+{% extends 'xbase/base.html.twig' %}
+
+{% block title %}nouveau LettreSuivies{% endblock %}
+
+{% block body %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1>Continuer votre Lettre d'affectation </h1>
+
+      <h4>Chère/Cher {{lettre.ortho.nom}},</p>
+                {{ form_start(form) }}
+{{ form_widget(form.p1, {'attr': {'class': 'form-control',   'rows': 7 ,'style': 'width: 100%;'}, 'value': "
+Nous avons le plaisir de vous informer que vous avez été sélectionné(e) pour prendre en charge un nouveau patient dans le cadre de notre programme orthophonique.
+Nom du patient:  " ~ lettre.nomP ~ "
+Âge:  ......
+Date de naissance : ......
+Diagnostic:  ......
+Référence :     " | raw }) }}
+{{ form_widget(form.p2, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': " Ce patient a été orienté vers vous en raison de [ préciser les motifs de l'orientation, comme des difficultés de langage, des troubles de la voix, etc. ].
+Nous vous prions donc de bien vouloir contacter le patient afin de planifier la première séance de traitement dans les plus brefs délais.
+Nous vous rappelons l'importance de maintenir la confidentialité des informations médicales et personnelles du patient, conformément aux règles et réglementations en vigueur." | raw }) }}
+
+
+
+{{ form_widget(form.p3, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': " Nous vous remercions pour votre collaboration et votre dévouement envers nos patients.
+Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter.
+ " | raw }) }}
+ 
+            <div class="" hidden>
+{{ form_widget(form.p6, {'attr': {'type': 'hidden'}}) }}
+{{ form_widget(form.p4, {'attr': {'type': 'hidden'}}) }}
+{{ form_widget(form.p5, {'attr': {'type': 'hidden'}}) }}
+ Cordialement,
+        {{app.user.nom}}
+        [ Titre ou fonction ]
+        [ Coordonnées de contact ]
+</div>
+
+
+
+           
+            <br>
+            
+            Cordialement,  
+            <br>
+            <div class="text-end" >
+             <button class="btn btn-primary">{{ button_label|default('Envoyer') }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+</svg></button>
+            </div>
+           
+            </p>      
+    </div>
+
+
+    
+
+    
+{{ form_end(form) }}
+
+
+
+
+    
+
+    {% endblock %}

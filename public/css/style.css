@@ -233,7 +233,10 @@
     background: var(--primary);
     border-color: var(--primary);
 }
-
+.backgrounda {
+    background:  url(../img/bachround-page.png);
+    background-size: cover;
+}
 .page-header {
     background: url(../img/header-page.jpg) top center no-repeat;
     background-size: cover;

@@ -16,6 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class NotificationRepository extends ServiceEntityRepository
 {
+
+
+
+    public function usernotif($user): array
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.reciever = :user')
+            ->setParameter('user', $user)
+            ->orderBy('n.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Notification::class);
@@ -28,11 +44,11 @@ class NotificationRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('n')
             ->orderBy('n.id','DESC')
-            ->setMaxResults(5)
-            ->getQuery()
+             ->getQuery()
             ->getResult()
         ;
     }
+   
 
 //    public function findOneBySomeField($value): ?Notification
 //    {

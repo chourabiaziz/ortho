@@ -1,0 +1,71 @@
+{% extends 'xbase/base.html.twig' %}
+
+{% block title %}nouveau LettreSuivies{% endblock %}
+
+{% block body %}
+<div class="container-xxl py-5">
+  <div class="container">
+    <h1>Continuer votre Lettre de remerciment </h1>
+
+    <h4>Chère/Cher {{lettre.ortho.nom}},</p>
+      {{ form_start(form) }}
+      {{ form_widget(form.p1, {'attr': {'class': 'form-control', 'rows': 7 ,'style': 'width: 100%;'}, 'value': "
+     Je vous adresse ce rapport pour vous fournir une mise à jour détaillée sur l'état de " ~ lettre.nomP ~ " , ainsi que les résultats de nos évaluations récentes et nos plans de traitement futurs.
+" | raw }) }}
+      {{ form_widget(form.p2, {'attr': {'class': 'form-control', 'rows': 15 , 'style': 'width: 100%;'}, 'value': "État actuel du patient :
+
+[Inclure ici une description détaillée de l'état physique, émotionnel et mental du patient, ainsi que toute évolution significative depuis la dernière évaluation.]
+
+Résultats des évaluations :
+
+[Narrer les résultats des évaluations médicales, psychologiques ou autres qui ont été effectuées récemment, en fournissant des détails sur les mesures prises, les tests administrés et les conclusions tirées.]
+
+Plans de traitement :
+
+[Énumérer les plans de traitement recommandés ou en cours, en expliquant les raisons derrière chaque recommandation et en fournissant des détails sur les médicaments, les thérapies ou les interventions prévus.]
+" | raw }) }}
+
+
+
+      {{ form_widget(form.p3, {'attr': {'class': 'form-control', 'rows': 7 , 'style': 'width: 100%;'}, 'value': "
+      En conclusion, je reste à votre disposition pour toute question ou clarification supplémentaire concernant l'état de " ~ lettre.nomP ~ "  ou les recommandations de traitement. Je vous remercie de votre attention à ce rapport et de votre engagement envers le bien-être de nos patients.
+
+      " | raw }) }}
+
+      <div class="" hidden>
+        {{ form_widget(form.p6, {'attr': {'type': 'hidden'}}) }}
+        {{ form_widget(form.p4, {'attr': {'type': 'hidden'}}) }}
+        {{ form_widget(form.p5, {'attr': {'type': 'hidden'}}) }}
+        Cordialement,
+        {{app.user.nom}}
+        [ Titre ou fonction ]
+        [ Coordonnées de contact ]
+      </div>
+
+
+
+
+      <br>
+
+      Cordialement,        {{app.user.nom}}
+
+      <br>
+      <div class="text-end">
+        <button class="btn btn-primary">{{ button_label|default('Envoyer') }} <svg xmlns="http://www.w3.org/2000/svg"
+            width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+          </svg></button>
+      </div>
+
+      </p>
+  </div>
+
+
+
+
+
+  {{ form_end(form) }}
+
+ 
+  {% endblock %}

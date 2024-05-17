@@ -1,0 +1,45 @@
+{% extends 'xbase/base.html.twig' %}
+
+{% block title %}Hello NotificationController!{% endblock %}
+
+{% block body %}
+ 
+
+
+
+<h1>Notifications</h1>
+
+<section class="section register min-vh-200 d-flex flex-column align-items-center justify-content-center  ">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 col-md-6 d-flex flex-column align-items-center justify-content-center">
+	<div class="container-xxl py-5">
+        <a class="btn btn-primary" href="/notification/readed">Marquer tous comme lus</a>
+        <br><br>
+{% for x in notifications %}
+   
+
+<div class="card">
+    <div style="background-color: #bcbcbc;" class="card-header  ">
+        <div  style="color: black;" class="text-center">
+        {{x.type |upper()}}{% if not x.readed %}
+        <span class="spinner-grow text-danger" style="width: 1rem; height: 1rem;" role="status"></span>
+    {% endif %}
+    </div> </div>
+    <div class="card-body">
+        <div style="color: black;" class="text-center">{{x.description}} .</div>
+        
+    </div>
+
+        <div class="m-2 text-center">{{x.createdat | date('j-M-Y')}}</div> 
+ 
+</div>
+{% endfor %}
+
+
+
+
+
+
+
+{% endblock %}

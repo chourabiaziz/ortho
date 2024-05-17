@@ -27,7 +27,7 @@ class FactureController extends AbstractController
             ]);
         }else{
             return $this->render('facture/index_client.html.twig', [
-                'factures' => $factureRepository->findalldesc(),
+                'factures' => $factureRepository->findallclient($this->getUser()),
             ]);
       
         }  }

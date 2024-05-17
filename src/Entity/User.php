@@ -68,6 +68,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'sender')]
     private Collection $comments;
 
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'reciever')]
+    private Collection $notifications;
+
     public function __construct()
     {
         
@@ -75,6 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->facturesrecieved = new ArrayCollection();
         $this->achats = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -294,6 +298,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 // set the owning side to null (unless already changed)
                 if ($comment->getSender() === $this) {
                     $comment->setSender(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Notification>
+         */
+        public function getNotifications(): Collection
+        {
+            return $this->notifications;
+        }
+
+        public function addNotification(Notification $notification): static
+        {
+            if (!$this->notifications->contains($notification)) {
+                $this->notifications->add($notification);
+                $notification->setReciever($this);
+            }
+
+            return $this;
+        }
+
+        public function removeNotification(Notification $notification): static
+        {
+            if ($this->notifications->removeElement($notification)) {
+                // set the owning side to null (unless already changed)
+                if ($notification->getReciever() === $this) {
+                    $notification->setReciever(null);
                 }
             }
 

@@ -10,20 +10,25 @@
       <h4>Chère/Cher {{lettre.ortho.nom}},</p>
                 {{ form_start(form) }}
 {{ form_widget(form.p1, {'attr': {'class': 'form-control',   'rows': 7 ,'style': 'width: 100%;'}, 'value': "
-Nous avons le plaisir de vous informer que vous avez été sélectionné(e) pour prendre en charge un nouveau patient dans le cadre de notre programme orthophonique.
-Nom du patient:  " ~ lettre.nomP ~ "
-Âge:  ......
-Date de naissance : ......
-Diagnostic:  ......
-Référence :     " | raw }) }}
-{{ form_widget(form.p2, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': " Ce patient a été orienté vers vous en raison de [ préciser les motifs de l'orientation, comme des difficultés de langage, des troubles de la voix, etc. ].
-Nous vous prions donc de bien vouloir contacter le patient afin de planifier la première séance de traitement dans les plus brefs délais.
-Nous vous rappelons l'importance de maintenir la confidentialité des informations médicales et personnelles du patient, conformément aux règles et réglementations en vigueur." | raw }) }}
+J'espère que vous vous portez bien. Je tenais à vous informer des progrès de  " ~ lettre.nomP ~ " depuis notre dernière évaluation / traitement , qui a eu lieu le [ date ]. Après avoir observé attentivement son développement et son engagement , je suis heureux/se de vous faire part des observations suivantes :
+
+" | raw }) }}
+{{ form_widget(form.p2, {'attr': {'class': 'form-control',  'rows': 16 , 'style': 'width: 100%;'}, 'value': " 
+État actuel : Depuis notre dernière séance ,  " ~ lettre.nomP ~ " a montré des signes encourageants de progression dans divers domaines de traitement . Ses compétences en [ domaine spécifique , par exemple : la prononciation des consonnes , la compréhension des instructions verbales , etc. ] se sont améliorées de manière significative . Il / elle semble plus à l'aise et confiant(e) dans ses interactions communicatives .
+Compréhension et coopération:  " ~ lettre.nomP ~ " a démontré une compréhension accrue des exercices et des recommandations fournies lors de nos séances précédentes . Sa coopération pendant les sessions s'est également améliorée , ce qui a favorisé un environnement de travail plus productif .
+Stratégies et exercices recommandés: Suite à nos observations , j'ai ajusté notre approche thérapeutique en intégrant de nouveaux exercices et en renforçant certains aspects spécifiques . Les exercices de [mentionnez les | exercices spécifiques ] ont été particulièrement bénéfiques et ont contribué à consolider les progrès réalisés par  " ~ lettre.nomP ~ " .
+Objectifs à court et long terme: En tenant compte des progrès actuels et des défis persistants , nous avons établi les objectifs suivants pour  " ~ lettre.nomP ~ " :
+ 
+Objectifs à court terme: Consolidation des acquis actuels , renforcement des compétences spécifiques en [ domaines à améliorer ] .
+Objectifs à long terme: Développement d'une communication fluide et efficace dans divers contextes , amélioration de l'autonomie et de la confiance en soi .
+
+" | raw }) }}
 
 
 
-{{ form_widget(form.p3, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': " Nous vous remercions pour votre collaboration et votre dévouement envers nos patients.
-Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter.
+{{ form_widget(form.p3, {'attr': {'class': 'form-control',  'rows': 7 , 'style': 'width: 100%;'}, 'value': "
+Je reste disponible pour toute clarification ou discussion supplémentaire concernant le plan de traitement ou les progrès de  " ~ lettre.nomP ~ " . Je vous remercie de votre collaboration continue et de votre dévouement envers le bien - être de  " ~ lettre.nomP ~ " .
+
  " | raw }) }}
  
             <div class="" hidden>
@@ -62,5 +67,9 @@ Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contac
 
 
     
+  
+
+  
+
 
     {% endblock %}

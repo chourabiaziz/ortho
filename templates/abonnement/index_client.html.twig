@@ -6,25 +6,26 @@
 {% block body %}
 
 
-	<div class="container-xxl py-5">
-		<div class="container">
-			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-				<p class="d-inline-block border rounded-pill py-1 px-4">Abonnement</p>
-				<h1>Choisissez votre abonnement
-				</h1>
-			</div>
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+			<p class="d-inline-block border rounded-pill py-1 px-4">Abonnement</p>
+			<h1>Choisissez votre abonnement
+			</h1>
+		</div>
 
-			<div class="row">
-			 
+		<div class="row">
 
-				{% if app.user %}
-					{% for x in active %}
-{% set difference = x.dateFin|date_modify("-" ~ date|date('Y-m-d')) %}
-				<h2>Votre <span style="color: green;" > {{x.abnonnement.nom}}</span> est encore valable .   </h2>
-			<div class="col-lg-6 col-md-6 wow  fadeInUp" data-wow-delay="0.1s">
-						<div style="background-color: rgb(103, 122, 242);" class="service-item rounded h-100 p-5">
-							<div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-								<span class="fa fa-coin  text-primary fs-4"><svg xmlns="http://www.w3.org/2000/svg" width="40"
+
+			{% if app.user %}
+			{% for x in active %}
+			{% set difference = x.dateFin|date_modify("-" ~ date|date('Y-m-d')) %}
+			<h2>Votre <span style="color: green;"> {{x.abnonnement.nom}}</span> est encore valable . </h2>
+			<div class="col-lg-10 col-md-6 wow  fadeInUp" data-wow-delay="0.1s">
+				<div style="background-color: rgb(103, 122, 242);" class="service-item rounded h-100 p-5">
+					<div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+						style="width: 65px; height: 65px;">
+						<span class="fa fa-coin  text-primary fs-4"><svg xmlns="http://www.w3.org/2000/svg" width="40"
 								height="40" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
 								<path fill-rule="evenodd"
 									d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0" />
@@ -34,59 +35,62 @@
 									d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z" />
 								<path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567" />
 							</svg></span>
-													
 
-							</div>
-							
-							<h4 class="mb-3">{{x.abnonnement.nom}}</h4> 
-							<h4 style="color: red;"	>jusqu'a {{x.datefin |date('d-m-y')}}</h4>
-							<p style="color: black;" class="mb-4">
-							{% if   x.abnonnement.description|length > 80 %}
-								{{ x.abnonnement.description|slice(0, 80) }}{% if app.user %}
-								<a  href="{{x.abnonnement.id}}">
-							  affiche plus
+
+					</div>
+
+					<h4 class="mb-3">{{x.abnonnement.nom}}</h4>
+					<h4 style="color: red;">jusqu'a {{x.datefin |date('d-m-y')}}</h4>
+					<p style="color: black;" class="mb-4">
+						{% if x.abnonnement.description|length > 80 %}
+						{{ x.abnonnement.description|slice(0, 80) }}{% if app.user %}
+						<a href="{{x.abnonnement.id}}">
+							affiche plus
 						</a>
 						{% else %}
-							<a   href="{{x.abnonnement.id}}/show">
-							 affiche plus
+						<a href="{{x.abnonnement.id}}/show">
+							affiche plus
 						</a>
 						{% endif %}
-							{% else %}
-								{{ x.abnonnement.description }}
-							{% endif %}</p>
-							<div class="row">
-								<h2 class="col-3">ACTIVE </h2>
-								<div class="col-3"></div>
-								<h2 class="col-6"> <s>{{x.abnonnement.prix}} DT</s>  / mois</h2>
+						{% else %}
+						{{ x.abnonnement.description }}
+						{% endif %}
+					</p>
+					<div class="row">
+						<h2 class="col-3">ACTIVE </h2>
+						<div class="col-3"></div>
+						<h2 class="col-6"> <s>{{x.abnonnement.prix}} DT</s> / mois</h2>
 
-							</div>
-
-
-							{% if app.user %}
-									<a class="btn" href="{{x.abnonnement.id}}">
-								<i class="fa fa-eye text-primary me-3"></i>Consulter
-							</a>
-							{% else %}
-								<a class="btn" href="{{x.abnonnement.id}}/show">
-								<i class="fa fa-eye text-primary me-3"></i>Consulter
-							</a>
-							{% endif %}
-						 
-						</div>
 					</div>
-	 {% endfor %}
-				{% endif %}
 
 
+					{% if app.user %}
+					<a class="btn" href="{{x.abnonnement.id}}">
+						<i class="fa fa-eye text-primary me-3"></i>Consulter
+					</a>
+					{% else %}
+					<a class="btn" href="{{x.abnonnement.id}}/show">
+						<i class="fa fa-eye text-primary me-3"></i>Consulter
+					</a>
+					{% endif %}
+
+				</div>
+			</div>
+
+			{% endfor %}
+			{% endif %}
 
 
-				{% for x in abonnements %}
+			
+
+			{% for x in abonnements %}
 
 
-					<div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item bg-light rounded h-100 p-5">
-							<div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-								<span class="fa fa-coin  text-primary fs-4"><svg xmlns="http://www.w3.org/2000/svg" width="40"
+			<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+				<div class="service-item bg-light rounded h-100 p-5">
+					<div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+						style="width: 65px; height: 65px;">
+						<span class="fa fa-coin  text-primary fs-4"><svg xmlns="http://www.w3.org/2000/svg" width="40"
 								height="40" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
 								<path fill-rule="evenodd"
 									d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0" />
@@ -96,45 +100,46 @@
 									d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z" />
 								<path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567" />
 							</svg></span>
-													
 
-							</div>
-							
-							<h4 class="mb-3">{{x.nom}}</h4>
-							<p class="mb-4">{% if x.description|length > 80 %}
-								{{ x.description|slice(0, 80)  }}
-								{% if app.user %}
-								<a  href="{{x.id}}">
-							  afficher plus
-						</a>
-						{% else %}
-							<a   href="{{x.id}}/show">
-							 affiche plus
-						</a>
-						{% endif %}
-							{% else %}
-								{{ x.description }}
-							{% endif %}</p>
-							<h2 class="text-end">{{x.prix}} DT</h2>
 
-							{% if app.user %}
-								<a class="btn" href="{{x.id}}">
-								<i class="fa fa-eye text-primary me-3"></i>Consulter
-							</a>
-							{% else %}
-	<a class="btn" href="{{x.id}}/show">
-								<i class="fa fa-eye text-primary me-3"></i>Consulter
-							</a>
-							{% endif %}
-							
-						</div>
 					</div>
 
-				{% endfor %}
+					<h4 class="mb-3">{{x.nom}}</h4>
+					<p class="mb-4">{% if x.description|length > 80 %}
+						{{ x.description|slice(0, 80) }}
+						{% if app.user %}
+						<a href="{{x.id}}">
+							afficher plus
+						</a>
+						{% else %}
+						<a href="{{x.id}}/show">
+							affiche plus
+						</a>
+						{% endif %}
+						{% else %}
+						{{ x.description }}
+						{% endif %}
+					</p>
+					<h2 class="text-end">{{x.prix}} DT</h2>
+
+					{% if app.user %}
+					<a class="btn" href="{{x.id}}">
+						<i class="fa fa-eye text-primary me-3"></i>Consulter
+					</a>
+					{% else %}
+					<a class="btn" href="{{x.id}}/show">
+						<i class="fa fa-eye text-primary me-3"></i>Consulter
+					</a>
+					{% endif %}
+
+				</div>
 			</div>
+
+			{% endfor %}
 		</div>
 	</div>
-	<!-- Service End -->
+</div>
+<!-- Service End -->
 
 
 {% endblock %}

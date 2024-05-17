@@ -26,6 +26,9 @@ class Notification
     #[ORM\Column]
     private ?bool $readed = null;
 
+    #[ORM\ManyToOne(inversedBy: 'notifications')]
+    private ?User $reciever = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Notification
     public function setReaded(bool $readed): static
     {
         $this->readed = $readed;
+
+        return $this;
+    }
+
+    public function getReciever(): ?User
+    {
+        return $this->reciever;
+    }
+
+    public function setReciever(?User $reciever): static
+    {
+        $this->reciever = $reciever;
 
         return $this;
     }

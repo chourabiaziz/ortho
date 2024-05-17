@@ -33,6 +33,16 @@ class FactureRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    public function findallclient($user): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.reciever = :user')
+            ->setParameter('user', $user)
+            ->orderBy('f.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?Facture
 //    {
