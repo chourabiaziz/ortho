@@ -14,6 +14,7 @@ use App\Repository\LettreSuiviesRepository;
 use App\Repository\NotificationRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,21 +24,19 @@ use Symfony\Component\Routing\Attribute\Route;
 class LettreSuiviesController extends AbstractController
 {
     #[Route('/', name: 'app_lettre_suivies_index', methods: ['GET'])]
-    public function index(LettreSuiviesRepository $lettreSuiviesRepository, NotificationRepository $nr): Response
+    public function index(LettreSuiviesRepository $lettreSuiviesRepository, NotificationRepository $nr , Request $request ,PaginatorInterface $paginatorInterface): Response
     {
+        $pagination = $paginatorInterface->paginate(
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-
-            return $this->render('lettre_suivies/index.html.twig', [
-                'lettre_suivies' => $lettreSuiviesRepository->findalldesc(),
-                'notifications' => $nr->fnotif(),
-
-            ]);
-        } else {
+            $lettreSuiviesRepository->findalldesc($this->getUser()),
+            $request->query->get('page', 1),
+            3 //number of element per page 
+        );
+       
             return $this->render('lettre_suivies/index_client.html.twig', [
-                'lettre_suivies' => $lettreSuiviesRepository->findalldesc(),
+                'lettre_suivies' => $pagination,
             ]);
-        }
+        
     }
 
     #[Route('/new', name: 'app_lettre_suivies_new', methods: ['GET', 'POST'])]

@@ -18,6 +18,8 @@
 
 			{% for x in factures %}
 
+				<iframe hidden name="{{x.id}}"
+				src="{{x.id}}" frameborder="0"></iframe>
 
 			<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
 				<div class="service-item bg-light rounded h-100 p-5">
@@ -52,7 +54,12 @@
 					<h2 class="text-end">{{x.totale}} DT</h2>
 					<a class="btn" href="{{x.id}}">
 						<i class="fa fa-eye text-primary me-3"></i>Consulter
-					</a>
+					</a>				    <button  class="btn" onclick="imprimerIframe('{{x.id}}')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+						<path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+						<path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
+					  </svg>   PDF</button>
+
+
 				</div>
 			</div>
 
@@ -61,6 +68,18 @@
 	</div>
 </div>
 <!-- Service End -->
+<script>
+	function imprimerIframe(id) {
+	  var iframe = document.querySelector('iframe[name="' + id + '"]');
+	  if (iframe) {
+		iframe.contentWindow.print();
+	  } else {
+		console.error("iframe non trouvée");
+	  }
+	}
 
+	// Appel de la fonction pour imprimer l'iframe avec l'ID spécifié
+	imprimerIframe('frame1-id_specifique');
+</script>
 
 {% endblock %}

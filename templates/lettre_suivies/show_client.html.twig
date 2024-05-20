@@ -89,8 +89,8 @@
 			
 		
 	
-		<img src="{{asset('149071.png')}}"  height="35px" width="20px">
-	<p>{{x.sender.nom}}</p>
+		<img  style="border-radius: 100px;"  height="50px" width="50px" src="{{ asset('images/user/' ~ x.sender.image) }}" alt="">
+		<p>{{x.sender.nom}}</p>
 	<p>{{x.description}}</p>
 	<span class="time-right">{{x.createdat|date('d-m-Y h:m')}}</span>
 	<form method="get">
@@ -114,7 +114,7 @@
 
 {% for x in x.comments %}
 <div style="margin-left: 50px;"   >
-	<img src="{{asset('149071.png')}}"  height="35px" width="20px">
+	<img  style="border-radius: 100px;"  height="50px" width="50px" src="{{ asset('images/user/' ~ x.sender.image) }}" alt="">
 	<p>{{x.sender.nom}}</p>
 	<p>{{x.description}}</p>
 	<span class="time-right">{{x.createdat|date('d-m-Y h:m')}}</span>

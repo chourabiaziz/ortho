@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-
-
-
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -88,6 +86,7 @@ class UserController extends AbstractController
             ]);
     
         }else{
+
             return $this->render('user/show_client.html.twig', [
                 'user' => $user,   
             ]);
@@ -107,7 +106,25 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $imageFile = $form->get('image')->getData();
+    
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '.' . $imageFile->guessExtension();
+    
+                try {
+                    $imageFile->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de l\'image.');
+                    return $this->redirectToRoute('app_student_group_index_administrateur');
+                }
+    
+                $user->setImage($newFilename);
+            }
+    
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -120,7 +137,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_show', ["id"=>$user->getId()], Response::HTTP_SEE_OTHER);
         }
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('user/edit.html.twig', [

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FichePatient;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -45,4 +46,17 @@ class FichePatientRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+public function findalldesc($user): array
+{
+    return $this->createQueryBuilder('f')
+        ->where('f.createdby = :user')
+        ->orderBy('f.id', 'DESC')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
+
 }

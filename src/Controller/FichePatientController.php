@@ -6,6 +6,7 @@ use App\Entity\FichePatient;
 use App\Form\FichePatientType;
 use App\Repository\FichePatientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,19 @@ use Symfony\Component\Validator\Constraints\Date;
 class FichePatientController extends AbstractController
 {
     #[Route('/', name: 'app_fiche_patient_index', methods: ['GET'])]
-    public function index(FichePatientRepository $fichePatientRepository): Response
+    public function index(FichePatientRepository $fichePatientRepository,PaginatorInterface $paginator,Request $request): Response
     {
+
+        $pagination = $paginator->paginate(
+
+            $fichePatientRepository->findalldesc($this->getUser()),
+            $request->query->get('page', 1),
+            2 //number of element per page 
+        );
+
+
         return $this->render('fiche_patient/index.html.twig', [
-            'fiche_patients' => $fichePatientRepository->findAll(),
+            'fiches' => $pagination,
         ]);
     }
 
@@ -45,6 +55,7 @@ class FichePatientController extends AbstractController
 
             
             $fichePatient->setDateAjout($now);
+            $fichePatient->setCreatedby($this->getUser());
           
             $entityManager->persist($fichePatient);
             $entityManager->flush();

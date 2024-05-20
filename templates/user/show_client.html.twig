@@ -30,12 +30,19 @@ th{color: black;}
 	<table class="table">
 		<tbody>
 			 <tr>
+ 				<td class="text-center" colspan="2"><img  style="border-radius: 100px;"  height="190px" width="190px" src="{{ asset('images/user/' ~ user.image) }}" alt=""></td>
+			</tr>
+			 <tr>
 				<th>Nom</th>
 				<td>{{ user.nom }}</td>
 			</tr>
 			<tr>
 				<th>Email</th>
 				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>Matricule</th>
+				<td>{{ user.matricule }}</td>
 			</tr>
 			<tr>
 				<th>Roles</th>
@@ -56,9 +63,35 @@ th{color: black;}
  			
 			</tr>
 			 
-			
+{% if user.profil %}
+{% set x = user.profil %}
+			<tr>
+				<th>Emplacement</th>
+				<td>{{ x.emplacement }}</td>
+			</tr>
+			<tr>
+				<th>Diplome</th>
+				<td>{{ x.diplome }}</td>
+			</tr>
+			<tr>
+				<th>Faculte</th>
+				<td>{{ x.faculte }}</td>
+			</tr>
+			<tr>
+				<th>Specialité</th>
+				<td>{{ x.specialite }}</td>
+			</tr>
+{% endif %}
+
+
+
+
+
+
 		</tbody>
 	</table>
+
+
 
 
 	<a class="btn btn-secondary" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier 
@@ -68,9 +101,20 @@ th{color: black;}
 		  </svg>
 	</a>
 
+
+{% if not app.user.profil %}
+	
 <div class="text-end">
-	<a  class="btn btn-secondary " href="">Continuer Mon Profile <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+	<a  class="btn btn-secondary " href="/profil/new/{{user.id}}">Continuer Mon Profile <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
 		<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
 	  </svg></a>
 </div>
+{% else %}
+<div class="text-end">
+	<a  class="btn btn-secondary " href="/profil/{{user.profil.id}}/edit">Modifier mes informations supplimentaire <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+		<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+	  </svg></a>
+</div>
+{% endif %}
+
 {% endblock %}

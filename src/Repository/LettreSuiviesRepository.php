@@ -21,13 +21,14 @@ class LettreSuiviesRepository extends ServiceEntityRepository
         parent::__construct($registry, LettreSuivies::class);
     }
 
-    public function findalldesc(): array
+    public function findalldesc($user): array
     {
         return $this->createQueryBuilder('f')
+            ->where('f.createdby = :user OR f.ortho = :user')
             ->orderBy('f.id', 'DESC')
+            ->setParameter('user', $user)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     //    public function findOneBySomeField($value): ?LettreSuivies

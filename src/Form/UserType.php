@@ -16,7 +16,12 @@ class UserType extends AbstractType
     {
         $builder
         ->add('nom')
-            ->add('email')
+        ->add('image', FileType::class, [
+            'label' => 'Image',
+            'required' => false, // Set the image field as optional
+           
+            'mapped' => false, // Important: tells Symfony not to try to map this field to an entity property
+        ])            ->add('email')
              ->add('password', PasswordType::class,[
                 'label'=>'Mot de passe'
              ]

@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+
+ <h6>Emplacement</h6>
+{{ form_widget(form.emplacement , {'attr': {'class': 'form-control'}}) }}
+<br>
+<h6>Diplome</h6>
+{{ form_widget(form.diplome , {'attr': {'class': 'form-control'}}) }}
+<br>
+
+<h6>Faculté</h6>
+{{ form_widget(form.faculte , {'attr': {'class': 'form-control'}}) }}
+<br>
+
+<h6>Spécialité</h6>
+{{ form_widget(form.specialite , {'attr': {'class': 'form-control'}}) }}
+<br>
+
+    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

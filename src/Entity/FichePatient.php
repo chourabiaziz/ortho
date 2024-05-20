@@ -43,6 +43,9 @@ class FichePatient
     #[ORM\Column]
     private ?int $telephone = null;
 
+    #[ORM\ManyToOne(inversedBy: 'fichePatients')]
+    private ?User $createdby = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +157,18 @@ class FichePatient
     public function setTelephone(int $telephone): static
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getCreatedby(): ?User
+    {
+        return $this->createdby;
+    }
+
+    public function setCreatedby(?User $createdby): static
+    {
+        $this->createdby = $createdby;
 
         return $this;
     }

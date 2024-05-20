@@ -25,7 +25,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for fiche_patient in fiche_patients %}
+			{% for fiche_patient in fiches %}
 				<tr>
  					<td>{{ fiche_patient.cin }}</td>
 					<td>
@@ -46,7 +46,10 @@
 			{% endfor %}
 		</tbody>
 	</table>
-
+<nav class="app-pagination mt-5">
+  <ul class="pagination justify-content-center">
+    {{ knp_pagination_render(fiches) }}
+  </ul></nav>
 
 	<a class="btn btn-primary" href="{{ path('app_fiche_patient_new') }}">Ajouter</a>
 {% endblock %}

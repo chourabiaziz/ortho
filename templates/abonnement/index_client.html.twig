@@ -40,7 +40,7 @@
 					</div>
 
 					<h4 class="mb-3">{{x.abnonnement.nom}}</h4>
-					<h4 style="color: red;">jusqu'a {{x.datefin |date('d-m-y')}}</h4>
+					<h4 style="color: red;" class="text-end"> Validé jusqu'a {{x.datefin |date('d-m-y')}}</h4>
 					<p style="color: black;" class="mb-4">
 						{% if x.abnonnement.description|length > 80 %}
 						{{ x.abnonnement.description|slice(0, 80) }}{% if app.user %}

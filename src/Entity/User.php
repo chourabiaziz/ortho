@@ -48,8 +48,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nom = null;
 
     
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
  
- 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
     #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'createdby')]
     private Collection $factures;
 
@@ -71,6 +83,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'reciever')]
     private Collection $notifications;
 
+    #[ORM\OneToOne(mappedBy: 'createdby', cascade: ['persist', 'remove'])]
+    private ?Profil $profil = null;
+
+    #[ORM\OneToMany(targetEntity: FichePatient::class, mappedBy: 'createdby')]
+    private Collection $fichePatients;
+
     public function __construct()
     {
         
@@ -79,6 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->achats = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->fichePatients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -328,6 +347,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 // set the owning side to null (unless already changed)
                 if ($notification->getReciever() === $this) {
                     $notification->setReciever(null);
+                }
+            }
+
+            return $this;
+        }
+
+        public function getProfil(): ?Profil
+        {
+            return $this->profil;
+        }
+
+        public function setProfil(Profil $profil): static
+        {
+            // set the owning side of the relation if necessary
+            if ($profil->getCreatedby() !== $this) {
+                $profil->setCreatedby($this);
+            }
+
+            $this->profil = $profil;
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, FichePatient>
+         */
+        public function getFichePatients(): Collection
+        {
+            return $this->fichePatients;
+        }
+
+        public function addFichePatient(FichePatient $fichePatient): static
+        {
+            if (!$this->fichePatients->contains($fichePatient)) {
+                $this->fichePatients->add($fichePatient);
+                $fichePatient->setCreatedby($this);
+            }
+
+            return $this;
+        }
+
+        public function removeFichePatient(FichePatient $fichePatient): static
+        {
+            if ($this->fichePatients->removeElement($fichePatient)) {
+                // set the owning side to null (unless already changed)
+                if ($fichePatient->getCreatedby() === $this) {
+                    $fichePatient->setCreatedby(null);
                 }
             }
 
