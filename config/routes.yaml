@@ -6,3 +6,7 @@ controllers:
 home:
     path: /
     controller: App\Controller\HomeController::index
+error_404:
+    path: /{_locale}/error404
+    controller: App\Controller\ErrorController::notFound
+   

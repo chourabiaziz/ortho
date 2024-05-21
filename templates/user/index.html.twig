@@ -38,7 +38,7 @@
 	<tbody>
 		{% for user in users %}
 		<tr>
-			<td><img src="{{asset('149071.png')}}" height="30px" width="30px"></td>
+			<td><img src="{{ asset('images/user/' ~ user.image) }}" style="border-radius: 50px;" height="30px" width="30px"></td>
 			<td>{{ user.nom }}</td>
 			<td>{{ user.email }}</td>
 
@@ -64,8 +64,7 @@
 
 			<td>
 				<a class="btn btn-secondary" href="{{ path('app_user_show', {'id': user.id}) }}">Consulter</a>
-				<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-			</td>
+ 			</td>
 		</tr>
 		{% else %}
 		<tr>

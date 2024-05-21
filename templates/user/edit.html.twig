@@ -9,6 +9,7 @@
                                     {{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}
 
                                     {{ form_row(form.email , {'attr': {'class': 'form-control'}}) }}
+                                    									 {{ form_row(form.image , {'attr': {'class': 'form-control'}}) }}
                                     {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
                                     <br><br>
                                         <button class="btn  btn-success">{{ button_label|default('Enregistrer') }}</button>

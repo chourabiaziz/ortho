@@ -5,9 +5,12 @@
 
 {% block body %}
 <h1>Profile</h1>
-
+ 
+	<div class="text-center" colspan="2"><img  style="border-radius: 100px;"  height="190px" width="190px" src="{{ asset('images/user/' ~ user.image) }}" alt=""></div>
+  <br><br>
 <table class="table">
 	<tbody>
+		
 		<tr>
 			<th>Nom</th>
 			<td>{{ user.nom }}</td>
@@ -16,19 +19,17 @@
 			<th>Email</th>
 			<td>{{ user.email }}</td>
 		</tr>
-		<tr>
-			<th>Matricule</th>
-			<td><b>{{ user.matricule }}</b></td>
-		</tr>
+		 
 		<tr>
 			<th>Roles</th>
-			{% if user.roles == ["ROLE_USER"] %}
+			{% if user.roles == ["ROLE_USER"]  %}
 			<td>Ortho</td>
 
 		</tr>
 
 		<tr>
 			<th>Statut de compte</th>
+			
 	{% if user.accepted == 1 %}
 <td   class="bg-success" >Accepté</td>
 {% elseif user.accepted is null %}
@@ -38,26 +39,48 @@
 {% endif %}
 		 
 		</tr>
-		 
-		{% else %}
-		<td>Administrateur</td>
+		{% if user.profil %}
+			
+		<tr>
+			<th>Emplacement</th>
+			<td>{{ user.profil.emplacement }}</td>
+		</tr>
+		<tr>
+			<th>Diplome</th>
+			<td>{{ user.profil.diplome }}</td>
+		</tr>
+		<tr>
+			<th>Faculte</th>
+			<td>{{ user.profil.faculte }}</td>
+		</tr>
+		<tr>
+			<th>Specialité</th>
+			<td>{{ user.profil.specialite }}</td>
 		</tr>
 		{% endif %}
 
-
-
 	</tbody>
-</table>
-
-
- 
-
+</table>	
   
 {% if user.accepted is null %}
 <a href="/user/{{user.id}}/accepte" class=" btn btn-success"  >Accepter</a>
  <a href="/user/{{user.id}}/refus" class="btn btn-danger" >Refusé</a>
 {% endif %}
  
+		{% else %}
+		<td>Administrateur</td>
+		</tr>
+	</tbody>
+</table>
+		{% endif %}
+
+
+
+	
+
+
+ 
+
 
  
 

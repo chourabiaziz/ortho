@@ -21,6 +21,20 @@ class AchatRepository extends ServiceEntityRepository
         parent::__construct($registry, Achat::class);
     }
 
+
+    public function findPersonnesAvecAbonnementPremiumValide(\DateTimeInterface $datenow)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.abnonnement', 'abnonnement')
+            ->join('a.personne', 'personne')
+            ->where('abnonnement.nom = :nom')
+            ->andWhere(':datenow BETWEEN a.date AND a.Datefin')
+            ->setParameter('nom', 'Abonnement Premium')
+            ->setParameter('datenow', $datenow)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Achat[] Returns an array of Achat objects
 //     */

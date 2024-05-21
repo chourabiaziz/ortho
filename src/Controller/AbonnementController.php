@@ -11,9 +11,13 @@ use App\Repository\AbonnementRepository;
 use App\Repository\NotificationRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/abonnement')]
@@ -160,7 +164,7 @@ class AbonnementController extends AbstractController
 
  
     #[Route('/acheter/{id}', name: 'app_abonnement_acheter', methods: ['GET', 'POST'])]
-    public function acheter(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
+    public function acheter(Request $request, Abonnement $abonnement,MailerInterface $mailer ,EntityManagerInterface $entityManager): Response
     {
  
         $achat = new Achat;
@@ -222,6 +226,33 @@ class AbonnementController extends AbstractController
          $entityManager->persist($facture);
         $entityManager->flush();
       
+
+
+
+
+
+        $email = (new TemplatedEmail())
+        ->from(new Address('Admin@Orthophoniste.tn', 'ADMIN'))
+
+        ->to($this->getUser()->getUserIdentifier())
+        ->subject('Facture concernant abonnement')
+        ->htmlTemplate('emails/facture.html.twig') 
+        ->context([
+            'facture'=>$facture
+            
+         ]);
+    try {
+        $mailer->send($email);
+    } catch (TransportExceptionInterface $e) {
+       
+    }    
+
+
+
+
+
+
+
 
             return $this->redirectToRoute('app_abonnement_index', [], Response::HTTP_SEE_OTHER);
       

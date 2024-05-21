@@ -12,26 +12,7 @@
 		
 			<div class="card info-card revenue-card">
 
-				<div class="filter text-end m-2">
-					<a class="icon" href="#" data-bs-toggle="dropdown">
-						<i class="bi bi-three-dots"></i>
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-						<li class="dropdown-header text-start">
-							<h6>Promotion</h6>
-						</li>
-
-						<li>
-							<a class="dropdown-item" href="#">sur prix</a>
-						</li>
-						<li class="dropdown-header text-start">
-							<h6>Autre</h6>
-						</li>
-						<li>
-							<a class="dropdown-item text-danger" href="{{ path('app_abonnement_delete', {'id': x.id}) }}">Supprimer</a>
-						</li>
-					</ul>
-				</div>
+				 
 
 				<div class="card-body">
 					<a href="{{x.id}}">
@@ -46,8 +27,7 @@
 						<div class="ps-3">
 							<h2>{{x.prix}} TND</h2>
 
-							<span class="text-muted small pt-2 ps-1">n client active</span>
-
+ 
 						</div>
 					</div>
 				</div></a>

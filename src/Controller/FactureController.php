@@ -53,15 +53,25 @@ class FactureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_facture_show', methods: ['GET'])]
-    public function show(Facture $facture , EntityManagerInterface $entityManager): Response
+    public function show(Facture $facture , EntityManagerInterface $entityManager ,NotificationRepository $nr): Response
     {
 
-        $facture->setReaded(true);
-        $entityManager->flush();
+       
+        if ($this->isGranted("ROLE_ADMIN")) {
+            return $this->render('facture/show_admin.html.twig', [
+                'facture' => $facture,
+                'notifications' => $nr->fnotif() ,
 
-        return $this->render('facture/show.html.twig', [
-            'facture' => $facture,
-        ]);
+
+            ]);
+        }else{
+            $facture->setReaded(true);
+            $entityManager->flush();
+            return $this->render('facture/show.html.twig', [
+                'facture' => $facture,
+            ]);
+        }  
+       
     }
 
     #[Route('/{id}/edit', name: 'app_facture_edit', methods: ['GET', 'POST'])]

@@ -42,6 +42,10 @@ class RegistrationController extends AbstractController
     
                 $user->setImage($newFilename);
             }
+            else {
+                $user->setImage("default.png");
+
+            }
             $user->setRoles(["ROLE_USER"]) ;   
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

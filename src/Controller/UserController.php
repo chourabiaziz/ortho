@@ -13,7 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -55,7 +59,27 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $user->setRoles(["ROLE_ADMIN"]);
+            $imageFile = $form->get('image')->getData();
+    
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '.' . $imageFile->guessExtension();
+    
+                try {
+                    $imageFile->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de l\'image.');
+                    return $this->redirectToRoute('app_student_group_index_administrateur');
+                }
+    
+                $user->setImage($newFilename);
+            } else {
+                $user->setImage("default.png");
 
+            }
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -123,6 +147,9 @@ class UserController extends AbstractController
                 }
     
                 $user->setImage($newFilename);
+            } else {
+                $user->setImage("default.png");
+
             }
     
             $user->setPassword(
@@ -181,7 +208,7 @@ class UserController extends AbstractController
 
 
     #[Route('/{id}/accepte', name: 'app_user_accepte')]
-    public function accepte(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function accepte(Request $request, User $user,MailerInterface $mailer ,EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
 
@@ -189,7 +216,32 @@ class UserController extends AbstractController
             $user->setAccepted(true);
              $entityManager->persist($user);
             $entityManager->flush();
-   
+
+
+
+            $email = (new TemplatedEmail())
+            ->from(new Address('Admin@Orthophoniste.tn', 'ADMIN'))
+
+            ->to($user->getEmail())
+            ->subject('Demande de compt Accepté')
+            ->htmlTemplate('emails/email_accepte_compt.html.twig') 
+            ->context([
+                
+             ]);
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+           
+        }    
+
+
+
+
+
+
+
+
+
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -117,15 +117,16 @@
 
 							<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
 								<i class="bi bi-bell"></i>
-								<span class="badge bg-primary badge-number">4</span>
+								 
 							</a>
 							<!-- End Notification Icon -->
 
 							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
 								<li class="dropdown-header">
-									You have 4 new notifications
-									<a href="#">
-										<span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+ 									<a href="/notification">
+										Cliquer pour voir toutes les notifications
+
+										<span class="badge rounded-pill bg-primary p-2 ms-2">Voir touts</span>
 									</a>
 								</li>
 								<li>
@@ -139,8 +140,7 @@
 									
 										<h4>{{x.type}}
 										{% if not x.readed %}
-										<span class="spinner-grow text-primary" style="width: 1rem; height: 1rem;" role="status"></span>
-									{% endif %}
+ 									{% endif %}
 										</h4>
 										<p>{{x.description}}</p>
 										<p>{{x.createdat |date('j-M-Y')}}</p>
@@ -169,7 +169,7 @@
 							{% if app.user %}
 							<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
 								data-bs-toggle="dropdown">
-								<img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+								<img src="{{ asset('images/user/' ~ app.user.image) }}" alt="Profile" class="rounded-circle">
 								<span class="d-none d-md-block dropdown-toggle ps-2">
 
 
@@ -191,7 +191,10 @@
 							<!-- End Profile Iamge Icon -->
 
 							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
 								<li class="dropdown-header">
+									<img height="50px" width="50px" src="{{ asset('images/user/' ~ app.user.image) }}" alt="Profile" class="rounded-circle">
+
 									<h6>{{app.user.nom}}</h6>
 									<span>{{app.user.email}}</span>
 								</li>
@@ -263,16 +266,7 @@
 
 
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="/lettre">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-						class="bi bi-envelope-paper" viewBox="0 0 16 16">
-						<path
-							d="M4 0a2 2 0 0 0-2 2v1.133l-.941.502A2 2 0 0 0 0 5.4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.4a2 2 0 0 0-1.059-1.765L14 3.133V2a2 2 0 0 0-2-2zm10 4.267.47.25A1 1 0 0 1 15 5.4v.817l-1 .6zm-1 3.15-3.75 2.25L8 8.917l-1.25.75L3 7.417V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1zm-11-.6-1-.6V5.4a1 1 0 0 1 .53-.882L2 4.267zm13 .566v5.734l-4.778-2.867zm-.035 6.88A1 1 0 0 1 14 15H2a1 1 0 0 1-.965-.738L8 10.083zM1 13.116V7.383l4.778 2.867L1 13.117Z" />
-					</svg>
-					<span style="margin-left: 15px;">Lettres suivies</span>
-				</a>
-			</li>
+		 
 
 
 
