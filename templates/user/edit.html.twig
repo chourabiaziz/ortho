@@ -9,9 +9,26 @@
                                     {{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}
 
                                     {{ form_row(form.email , {'attr': {'class': 'form-control'}}) }}
+
+
                                     									 {{ form_row(form.image , {'attr': {'class': 'form-control'}}) }}
+
+                                                                   
+                                                                            <label for="">Mot de passe actuelle</label>
+                                                                            <input type="password" name="xxx"  id="xxx"  class="form-control"     >
+                                                                       
+                                                                       
+                                                                       
+                                                                            {% if msg %}
+                                                                         <P style="color: red;">{{msg}}</P>    
+
+                                    {% endif %}
+
+                                               
                                     {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
                                     <br><br>
+                                 
+
                                         <button class="btn  btn-success">{{ button_label|default('Enregistrer') }}</button>
 
 

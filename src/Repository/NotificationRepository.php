@@ -25,6 +25,7 @@ class NotificationRepository extends ServiceEntityRepository
             ->where('n.reciever = :user')
             ->setParameter('user', $user)
             ->orderBy('n.id', 'DESC')
+ 
             ->getQuery()
             ->getResult();
     }
@@ -43,10 +44,13 @@ class NotificationRepository extends ServiceEntityRepository
     public function fnotif(): array
     {
         return $this->createQueryBuilder('n')
-            ->orderBy('n.id','DESC')
-             ->getQuery()
-            ->getResult()
-        ;
+        ->where('n.type = :type')
+        ->setParameter('type', 'abonnement')
+        ->orderBy('n.id', 'DESC')
+        ->setMaxResults(4)
+
+        ->getQuery()
+        ->getResult();
     }
    
 

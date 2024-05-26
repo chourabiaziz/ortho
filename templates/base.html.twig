@@ -153,7 +153,7 @@
 					{% endfor %}
 								
 								<li class="dropdown-footer">
-									<a href="#">Show all notifications</a>
+									<a href="/notification">voit touts</a>
 								</li>
 
 							</ul>
@@ -169,7 +169,7 @@
 							{% if app.user %}
 							<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
 								data-bs-toggle="dropdown">
-								<img src="{{ asset('images/user/' ~ app.user.image) }}" alt="Profile" class="rounded-circle">
+								<img src="{{ asset('images/user/' ~ app.user.image) }}" style="border-radius: 60px;" height="50px" width="37px">
 								<span class="d-none d-md-block dropdown-toggle ps-2">
 
 

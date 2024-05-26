@@ -70,7 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $achats;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $matricule = null;
+    #[Assert\Regex(
+        pattern: '/^\d{8}$/',
+        message: "The matricule should be exactly 8 digits long."
+    )]
+      private ?string $matricule = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $accepted = null;

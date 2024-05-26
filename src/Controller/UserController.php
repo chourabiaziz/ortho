@@ -125,11 +125,15 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, User $user, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
     {
-        
+       $pass = $user->getPassword();
          $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
+         $form->handleRequest($request);
+         $code ="";
+         $msg ="";
         if ($form->isSubmitted() && $form->isValid()) {
+            $code= $request->request->get('xxx');
+           if(  password_hash($code, PASSWORD_DEFAULT) == $user->getPassword()  )
+           {
             $imageFile = $form->get('image')->getData();
     
             if ($imageFile) {
@@ -158,20 +162,26 @@ class UserController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-
            
             $entityManager->persist($user);
             $entityManager->flush();
+           return $this->redirectToRoute('app_login');
+
+        }else{
+            $msg = "Ancienne mot de passe est incorrecte" ;
+        }
 
 
-            return $this->redirectToRoute('app_user_show', ["id"=>$user->getId()], Response::HTTP_SEE_OTHER);
+
         }
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('user/edit.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
                 'notifications' => $nr->fnotif() ,
-
+                'pass'=>$pass,
+                'msg'=>$msg,
+ 
             ]);
         }else{
             return $this->render('user/edit_client.html.twig', [

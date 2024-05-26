@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: AbonnementRepository::class)]
 class Abonnement
@@ -19,6 +21,10 @@ class Abonnement
 
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: '/^.{3,}$/',
+        message: "The nom must be at least 3 characters long."
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 9000)]
