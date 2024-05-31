@@ -1,31 +1,43 @@
-{{ form_start(form) }}
+{{ form_start(form , {'attr' : {'novalidate':'novalidate'}} ) }}
 
 
 
 
-<h6>Nom</h6>
+<h6>Nom <span style="color: red;"><b>*</b></span></h6>
 {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-<h6>Prenom</h6>
+{{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}
+
+<h6>Prenom <span style="color: red;"><b>*</b></span></h6>
 
 {{ form_widget(form.prenom , {'attr': {'class': 'form-control'}}) }}
-<h6>CIN</h6>
+{{ form_errors(form.prenom) }}
 
+<h6>CIN <span style="color: red;"><b>*</b></span></h6>
+ 
 {{ form_widget(form.cin , {'attr': {'class': 'form-control'}}) }}
-<h6>Ville</h6>
+{{ form_errors(form.cin, {'attr' : {'class':'text-danger'}}) }}
+
+<h6>Ville <span style="color: red;"><b>*</b></span></h6>
 
 {{ form_widget(form.ville , {'attr': {'class': 'form-control'}}) }}
-<h6>Telephone</h6>
+{{ form_errors(form.ville, {'attr' : {'class':'text-danger'}}) }}
+
+<h6>Telephone <span style="color: red;"><b>*</b></span></h6>
 
 {{ form_widget(form.telephone , {'attr': {'class': 'form-control'}}) }}
-<h6>sexe</h6>
+{{ form_errors(form.telephone, {'attr' : {'class':'text-danger'}}) }}
+
+<h6>sexe <span style="color: red;"><b>*</b></span></h6>
 
 {{ form_widget(form.sexe , {'attr': {'class': 'form-control'}}) }}
-<h6>Date de Naissance</h6>
+<h6>Date de Naissance <span style="color: red;"><b>*</b></span></h6>
 
 {{ form_widget(form.dateDeNaissance , {'attr': {'class': 'form-control'}}) }}
-<h6>Description</h6>
+<h6>Description <span style="color: red;"><b>*</b></span></h6>
 
 {{ form_widget(form.description , {'attr': {'class': 'form-control'}}) }}
+{{ form_errors(form.description, {'attr' : {'class':'text-danger'}}) }}
+
 
 <br><br>
 <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>

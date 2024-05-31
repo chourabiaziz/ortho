@@ -78,7 +78,7 @@
 
 
 
-                                    {{ form_label(registrationForm.nom) }}
+                                    {{ form_label(registrationForm.nom) }}<span style="color: red;"><b>*</b></span>
 
                                     {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(registrationForm.nom, {'attr' : {'class':'text-danger'}}) }}
@@ -87,14 +87,21 @@
 
 
 
-                                    {{ form_row(registrationForm.email , {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_row(registrationForm.matricule , {'attr': {'class': 'form-control'}}) }}
- 
+Email      <span style="color: red;"><b>*</b></span> 
+                               {{ form_widget(registrationForm.email , {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(registrationForm.email , {'attr': {'class': 'form-control'}}) }}
+
+
+                               Matricule  <span style="color: red;"><b>*</b></span>   {{ form_widget(registrationForm.matricule , {'attr': {'class': 'form-control'}}) }}
+                                                                        {{ form_errors(registrationForm.matricule, {'attr' : {'class':'text-danger'}}) }}
+
                                     {{ form_row(registrationForm.image , {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
 
-                                    {{ form_row(registrationForm.agreeTerms ,{ 'attr': {'class': 'form-check'}}) }}
 
+Mot de passe <span style="color: red;"><b>*</b></span>                                     {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+
+ 
                                     <button type="submit" class="btn btn-success">Register</button>
                                     {{ form_end(registrationForm) }}
                                 </div>

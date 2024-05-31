@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProfilRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProfilRepository::class)]
@@ -14,15 +16,24 @@ class Profil
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "Champ obligatoir")]
+
     private ?string $emplacement = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "Champ obligatoir")]
+
     private ?string $diplome = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "Champ obligatoir")]
+
     private ?string $faculte = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Champ obligatoir")]
+    #[Assert\NotNull(message: "Champ obligatoir")]
+
     private ?string $specialite = null;
 
     #[ORM\OneToOne(inversedBy: 'profil', cascade: ['persist', 'remove'])]

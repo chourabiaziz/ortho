@@ -23,8 +23,10 @@ class Abonnement
     #[ORM\Column(length: 255)]
     #[Assert\Regex(
         pattern: '/^.{3,}$/',
-        message: "The nom must be at least 3 characters long."
+        message: "nom doit etre plus que 2 cacartére"
     )]
+    #[Assert\NotBlank(message: "nom  ne peut pas être vide.")]
+
     private ?string $nom = null;
 
     #[ORM\Column(length: 9000)]
@@ -37,6 +39,10 @@ class Abonnement
     private Collection $factures;
 
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: '/^[1-9][0-9]*$/',
+        message: "Le prix doit être un entier positif."
+    )]
     private ?int $prix = null;
 
 

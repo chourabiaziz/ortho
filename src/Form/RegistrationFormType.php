@@ -23,26 +23,18 @@ class RegistrationFormType extends AbstractType
             ->add('matricule')
             ->add('image', FileType::class, [
                 'label' => 'Image',
-                'required' => false, // Set the image field as optional
+                'required' => false,  
                
-                'mapped' => false, // Important: tells Symfony not to try to map this field to an entity property
+                'mapped' => false, 
             ])  
-            ->add('agreeTerms', CheckboxType::class, [
-                'label'=>'Accepte terme et conditions',
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'vous douvez accepter',
-                    ]),
-                ],
-            ])
+           
             ->add('plainPassword', PasswordType::class, [
                'label'=>'Mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'champ obligatoir',
                     ]),
                     new Length([
                         'min' => 6,

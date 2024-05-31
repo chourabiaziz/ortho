@@ -22,8 +22,7 @@ class FichePatientType extends AbstractType
                 'choices' => [
                     'Masculin' => 'masculin',
                     'Féminin' => 'feminin',
-                    'autres...' => 'autres...',
-                ],
+                 ],
 
             ])
 

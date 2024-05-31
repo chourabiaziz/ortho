@@ -23,11 +23,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\NotBlank(message: "L'adresse e-mail ne peut pas être vide.")]
-    #[Assert\Email(
-        message: "L'adresse e-mail n'est pas valide.",
-        
-    )]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+    #[Assert\Email(message: "L'adresse e-mail n'est pas valide.", )]
+    #[Assert\Regex(pattern:'/^[^A-Z]*$/'    ,    message: "n'ecrit pas en majiscule")]
     private ?string $email = null;
 
     /**
@@ -42,7 +40,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+
+
+
+
+    
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+    #[Assert\Regex(pattern:"/^[A-Z][a-zA-Z0-9\s]*$/",  message:"Le premier caractère du nom doit être en majuscule.")]
+    #[Assert\Regex(pattern:"/^[a-zA-Z]{2,}$/",  message:"nom doit etre plus que 2 caractére")]
+    #[Assert\Regex(pattern:"/^[a-zA-Z0-9\s]*$/",  message:"nom ne doivent pas contenir de symboles")]
     private ?string $nom = null;
 
     
@@ -70,9 +77,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $achats;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
     #[Assert\Regex(
         pattern: '/^\d{8}$/',
-        message: "The matricule should be exactly 8 digits long."
+        message: " matricule doit etre exactement 8 caractéres ."
     )]
       private ?string $matricule = null;
 

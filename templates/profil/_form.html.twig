@@ -1,18 +1,26 @@
-{{ form_start(form) }}
+{{ form_start(form , {'attr' : {'novalidate':'novalidate'}} ) }}
 
- <h6>Emplacement</h6>
+ <h6>Emplacement <span style="color: red;"><b>*</b></span></h6>
 {{ form_widget(form.emplacement , {'attr': {'class': 'form-control'}}) }}
+{{ form_errors(form.emplacement) }}
+
 <br>
-<h6>Diplome</h6>
+<h6>Diplome <span style="color: red;"><b>*</b></span></h6>
 {{ form_widget(form.diplome , {'attr': {'class': 'form-control'}}) }}
+{{ form_errors(form.diplome) }}
+
 <br>
 
-<h6>Faculté</h6>
+<h6>Faculté <span style="color: red;"><b>*</b></span></h6>
 {{ form_widget(form.faculte , {'attr': {'class': 'form-control'}}) }}
+{{ form_errors(form.faculte) }}
+
 <br>
 
-<h6>Spécialité</h6>
+<h6>Spécialité <span style="color: red;"><b>*</b></span></h6>
 {{ form_widget(form.specialite , {'attr': {'class': 'form-control'}}) }}
+{{ form_errors(form.specialite) }}
+
 <br>
 
     <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>

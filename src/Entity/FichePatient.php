@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FichePatientRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FichePatientRepository::class)]
 class FichePatient
@@ -15,33 +16,53 @@ class FichePatient
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+
     private ?string $nom = null;
 
    
 
     #[ORM\Column(length: 50)]
+
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+    #[Assert\NotNull(message: "champ obligatoir.")]
+     
+
     private ?\DateTimeInterface $dateDeNaissance = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateAjout = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+
     private ?string $description = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+
     private ?string $ville = null;
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+    #[Assert\Regex(pattern:'/^\d{8}$/'    ,    message: "CIN doit comporte 8 caractére ")]
     private ?int $cin = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "champ obligatoir.")]
+    #[Assert\Regex(pattern:'/^\d{8}$/'    ,    message: "Numero doit comporte 8 caractére")]
     private ?int $telephone = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'fichePatients')]
     private ?User $createdby = null;

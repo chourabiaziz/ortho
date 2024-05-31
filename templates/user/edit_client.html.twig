@@ -10,15 +10,22 @@
 			</h1>
 		</div>
 
-{{ form_start(form) }}
-{{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}
+		{{ form_start(form , {'attr' : {'novalidate':'novalidate'}} ) }}
 
-                                    {{ form_row(form.email , {'attr': {'class': 'form-control'}}) }}
-									 {{ form_row(form.image , {'attr': {'class': 'form-control'}}) }}
-									 
-                                    {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
-                                    <br><br>
+		<span style="color: black;" >Nom</span>
+{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+			 {{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}
+			 <span style="color: black;" >Adresse email</span>
+
+{{ form_widget(form.email , {'attr': {'class': 'form-control'}}) }}
+
+			 {{ form_errors(form.email, {'attr' : {'class':'text-danger'}}) }}
+			 <span style="color: black;" >Image</span>
+
+{{ form_widget(form.image , {'attr': {'class': 'form-control'}}) }}
+<span style="color: black;" >Mot de passe</span>
+{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+		  <br><br>
                                         <button class="btn  btn-success">{{ button_label|default('Enregistrer') }}</button>
 
 

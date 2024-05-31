@@ -20,6 +20,7 @@ class LettreSuivies
  
  
     #[ORM\Column(length: 50 ,nullable: true)]
+
     private ?string $nomP = null;
  
  
