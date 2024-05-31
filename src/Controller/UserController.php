@@ -128,12 +128,9 @@ class UserController extends AbstractController
        $pass = $user->getPassword();
          $form = $this->createForm(UserType::class, $user);
          $form->handleRequest($request);
-         $code ="";
-         $msg ="";
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $code= $request->request->get('xxx');
-           if(  password_hash($code, PASSWORD_DEFAULT) == $user->getPassword()  )
-           {
+         
             $imageFile = $form->get('image')->getData();
     
             if ($imageFile) {
@@ -167,9 +164,7 @@ class UserController extends AbstractController
             $entityManager->flush();
            return $this->redirectToRoute('app_login');
 
-        }else{
-            $msg = "Ancienne mot de passe est incorrecte" ;
-        }
+      
 
 
 
@@ -179,8 +174,7 @@ class UserController extends AbstractController
                 'user' => $user,
                 'form' => $form->createView(),
                 'notifications' => $nr->fnotif() ,
-                'pass'=>$pass,
-                'msg'=>$msg,
+                
  
             ]);
         }else{

@@ -19,13 +19,25 @@ class FichePatientController extends AbstractController
     #[Route('/', name: 'app_fiche_patient_index', methods: ['GET'])]
     public function index(FichePatientRepository $fichePatientRepository,PaginatorInterface $paginator,Request $request): Response
     {
+        
+       $search=  $request->get('search');
+ 
+            if($search) {
+                $pagination = $paginator->paginate(
 
-        $pagination = $paginator->paginate(
+                    $fichePatientRepository->search($search , $this->getUser()),
+                    $request->query->get('page', 1),
+                    2 //number of element per page 
+                );            } else {
+                    $pagination = $paginator->paginate(
 
-            $fichePatientRepository->findalldesc($this->getUser()),
-            $request->query->get('page', 1),
-            2 //number of element per page 
-        );
+                        $fichePatientRepository->findalldesc($this->getUser()),
+                        $request->query->get('page', 1),
+                        2 //number of element per page 
+                    );            }
+
+
+      
 
 
         return $this->render('fiche_patient/index.html.twig', [

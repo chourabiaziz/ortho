@@ -58,5 +58,17 @@ public function findalldesc($user): array
         ->getQuery()
         ->getResult();
 }
+public function search($s , $user)
+{
+    $query = $this->createQueryBuilder('p')
+    ->where('p.createdby = :user')
+    ->orderBy('p.id', 'DESC')
+    ->setParameter('user', $user)
+    ->andWhere('p.cin LIKE :s OR p.ville LIKE :s OR p.ville LIKE :s OR p.prenom LIKE :s OR p.nom LIKE :s')
+    ->setParameter('s', '%' . $s . '%');
+    
+   
+    return $query->getQuery()->getResult();
+}
 
 }

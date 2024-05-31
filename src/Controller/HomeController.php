@@ -7,13 +7,14 @@ use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(NotificationRepository $nr ,EntityManagerInterface $em , UserRepository $users ,AchatRepository $ur): Response
+    public function index(NotificationRepository $nr ,EntityManagerInterface $em , UserRepository $users ,AchatRepository $ur ,Request $request): Response
     {
 
         if ($this->isGranted('ROLE_ADMIN')) {
@@ -76,8 +77,34 @@ $jsonData2 = json_encode($totalAmounts);
             ]);
 
          } else {
+
+
+
+
+
+
+
+            $search=  $request->get('search');
+            if($search) {
+
+                $users =   $ur->findPersonnesAvecAbonnementPremiumValide(new \DateTime('now') , $search);
+
+            } else {
+
+                $users =   $ur->findPersonnesAvecAbonnementPremiumValide2(new \DateTime('now'));
+
+
+            }
+
+
+
+
             return $this->render('home/index_client.html.twig', [
-                'users' => $ur->findPersonnesAvecAbonnementPremiumValide(new \DateTime('now')),
+
+                
+                'users' => $users
+
+
             ]);
          }
 

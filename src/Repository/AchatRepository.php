@@ -22,7 +22,22 @@ class AchatRepository extends ServiceEntityRepository
     }
 
 
-    public function findPersonnesAvecAbonnementPremiumValide(\DateTimeInterface $datenow)
+    public function findPersonnesAvecAbonnementPremiumValide(\DateTimeInterface $datenow , $search )
+    {
+        return $this->createQueryBuilder('a')
+        ->join('a.abnonnement', 'abnonnement')
+        ->join('a.personne', 'personne')
+        ->join('personne.profil', 'profil')
+        ->where('abnonnement.nom = :nom')
+        ->andWhere(':datenow BETWEEN a.date AND a.Datefin')
+        ->setParameter('nom', 'Abonnement Premium')
+        ->setParameter('datenow', $datenow)
+        ->andWhere('profil.emplacement LIKE :s OR profil.diplome LIKE :s OR profil.specialite LIKE :s  OR personne.nom LIKE :s  ')
+        ->setParameter('s', '%' . $search . '%')
+        ->getQuery()
+        ->getResult();
+    }
+     public function findPersonnesAvecAbonnementPremiumValide2(\DateTimeInterface $datenow)
     {
         return $this->createQueryBuilder('a')
             ->join('a.abnonnement', 'abnonnement')

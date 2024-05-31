@@ -6,8 +6,7 @@
  	<div class="container-xxl py-5">
 	<div class="container">
 		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-			<p class="d-inline-block border rounded-pill py-1 px-4">Profile</p>
-			<h1>Modifier mon compt 
+ 			<h1>Modifier mon compt 
 			</h1>
 		</div>
 
@@ -17,6 +16,7 @@
 
                                     {{ form_row(form.email , {'attr': {'class': 'form-control'}}) }}
 									 {{ form_row(form.image , {'attr': {'class': 'form-control'}}) }}
+									 
                                     {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
                                     <br><br>
                                         <button class="btn  btn-success">{{ button_label|default('Enregistrer') }}</button>

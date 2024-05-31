@@ -63,10 +63,20 @@
 
     <!-- Team Start -->
     <div class="container-xxl py-5">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+ 
+				<form class="form-inline my-2 my-lg-0" method="get">
+					<div class="row">
+						<div class="col-10"><input class="form-control mr-sm-2" name="search" type="search" placeholder="Recherche par CIN , Nom et prenom , Ville"
+								aria-label="Search"></div>
+						<div class="col-2"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button></div>
+						<div class="col-2"></div>
+					</div>
+				</form>
+			</div>
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <p class="d-inline-block border rounded-pill py-1 px-4">Doctors</p>
-                <h1>Notre docteurs </h1>
+                 <h1>Notre docteurs </h1>
             </div>
             <div class="row g-4">
 
@@ -101,6 +111,9 @@
                         </div>
                     </div>
                 </div>
+{% else %} 
+
+<h4> pas de resultat</h4>
 {% endfor %}    
  
             </div>

@@ -4,17 +4,29 @@
 {% endblock %}
 
 {% block body %}
+<style>
+	th{color: black;}
+	td{color: black;}
+</style>
+
 <div class="container-xxl py-5">
 		<div class="container">
 			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
  				<h1>Liste des fiches patients
 				</h1>
+				<form class="form-inline my-2 my-lg-0" method="get">
+					<div class="row">
+						<div class="col-10"><input class="form-control mr-sm-2" name="search" type="search" placeholder="Recherche par CIN , Nom et prenom , Ville"
+								aria-label="Search"></div>
+						<div class="col-2"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button></div>
+						<div class="col-2"></div>
+					</div>
+				</form>
 			</div>
  
 
 
-	 
-	<table class="table">
+ 	<table style="width: 800px;margin-left: 20%;" class="table">
 		<thead>
 			<tr>
  				<th>CIN</th>
@@ -49,6 +61,6 @@
   <ul class="pagination justify-content-center">
     {{ knp_pagination_render(fiches) }}
   </ul></nav>
-
+</div>
 	<a class="btn btn-primary" href="{{ path('app_fiche_patient_new') }}">Ajouter</a>
 {% endblock %}

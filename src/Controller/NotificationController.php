@@ -11,11 +11,21 @@ use Symfony\Component\Routing\Attribute\Route;
 class NotificationController extends AbstractController
 {
     #[Route('/notification', name: 'app_notification')]
-    public function index(NotificationRepository $nr): Response
+    public function index(NotificationRepository $nr ,EntityManagerInterface $em): Response
     {                $user = $this->getUser();
 
 
         if ($this->isGranted('ROLE_ADMIN')) {
+            
+
+            foreach ($nr->findAll() as $not) {
+                if ($not->getType() == "abonnement") {
+                    $not->setReaded(true);
+                    $em->persist($not);
+                    $em->flush();
+                }
+            }
+
 
             return $this->render('notification/index.html.twig', [
                 'notifications' => $nr->fnotif() ,

@@ -112,12 +112,33 @@
 
 
 
-
+						{% set n = 0 %}
+						{% for x in notifications %}
+							{% if not x.readed and x.type == "abonnement" %}
+								{% set n = n + 1 %}
+								{% endif %}
+								{% endfor %}
+							
 						<li class="nav-item dropdown">
 
 							<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
 								<i class="bi bi-bell"></i>
-								 
+									{% if n == 4 %}
+																	<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.75rem;">
+
+										 +4
+										 {% endif %}
+									{% if n == 0 %}	
+ 
+									{% endif %}
+
+									{% if n == 1 or n == 2 or n ==3 %}
+																	<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.75rem;">
+
+											{{n}}
+									{% endif %}
+									
+ 								</span>
 							</a>
 							<!-- End Notification Icon -->
 
@@ -132,15 +153,15 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
+								 
 					{% for x in notifications %}
-
+  						 
 						<li class="notification-item">
 									<i class="bi bi-info-circle text-primary"></i>
-									<div>
+ 									<div>
 									
 										<h4>{{x.type}}
-										{% if not x.readed %}
- 									{% endif %}
+										 
 										</h4>
 										<p>{{x.description}}</p>
 										<p>{{x.createdat |date('j-M-Y')}}</p>
@@ -173,7 +194,7 @@
 								<span class="d-none d-md-block dropdown-toggle ps-2">
 
 
-									{{app.user.nom}}
+									{{app.user.nom}} 
 
 
 									<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
