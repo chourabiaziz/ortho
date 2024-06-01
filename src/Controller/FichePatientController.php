@@ -27,13 +27,13 @@ class FichePatientController extends AbstractController
 
                     $fichePatientRepository->search($search , $this->getUser()),
                     $request->query->get('page', 1),
-                    2 //number of element per page 
+                    6 //number of element per page 
                 );            } else {
                     $pagination = $paginator->paginate(
 
                         $fichePatientRepository->findalldesc($this->getUser()),
                         $request->query->get('page', 1),
-                        2 //number of element per page 
+                        6 //number of element per page 
                     );            }
 
 
