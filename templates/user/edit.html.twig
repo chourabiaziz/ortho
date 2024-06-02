@@ -3,29 +3,28 @@
 {% block title %}Modifier utilisateur{% endblock %}
 
 {% block body %}
-    <h1><b><i>Modifier Compt  </i></b></h1><br>
-{{ form_start(form , {'attr' : {'novalidate':'novalidate'}} ) }}
+    <h1><b><i>Modifier mon compte</i></b></h1><br>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-                               {{ form_label(form.password, 'Nom et prenom') }}
+    {{ form_label(form.nom, 'Nom et prénom') }}
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.nom, {'attr': {'class': 'text-danger'}}) }}
 
-{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(form.nom, {'attr' : {'class':'text-danger'}}) }}
-{{ form_label(form.password, 'Adresse email') }}
+    {{ form_label(form.email, 'Adresse email') }}
+    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.email, {'attr': {'class': 'text-danger'}}) }}
 
-{{ form_widget(form.email , {'attr': {'class': 'form-control'}}) }}
+    {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
 
-                                    {{ form_errors(form.email, {'attr' : {'class':'text-danger'}}) }}
+    
+ <div hidden>
+    {{ form_label(form.password, 'Nouveau mot de passe') }}
+    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'id': 'password-field'}}) }}</div>
+<br>
+    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 
-{{ form_row(form.image , {'attr': {'class': 'form-control'}}) }}
- {{ form_label(form.password, 'Mot de passe') }}    
-{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+    {{ form_end(form) }}
+    <br>
+    <a class="btn btn-secondary" href="/reset-password/pass"> Cliquer pour changer votre mot de passe  </a>
 
-
-                                    <br><br>
-                                 
-
-                                        <button class="btn  btn-success">{{ button_label|default('Enregistrer') }}</button>
-
-
-{{ form_end(form) }}
- {% endblock %}
+{% endblock %}

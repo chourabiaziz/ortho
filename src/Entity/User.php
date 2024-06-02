@@ -48,9 +48,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "champ obligatoir.")]
     #[Assert\Regex(pattern:"/^[A-Z][a-zA-Z0-9\s]*$/",  message:"Le premier caractère du nom doit être en majuscule.")]
-    #[Assert\Regex(pattern:"/^[a-zA-Z]{2,}$/",  message:"nom doit etre plus que 2 caractére")]
-    #[Assert\Regex(pattern:"/^[a-zA-Z0-9\s]*$/",  message:"Le nom ne doit pas contenir de symboles")]
-    private ?string $nom = null;
+    #[Assert\Regex(pattern:"/^[a-zA-Z\s]{2,}$/",  message:"nom doit avoir plus de 2 caractères")]
+    #[Assert\Regex(pattern:"/^[\p{L}\s]*$/u",  message:"Le nom ne doit contenir que des lettres et des espaces")]
+      private ?string $nom = null;
 
     
     #[ORM\Column(length: 255)]
@@ -77,8 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $achats;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank(message: "champ obligatoir.")]
-    #[Assert\Regex(
+     #[Assert\Regex(
         pattern: '/^\d{8}$/',
         message: " matricule doit etre exactement 8 caractéres ."
     )]
@@ -98,6 +97,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: FichePatient::class, mappedBy: 'createdby')]
     private Collection $fichePatients;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $test = null;
 
     public function __construct()
     {
@@ -406,6 +408,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                     $fichePatient->setCreatedby(null);
                 }
             }
+
+            return $this;
+        }
+
+        public function getTest(): ?string
+        {
+            return $this->test;
+        }
+
+        public function setTest(?string $test): static
+        {
+            $this->test = $test;
 
             return $this;
         }

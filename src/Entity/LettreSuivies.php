@@ -65,7 +65,7 @@ class LettreSuivies
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type = null;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'lettre')]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'lettre'  , cascade: ["remove"])]
     private Collection $comments;
 
     public function __construct()

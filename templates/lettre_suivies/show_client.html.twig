@@ -7,6 +7,7 @@
 <style>
 	p{color: black;}
 </style>
+	
 <div class="container-xxl py-5">
 	<div class="container">
 		<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -72,6 +73,21 @@
   </style>
 <br>
 </div>
+
+{% if app.user.email == lettre.createdby.email %}
+	
+<div class="text-start">
+	 <h4 style="color: red;"> <a  style="color: red;" href="/lettre/{{lettre.id}}/delete/lettre">
+	 <svg style="color: red;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+	<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+	<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+  </svg>supprimer la lettre</h4></a></div> <br><br>
+
+
+  {% endif %}
+
+
+
 <h5>Ajouter votre commentaire ici
 </h5> 
 {{ form_start(formulaire) }}

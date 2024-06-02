@@ -8,12 +8,8 @@
 		<meta content="" name="keywords">
 		<meta
 		content="" name="description">
-
-		<!-- Favicon -->
 		<link
 		href="{{asset('img/favicon.ico')}}" rel="icon">
-
-		<!-- Google Web Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link
@@ -66,12 +62,13 @@
 				</div>
 
 
+
 				{% if app.user %}
 					<a href="/logout" class="btn btn-danger rounded-0 py-4 px-lg-5 d-none d-lg-block">déconnecter<i class="fa fa-arrow-right ms-3"></i>
 					</a>
 
 				{% else %}
-					<a href="/login" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Mon espace<i class="fa fa-arrow-right ms-3"></i>
+					<a href="/login" class="btn btn-primary  nav-item nav-link">Mon espace<i class="fa fa-arrow-right ms-3"></i>
 					</a>
 
 				{% endif %}

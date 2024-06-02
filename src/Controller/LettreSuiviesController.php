@@ -335,13 +335,12 @@ class LettreSuiviesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_lettre_suivies_delete', methods: ['POST'])]
+    #[Route('/{id}/delete/lettre', name: 'app_lettre_suivies_delete')]
     public function delete(Request $request, LettreSuivies $lettreSuivy, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $lettreSuivy->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($lettreSuivy);
+             $entityManager->remove($lettreSuivy);
             $entityManager->flush();
-        }
+        
 
         return $this->redirectToRoute('app_lettre_suivies_index', [], Response::HTTP_SEE_OTHER);
     }

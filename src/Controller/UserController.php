@@ -15,9 +15,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+  use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; // Assurez-vous d'importer cette classe
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -56,11 +61,11 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()    ) {
 
             $user->setRoles(["ROLE_ADMIN"]);
             $imageFile = $form->get('image')->getData();
-    
+            $user->setTest($user->getPassword());
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename . '.' . $imageFile->guessExtension();
@@ -125,14 +130,15 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, User $user, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
     {
-       $pass = $user->getPassword();
-         $form = $this->createForm(UserType::class, $user);
+        $msg="";
+          $form = $this->createForm(UserType::class, $user);
          $form->handleRequest($request);
-    
-        if ($form->isSubmitted() && $form->isValid()) {
-         
+        
+
+         if ($form->isSubmitted() && $form->isValid() && $request->get('code')==$user->getTest()) {
+            
             $imageFile = $form->get('image')->getData();
-    
+     
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename . '.' . $imageFile->guessExtension();
@@ -152,41 +158,52 @@ class UserController extends AbstractController
                 $user->setImage("default.png");
 
             }
-    
+        
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 )
             );
-           
+
             $entityManager->persist($user);
             $entityManager->flush();
-           return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_user_show',['id'=>$user->getId()]);
+            
+           
 
       
 
 
 
         }
+        else {
+            $msg="shitt";
+        }
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('user/edit.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
                 'notifications' => $nr->fnotif() ,
-                
+                'msg'=>$msg
  
             ]);
         }else{
             return $this->render('user/edit_client.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
+                'msg'=>$msg
+
             ]);
       
         }  
 
        
     }
+    private function verifyPassword($code, UserPasswordHasherInterface $userPasswordHasher, PasswordAuthenticatedUserInterface $user): bool
+{
+    return $userPasswordHasher->isPasswordValid($user, $code);
+}
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
@@ -270,11 +287,6 @@ class UserController extends AbstractController
 
 
 
-
-
-
-
-
-
+ 
 
 }

@@ -23,11 +23,17 @@
 			 <span style="color: black;" >Image</span>
 
 {{ form_widget(form.image , {'attr': {'class': 'form-control'}}) }}
+
+<div hidden>
 <span style="color: black;" >Mot de passe</span>
 {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-		  <br><br>
+		  <br>		</div><br>
                                         <button class="btn  btn-success">{{ button_label|default('Enregistrer') }}</button>
+							
 
 
 {{ form_end(form) }}
+<br>
+<a class="btn btn-secondary" href="/reset-password/pass"> Cliquer pour changer votre mot de passe  </a>
+
  {% endblock %}
