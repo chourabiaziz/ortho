@@ -17,9 +17,7 @@
     {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
 
     
- <div hidden>
-    {{ form_label(form.password, 'Nouveau mot de passe') }}
-    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'id': 'password-field'}}) }}</div>
+  
 <br>
     <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 

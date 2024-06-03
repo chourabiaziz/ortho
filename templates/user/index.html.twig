@@ -84,4 +84,11 @@
 
 <a class="btn btn-primary" href="{{ path('app_user_new') }}">Ajouter administrateur</a>
 
+
+
+<nav class="app-pagination mt-5">
+	<ul class="pagination justify-content-center">
+	  {{ knp_pagination_render(users) }}
+	</ul></nav>
+
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserTypeEdit;
 use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +30,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository ,Request $request ,NotificationRepository $nr,): Response
+    public function index(UserRepository $userRepository ,PaginatorInterface $paginator,Request $request ,NotificationRepository $nr,): Response
     {
         $this->denyAccessUnlessGranted("ROLE_ADMIN", null,"");
 
@@ -36,16 +38,25 @@ class UserController extends AbstractController
        $search=  $request->get('search');
        $searched =   $userRepository->search($search);
 
-            if($search) {
-                 $users = $userRepository->search($search);
-            } else {
-                $users = $userRepository->fnotif();
-            }
+           
+               
+         
+       if($search) {
+            $pagination = $paginator->paginate(
 
+                $users = $userRepository->search($search),
+                $request->query->get('page', 1),
+                6//number of element per page 
+            );            } else {
+                $pagination = $paginator->paginate(
 
+                    $users = $userRepository->fnotif(),
+                    $request->query->get('page', 1),
+                    6 //number of element per page 
+                );            }
 
         return $this->render('user/index.html.twig', [
-            'users' => $users,
+            'users' => $pagination,
             'notifications' => $nr->fnotif() ,
 
             
@@ -128,14 +139,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, User $user, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager ,NotificationRepository $nr,): Response
     {
-        $msg="";
-          $form = $this->createForm(UserType::class, $user);
+           $form = $this->createForm(UserTypeEdit::class, $user);
          $form->handleRequest($request);
         
 
-         if ($form->isSubmitted() && $form->isValid() && $request->get('code')==$user->getTest()) {
+         if ($form->isSubmitted() && $form->isValid()) {
             
             $imageFile = $form->get('image')->getData();
      
@@ -159,12 +169,7 @@ class UserController extends AbstractController
 
             }
         
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
+          
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -177,23 +182,19 @@ class UserController extends AbstractController
 
 
         }
-        else {
-            $msg="shitt";
-        }
+        
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->render('user/edit.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
                 'notifications' => $nr->fnotif() ,
-                'msg'=>$msg
- 
+  
             ]);
         }else{
             return $this->render('user/edit_client.html.twig', [
                 'user' => $user,
                 'form' => $form->createView(),
-                'msg'=>$msg
-
+ 
             ]);
       
         }  
