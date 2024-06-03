@@ -22,7 +22,7 @@ class UserType extends AbstractType
            
             'mapped' => false, // Important: tells Symfony not to try to map this field to an entity property
         ])            ->add('email')
-             ->add('password', PasswordType::class,[
+         ->add('password', PasswordType::class,[
                 'label'=>'Mot de passe'
              ]
              )
