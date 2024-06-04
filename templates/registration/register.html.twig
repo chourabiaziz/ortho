@@ -64,10 +64,10 @@
 
                                     <div class="pt-4 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Créer un compte</h5>
-                                        <p class="text-center small">Entrez vos informations personnelles pour créer un compte</p>
+                                        <p class="text-center small">Veuillez saisir vos informations personnelles pour créer un compte.</p>
                                     </div>
 
-                                    <h1   >Register</h1>
+                                    <h1   >Inscription</h1>
 
 
                                 
@@ -78,7 +78,7 @@
 
 
 
-                                    {{ form_label(registrationForm.nom) }} et prenom <span style="color: red;"><b>*</b></span>
+                                    {{ form_label(registrationForm.nom) }} et Prénom <span style="color: red;"><b>*</b></span>
 
                                     {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(registrationForm.nom, {'attr' : {'class':'text-danger'}}) }}
@@ -100,12 +100,13 @@ Email      <span style="color: red;"><b>*</b></span>
 
 Mot de passe <span style="color: red;"><b>*</b></span>                                     {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                                    <br>
 
  
-                                    <button type="submit" class="btn btn-success">Register</button>
+                                    <button type="submit" class="btn btn-success">S'inscrire</button>
                                     {{ form_end(registrationForm) }}
                                 </div>
-                            </div>                                    <p>vou avez déja un compt ? cliquer <a href="/login">ici</a>  </p>
+                            </div>                                    <p>Vous avez déjà un compte ? cliquer <a href="/login">ici</a>  </p>
 
 
                             <div class="credits">

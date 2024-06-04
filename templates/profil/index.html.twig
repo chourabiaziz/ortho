@@ -3,7 +3,7 @@
 {% block title %}Profil index{% endblock %}
 
 {% block body %}
-    <h1>Profil index</h1>
+    <h1>Profil</h1>
 
     <table class="table">
         <thead>
@@ -13,7 +13,7 @@
                 <th>Diplome</th>
                 <th>Faculte</th>
                 <th>Specialite</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,8 +25,8 @@
                 <td>{{ profil.faculte }}</td>
                 <td>{{ profil.specialite }}</td>
                 <td>
-                    <a href="{{ path('app_profil_show', {'id': profil.id}) }}">show</a>
-                    <a href="{{ path('app_profil_edit', {'id': profil.id}) }}">edit</a>
+                    <a href="{{ path('app_profil_show', {'id': profil.id}) }}">Consultet</a>
+                    <a href="{{ path('app_profil_edit', {'id': profil.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_profil_new') }}">Create new</a>
+    <a href="{{ path('app_profil_new') }}">Créer un nouveau</a>
 {% endblock %}
