@@ -25,7 +25,8 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('image')->getData();
-    
+            $user->setNom(ucfirst($user->getNom()));
+
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename . '.' . $imageFile->guessExtension();

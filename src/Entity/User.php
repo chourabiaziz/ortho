@@ -26,8 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     #[Assert\NotBlank(message: "champ obligatoir.")]
     #[Assert\Email(message: "L'adresse e-mail n'est pas valide.", )]
-    #[Assert\Regex(pattern:'/^[^A-Z]*$/'    ,    message: "n'écrit pas en majuscule")]
-    private ?string $email = null;
+     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
@@ -48,8 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "champ obligatoir.")]
-    #[Assert\Regex(pattern:"/^[A-Z][a-zA-Z0-9\s]*$/",  message:"Le premier caractère du nom doit être en majuscule.")]
-    #[Assert\Regex(pattern:"/^[a-zA-Z\s]{2,}$/",  message:"nom doit avoir plus de 2 caractères")]
+     #[Assert\Regex(pattern:"/^[a-zA-Z\s]{2,}$/",  message:"nom doit avoir plus de 2 caractères")]
     #[Assert\Regex(pattern:"/^[\p{L}\s]*$/u",  message:"Le nom ne doit contenir que des lettres et des espaces")]
       private ?string $nom = null;
 

@@ -47,7 +47,7 @@ class UserController extends AbstractController
                 $users = $userRepository->search($search),
                 $request->query->get('page', 1),
                 6//number of element per page 
-            );            } else {
+            );  } else {
                 $pagination = $paginator->paginate(
 
                     $users = $userRepository->fnotif(),
@@ -76,6 +76,7 @@ class UserController extends AbstractController
 
             $user->setRoles(["ROLE_ADMIN"]);
             $imageFile = $form->get('image')->getData();
+            $user->setNom(ucfirst($user->getNom()));
             $user->setTest($user->getPassword());
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -124,7 +125,6 @@ class UserController extends AbstractController
                 'user' => $user,
                 'notifications' => $nr->fnotif() ,
             ]);
-    
         }else{
 
             return $this->render('user/show_client.html.twig', [
