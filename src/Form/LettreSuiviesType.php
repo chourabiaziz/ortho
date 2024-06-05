@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\FichePatient;
 use App\Entity\LettreSuivies;
 use App\Entity\User;
+use App\Repository\FichePatientRepository;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -15,9 +17,9 @@ use Symfony\Component\Validator\Constraints\Required;
 
 class LettreSuiviesType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
+    public function buildForm(FormBuilderInterface $builder, array $options): void{
+    $currentUser = $options['current_user'];
+         $builder
         ->add('ortho', EntityType::class, [
             'class' => User::class,
             'query_builder' => function (UserRepository $er) {
@@ -27,7 +29,16 @@ class LettreSuiviesType extends AbstractType
             },
             'required' => true,  
             
-        ])   ->add('nomP');
+        ])   ->add('nomP', EntityType::class, [
+            'class' => FichePatient::class,
+            'query_builder' => function (FichePatientRepository $er) use ($currentUser) {
+                return $er->createQueryBuilder('u')
+                    ->andWhere('u.createdby = :currentuser')
+                    ->setParameter('currentuser', $currentUser);
+            },
+
+
+        ]);
       
     }
 
@@ -35,6 +46,8 @@ class LettreSuiviesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LettreSuivies::class,
+            'current_user' => null,
+
         ]);
     }
 }

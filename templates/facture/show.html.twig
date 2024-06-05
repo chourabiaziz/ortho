@@ -48,13 +48,24 @@
 </style>
 <div class="letter">
     <header>
-        <h1>Facture Ref° {{facture.id}}</h1>
+        <div class="row">
+            <div class="col-2"><img   width="60" height="60" src="{{asset('ort6.png')}}" alt=""> <p><i>Orthophonsites</i></p></div>
+           <div class="col-10"> <h1>Facture Ref° {{facture.id}}</h1></div>
+
+        </div>
     </header>
     <main>
         <div class="info">
-            <p><strong>Date:</strong> {{facture.createdat| date('d-m-Y')}}</p>
-            <p><strong>Client nom :</strong> {{facture.reciever.nom}}</p>
-            <p><strong>Client email:</strong> {{facture.reciever.email}}</p>
+        <div class="row">
+            <div class="col-6">   <p><strong>Date:</strong> {{facture.createdat| date('d-m-Y')}}</p>
+                <p><strong>Client nom :</strong> {{facture.reciever.nom}}</p>
+                <p><strong>Client email:</strong> {{facture.reciever.email}}</p></div>
+                <div class="col-3"></div>
+            <div class="col-3">                        
+                                                       
+            </div>
+        </div>
+         
 
             <table class="table">
                 <tbody>

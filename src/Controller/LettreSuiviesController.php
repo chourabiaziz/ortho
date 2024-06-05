@@ -68,8 +68,14 @@ class LettreSuiviesController extends AbstractController
     #[Route('/new/etape2/{id}/new', name: 'app_lettre_suivies_new_lettre', methods: ['GET', 'POST'])]
     public function etape_2(LettreSuivies $ls, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(LettreSuiviesType::class, $ls);
-        $form->handleRequest($request);
+
+        $currentUser = $this->getUser();
+
+        $form = $this->createForm(LettreSuiviesType::class, $ls, [
+            'current_user' => $currentUser,
+        ]);
+
+         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $modele = $ls->getNimage();
