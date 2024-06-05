@@ -1,6 +1,6 @@
 {% extends 'xbase/base.html.twig' %}
 
-{% block title %}Abonnement index
+{% block title %}Abonnement 
 {% endblock %}
 
 {% block body %}
@@ -44,11 +44,11 @@
 						{% if x.abnonnement.description|length > 80 %}
 						{{ x.abnonnement.description|slice(0, 80) }}{% if app.user %}
 						<a href="{{x.abnonnement.id}}">
-							affiche plus
+							Afficher plus
 						</a>
 						{% else %}
 						<a href="{{x.abnonnement.id}}/show">
-							affiche plus
+							Afficher plus
 						</a>
 						{% endif %}
 						{% else %}
@@ -108,11 +108,11 @@
 						{{ x.description|slice(0, 80) }}
 						{% if app.user %}
 						<a href="{{x.id}}">
-							afficher plus
+							Afficher plus
 						</a>
 						{% else %}
 						<a href="{{x.id}}/show">
-							affiche plus
+							Afficher plus
 						</a>
 						{% endif %}
 						{% else %}
